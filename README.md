@@ -17,6 +17,12 @@
 
 ## Wireframes / Mockups
 
+| Device | Wireframe | Figma Mockup |
+|-|-|-|
+| Phone | ![wireframe-phone](documentation/wireframe-phone.png) | ![figma-phone](documentation/figma-phone.png) |
+| Tablet | ![wireframe-tablet](documentation/wireframe-tablet.png) | ![figma-tablet](documentation/figma-tablet.png) |
+| Desktop | ![wireframe-desktop](documentation/wireframe-desktop.png) | ![figma-desktop](documentation/figma-desktop.png) |
+
 ## Features
 
 ### Existing Features
