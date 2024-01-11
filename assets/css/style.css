@@ -1,0 +1,10 @@
+:root {
+    /* p = Primary / s = Secondary */
+    --dark-backgorund: #121212;
+    --card-background: #1E1E1E;
+    --p-highlight: #03DAC6;
+    --p-text: #FFFFFF;
+    --s-text: #A5A5A5;
+    --player-color: #BAfC86;
+    --ai-color: #BB86FC;
+}
