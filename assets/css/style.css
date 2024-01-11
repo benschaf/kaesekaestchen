@@ -16,4 +16,48 @@ body {
     font-size: 16px;
     margin: 0;
     padding: 0;
+
+    /* arrange body items in a column */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
+
+h1 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--s-text);
+}
+
+header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav>ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+main {
+    padding: 1rem;
+    /* Pushes footer down when there is not enough content on the page */
+    flex-grow: 1;
+}
+
+footer {
+    padding: 1rem;
+    color: var(--s-text);
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
