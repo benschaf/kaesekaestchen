@@ -8,3 +8,12 @@
     --player-color: #BAfC86;
     --ai-color: #BB86FC;
 }
+
+body {
+    background-color: var(--dark-backgorund);
+    color: var(--p-text);
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
