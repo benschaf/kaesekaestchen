@@ -34,9 +34,16 @@ Käsekästchen is a web app that allows users to play the game of Käsekästchen
 ## Features
 
 **Logo and Heading:** Featured at the top of the page, the Käsekästchen logo and heading is easy to see for the user. Upon viewing the page, the user will be able to see the name of the game.
+
 **Game Area:** This section will allow the user to play the Käsekästchen game. The user will be able to easily see the grid of dots and draw lines between them.
+
 **Score Area:** This section will allow the user to see exactly how many squares they have completed and how many squares their opponent has completed.
+
 **Options Area:** This Section will allow the User to select different Options to adapt the game. Examples: The user will be able to select the size of the grid, insert their name, choose who is starting and restart the game.
+
+**AI Opponent:** Implement an AI opponent that can play against the user.
+Multiplayer: Allow users to play against each other online.
+Leaderboard: Implement a leaderboard that shows the top players.
 
 ### Future User stories
 |As a|I would like to|so that I can|
