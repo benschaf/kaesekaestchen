@@ -58,6 +58,7 @@ main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
 }
 
@@ -72,6 +73,31 @@ main {
 #game-area>#gameboard {
     width: 320px;
     height: 320px;
+}
+
+#instructions {
+    padding: 2rem;
+    max-width: 800px;
+    width: 90%;
+    line-height: 1.8;
+}
+
+#instructions ol {
+    font-size: 1.2rem;
+}
+
+#instructions ol li {
+    margin-bottom: 1rem;
+}
+
+#instructions ol li strong {
+    color: var(--p-highlight);
+}
+
+#instructions p {
+    color: var(--s-text);
+    font-style: italic;
+    font-size: 1.2rem;
 }
 
 footer {
