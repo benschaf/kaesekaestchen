@@ -38,7 +38,28 @@
                     </div>
                 </div>
             </div>
-            <div id="options" class="card">options</div>
+            <div id="options" class="card">
+                <h2>Options</h2>
+                <div>
+                    <label for="player-name">Player Name:</label>
+                    <input type="text" id="player-name" name="player-name">
+                </div>
+                <div>
+                    <label for="turn-choice">Turn:</label>
+                    <input type="radio" id="player-turn" name="turn-choice" value="player" checked>
+                    <label for="player-turn">Player goes first</label>
+                    <input type="radio" id="ai-turn" name="turn-choice" value="ai">
+                    <label for="ai-turn">AI goes first</label>
+                </div>
+                <div>
+                    <label for="grid-size">Grid Size:</label>
+                    <input type="range" id="grid-size" name="grid-size" min="3" max="10" value="5">
+                    <span id="grid-size-value">3 x 3</span>
+                </div>
+                <div>
+                    <div id="start-game">Start New Game</div>
+                </div>
+            </div>
         </section>
         <section id="instructions" class="card">
             <h2>How to Play Käsekästchen</h2>
