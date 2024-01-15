@@ -34,13 +34,18 @@ function createGrid() {
     }
 }
 
+
+function tick(grid) {
+    let switchTurn = checkForSurroundedCells(grid);
+}
+
 /**
  * Checks if any cell has 4 (or more) drawn borders around it. 
  * If it does, it changes the background color of the cell to green.
  * 
  * @param {Array} grid - The gameboard grid of div elements.
  */
-function tick(grid) {
+function checkForSurroundedCells(grid) {
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
         if (cell.gridElementType === 'cell') {
