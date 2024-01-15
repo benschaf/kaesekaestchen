@@ -107,6 +107,8 @@ main {
 #game-area>#gameboard {
     width: 320px;
     height: 320px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #scores > div {
