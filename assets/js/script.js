@@ -8,7 +8,7 @@
 function createGrid() {
     let gameboard = document.getElementById('gameboard');
     const size = 6;
-    const scale = 40;
+    const scale = 30;
 
     gameboard.style.width = scale * (size * 2 + 1) + 'px';
     gameboard.style.height = scale * (size * 2 + 1) + 'px';
@@ -36,7 +36,13 @@ function createGrid() {
 
 
 function tick(grid) {
+    let turn; //get element from html to check which player's turn it is
     let switchTurn = checkForSurroundedCells(grid);
+    // switch turn if no cells were surrounded
+
+    // if its the computer's turn, run the computer's turn function
+
+
 }
 
 /**
@@ -46,6 +52,7 @@ function tick(grid) {
  * @param {Array} grid - The gameboard grid of div elements.
  */
 function checkForSurroundedCells(grid) {
+    let switchTurn = true;
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
         if (cell.gridElementType === 'cell') {
@@ -76,9 +83,11 @@ function checkForSurroundedCells(grid) {
             }
             if (drawnBorders > 3) {
                 cell.style.backgroundColor = 'green';
+                switchTurn = false;
             }
         }
     }
+    return switchTurn;
 }
 
 /**
