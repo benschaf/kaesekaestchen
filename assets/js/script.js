@@ -28,6 +28,48 @@ for (let div of grid) {
  */
 function borderClick() {
     this.style.backgroundColor = 'orange';
+    this.drawn = true;
+    tick();
+}
+
+/**
+ * Checks if any cell has 4 (or more) drawn borders around it. 
+ * If it does, it changes the background color of the cell to green.
+ */
+function tick() {
+    // iterates through all the elements in the grid and only checks the cells
+    for (let cell of grid) {
+        if (cell.gridElementType === 'cell') {
+            let currentX = cell.xVal;
+            let currentY = cell.yVal;
+            let drawnBorders = 0;
+            // iterates through all the elements in the grid and counts the number of drawn borders around the cell
+            for (let border of grid) {
+                if (border.gridElementType === 'border') {
+                    if (border.xVal + 1 === currentX && border.yVal === currentY) { // checks if the border is to the right of the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    } else if (border.xVal - 1 === currentX && border.yVal === currentY) { // checks if the border is to the left of the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    } else if (border.xVal === currentX && border.yVal + 1 === currentY) { // checks if the border is above the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    } else if (border.xVal === currentX && border.yVal - 1 === currentY) { // checks if the border is below the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    }
+                }
+            }
+            if (drawnBorders > 3) {
+                cell.style.backgroundColor = 'green';
+            }
+        }
+    }
 }
 
 /**
@@ -43,7 +85,7 @@ function createDiv(y, x) {
     let div = document.createElement('div');
     div.xVal = x;
     div.yVal = y;
-    div.innerHTML = ""+x+" / "+y;
+    div.innerHTML = "" + x + " / " + y;
 
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = 'red';
