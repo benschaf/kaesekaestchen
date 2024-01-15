@@ -15,6 +15,21 @@ for (let i = 0; i <= size; i++) {
     }
 }
 
+// adds event listeners to all the divs in the grid
+for (let div of grid) {
+    if (div.gridElementType === 'border') {
+        div.addEventListener('click', borderClick);
+    }
+}
+
+/**
+ * Changes the background color of the border div that was clicked to orange.
+ */
+function borderClick() {
+    this.style.backgroundColor = 'orange';
+    console.log(this);
+}
+
 /**
  * Creates a div element with specified x and y values. 
  * Depending on if the x and y values are even or odd, 
@@ -32,21 +47,25 @@ function createDiv(x, y) {
 
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = 'red';
+        div.gridElementType = 'border';
         div.style.width = '90px';
         div.style.height = '30px';
         return div;
     } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
         div.style.backgroundColor = 'blue';
+        div.gridElementType = 'cell';
         div.style.width = '90px';
         div.style.height = '90px';
         return div;
     } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
         div.style.backgroundColor = 'red';
+        div.gridElementType = 'border';
         div.style.width = '30px';
         div.style.height = '90px';
         return div;
     } else { // div is a corner
         div.style.backgroundColor = 'gray';
+        div.gridElementType = 'corner';
         div.style.width = '30px';
         div.style.height = '30px';
         return div;
