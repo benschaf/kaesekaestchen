@@ -1,3 +1,7 @@
+function init(){
+    createGrid();
+}
+
 /**
  * Creates a grid of div elements and appends them to the gameboard div.
  * 
@@ -134,4 +138,4 @@ function createDiv(y, x, scale) {
     }
 }
 
-createGrid();
+init();
