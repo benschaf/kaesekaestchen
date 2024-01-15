@@ -28,7 +28,6 @@ for (let div of grid) {
  */
 function borderClick() {
     this.style.backgroundColor = 'orange';
-    console.log(this);
 }
 
 /**
@@ -40,16 +39,17 @@ function borderClick() {
  * @param {number} y - The y value.
  * @returns {HTMLDivElement} - The created div element.
  */
-function createDiv(x, y) {
+function createDiv(y, x) {
     let div = document.createElement('div');
     div.xVal = x;
     div.yVal = y;
+    div.innerHTML = ""+x+" / "+y;
 
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = 'red';
         div.gridElementType = 'border';
-        div.style.width = scale * 3 + "px";
-        div.style.height = scale + "px";
+        div.style.width = scale + "px";
+        div.style.height = scale * 3 + "px";
         return div;
     } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
         div.style.backgroundColor = 'blue';
@@ -60,8 +60,9 @@ function createDiv(x, y) {
     } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
         div.style.backgroundColor = 'red';
         div.gridElementType = 'border';
-        div.style.width = scale + "px";
-        div.style.height = scale * 3 + "px";
+
+        div.style.width = scale * 3 + "px";
+        div.style.height = scale + "px";
         return div;
     } else { // div is a corner
         div.style.backgroundColor = 'gray';
