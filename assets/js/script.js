@@ -1,9 +1,10 @@
 let gameboard = document.getElementById('gameboard');
 
 const size = 6;
+const scale = 40;
 
-gameboard.style.width = '390px';
-gameboard.style.height = '390px';
+gameboard.style.width = scale * (size * 2 + 1) + 'px';
+gameboard.style.height = scale * (size * 2 + 1) + 'px';
 
 //creates a grid with all the different corners, borders and cells and populates the divs variable with them
 let grid = [];
@@ -43,31 +44,30 @@ function createDiv(x, y) {
     let div = document.createElement('div');
     div.xVal = x;
     div.yVal = y;
-    div.innerHTML = "" + x + " / " + y;
 
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = 'red';
         div.gridElementType = 'border';
-        div.style.width = '90px';
-        div.style.height = '30px';
+        div.style.width = scale * 3 + "px";
+        div.style.height = scale + "px";
         return div;
     } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
         div.style.backgroundColor = 'blue';
         div.gridElementType = 'cell';
-        div.style.width = '90px';
-        div.style.height = '90px';
+        div.style.width = scale * 3 + "px";
+        div.style.height = scale * 3 + "px";
         return div;
     } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
         div.style.backgroundColor = 'red';
         div.gridElementType = 'border';
-        div.style.width = '30px';
-        div.style.height = '90px';
+        div.style.width = scale + "px";
+        div.style.height = scale * 3 + "px";
         return div;
     } else { // div is a corner
         div.style.backgroundColor = 'gray';
         div.gridElementType = 'corner';
-        div.style.width = '30px';
-        div.style.height = '30px';
+        div.style.width = scale + "px";
+        div.style.height = scale + "px";
         return div;
     }
 }
