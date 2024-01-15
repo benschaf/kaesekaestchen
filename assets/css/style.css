@@ -116,6 +116,35 @@ main {
     font-size: 3rem;
 }
 
+#options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#options div div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+input[type="text"], input[type="range"] {
+    padding: 0.5rem; 
+    border-radius: 0.5rem; 
+    border: 1px solid var(--p-highlight); 
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#start-game {
+    background-color: var(--p-highlight);
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: #000;
+    font-weight: 700;
+}
+
 #instructions {
     padding: 2rem;
     max-width: 800px;
