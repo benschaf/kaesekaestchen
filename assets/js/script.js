@@ -1,42 +1,46 @@
-let gameboard = document.getElementById('gameboard');
-
-const size = 6;
-const scale = 40;
-
-gameboard.style.width = scale * (size * 2 + 1) + 'px';
-gameboard.style.height = scale * (size * 2 + 1) + 'px';
-
-//creates a grid with all the different corners, borders and cells and populates the divs variable with them
-let grid = [];
-for (let i = 0; i <= size; i++) {
-    for (let j = 0; j <= size; j++) {
-        let div = createDiv(i, j);
-        grid.push(div);
-        gameboard.appendChild(div);
-    }
-}
-
-// adds event listeners to all the divs in the grid
-for (let div of grid) {
-    if (div.gridElementType === 'border') {
-        div.addEventListener('click', borderClick);
-    }
-}
-
 /**
- * Changes the background color of the border div that was clicked to orange.
+ * Creates a grid of div elements and appends them to the gameboard div.
+ * 
+ * Adds a click event listener to each border div.
+ * 
+ * Runs the tick function when a border div is clicked.
  */
-function borderClick() {
-    this.style.backgroundColor = 'orange';
-    this.drawn = true;
-    tick();
+function createGrid() {
+    let gameboard = document.getElementById('gameboard');
+    const size = 6;
+    const scale = 40;
+
+    gameboard.style.width = scale * (size * 2 + 1) + 'px';
+    gameboard.style.height = scale * (size * 2 + 1) + 'px';
+
+    let grid = [];
+    for (let i = 0; i <= size; i++) {
+        for (let j = 0; j <= size; j++) {
+            let div = createDiv(i, j, scale);
+            grid.push(div);
+            gameboard.appendChild(div);
+        }
+    }
+    console.log(grid);
+    for (let div of grid) {
+        if (div.gridElementType === 'border') {
+            div.addEventListener('click', function () {
+                this.style.backgroundColor = 'orange';
+                this.drawn = true;
+                tick(grid);
+            });
+
+        }
+    }
 }
 
 /**
  * Checks if any cell has 4 (or more) drawn borders around it. 
  * If it does, it changes the background color of the cell to green.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
  */
-function tick() {
+function tick(grid) {
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
         if (cell.gridElementType === 'cell') {
@@ -79,9 +83,10 @@ function tick() {
  * 
  * @param {number} x - The x value.
  * @param {number} y - The y value.
+ * @param {number} scale - The scale of the gameboard.
  * @returns {HTMLDivElement} - The created div element.
  */
-function createDiv(y, x) {
+function createDiv(y, x, scale) {
     let div = document.createElement('div');
     div.xVal = x;
     div.yVal = y;
@@ -114,3 +119,5 @@ function createDiv(y, x) {
         return div;
     }
 }
+
+createGrid();
