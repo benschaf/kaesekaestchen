@@ -37,9 +37,13 @@ function init(playerName, goesFirst, gridSize) {
     for (let div of grid) {
         if (div.gridElementType === 'border') {
             div.addEventListener('click', function () {
-                
+                //check if the border has already been drawn
+                if (div.drawn) {
+                    return;
+                } else {
                 drawBorder(div);
                 tick(grid);
+                }
             });
 
         }
