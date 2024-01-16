@@ -27,12 +27,12 @@
             <div id="scores" class="card">
                 <h2>Scores</h2>
                 <div>
-                    <div id="player1" class="align-right">
-                        <span class="label">Player</span>
+                    <div id="player1" class="align-right card">
+                        <span id="player-name-label" class="label">Player</span>
                         <span id="player-score" class="player-score-scoreboard player-color">0</span>
                     </div>
                     <div class="label secondary-text">vs</div>
-                    <div id="player2">
+                    <div id="player2" class="card">
                         <span class="label">AI Opponent</span>
                         <span id="ai-score" class="player-score-scoreboard ai-color">0</span>
                     </div>
@@ -59,7 +59,7 @@
                 <div>
                     <div>
                         <label for="grid-size">Grid Size:</label>
-                        <input type="range" id="grid-size" name="grid-size" min="3" max="10" value="5">
+                        <input type="range" id="grid-size" name="grid-size" min="2" max="8" value="3">
                         <span id="grid-size-value">3 x 3</span>
                     </div>
                 </div>

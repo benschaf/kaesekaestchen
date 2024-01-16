@@ -1,8 +1,3 @@
-function init() {
-    document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-    createGrid();
-}
-
 /**
  * Creates a grid of div elements and appends them to the gameboard div.
  * 
@@ -10,9 +5,22 @@ function init() {
  * 
  * Runs the tick function when a border div is clicked.
  */
-function createGrid() {
+function init(playerName, goesFirst, gridSize) {
+    document.getElementById('gameboard').innerHTML = '';
+    if (goesFirst) {
+        document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        document.getElementById('player2').style.backgroundColor = 'initial';
+    } else {
+        document.getElementById('player2').style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+        document.getElementById('player1').style.backgroundColor = 'initial';
+    }
+    if (playerName === '') {
+        playerName = 'Player';
+    }
+    document.getElementById('player-name-label').innerHTML = playerName;
+
     let gameboard = document.getElementById('gameboard');
-    const size = 6;
+    const size = gridSize;
     const scale = 30;
 
     gameboard.style.width = scale * (size * 2 + 1) + size * 6 + 'px';
@@ -275,4 +283,30 @@ function createDiv(y, x, scale) {
     }
 }
 
-init();
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get references to the elements
+    let playerNameInput = document.getElementById('player-name');
+    let playerTurnRadio = document.getElementById('player-turn');
+    let aiTurnRadio = document.getElementById('ai-turn');
+    let gridSizeInput = document.getElementById('grid-size');
+    let gridSizeValueSpan = document.getElementById('grid-size-value');
+    let startGameButton = document.getElementById('start-game');
+
+    // Update the grid size value display when the grid size input changes
+    gridSizeInput.addEventListener('input', function () {
+        gridSizeValueSpan.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
+    });
+
+    // Start a new game when the start game button is clicked
+    startGameButton.addEventListener('click', function () {
+        let playerName = playerNameInput.value;
+        let goesFirst = playerTurnRadio.checked;
+        let gridSize = gridSizeInput.value * 2;
+
+        init(playerName, goesFirst, gridSize);
+    });
+
+    init('Player', true, 6);
+});
