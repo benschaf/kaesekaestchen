@@ -40,16 +40,10 @@ function createGrid() {
 
 
 function tick(grid) {
-    let turn; //true = player, false = AI Opponent
-    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-        turn = true;
-    } else {
-        turn = false;
-    }
-    turn = checkForSurroundedCells(grid, turn);
+    const nextTurn = computeLastTurn(grid);
 
-    // NEXT TURN: if its the computer's turn, run the computer's turn function
-    if (turn) {
+    // if its the computer's turn, run the computer's turn function
+    if (nextTurn) {
         console.log('player turn');
     } else {
         computerTurn(grid);
@@ -66,7 +60,13 @@ function computerTurn(grid) {
  * 
  * @param {Array} grid - The gameboard grid of div elements.
  */
-function checkForSurroundedCells(grid, turn) {
+function computeLastTurn(grid) {
+    let turn; //true = player, false = AI Opponent
+    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+        turn = true;
+    } else {
+        turn = false;
+    }
     let switchTurn = true;
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
