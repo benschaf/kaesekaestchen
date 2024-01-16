@@ -123,7 +123,8 @@ function computerTurn(grid) {
                     turnMade = true;
                     break;
                 } else if (topCellBorderCount === 2 || bottomCellBorderCount === 2) {
-                    availableBorders.splice(avaliableBorder, 1);
+                    let index = availableBorders.indexOf(avaliableBorder);
+                    availableBorders.splice(index, 1);
                 }
             }
             if (!turnMade) {
