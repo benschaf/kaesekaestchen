@@ -12,7 +12,7 @@ function init() {
  */
 function createGrid() {
     let gameboard = document.getElementById('gameboard');
-    const size = 4;
+    const size = 6;
     const scale = 30;
 
     gameboard.style.width = scale * (size * 2 + 1) + 'px';
@@ -60,10 +60,13 @@ function computerTurn(grid) {
     let difficulty = 'medium';
     console.log('computer turn');
     let availableBorders = [];
+    let drawnBorders = [];
     for (let border of grid) {
         if (border.gridElementType === 'border') {
             if (!border.drawn) {
                 availableBorders.push(border);
+            } else {
+                drawnBorders.push(border);
             }
         }
     }
@@ -73,138 +76,193 @@ function computerTurn(grid) {
         availableBorders[randomBorder].drawn = true;
     } else if (difficulty === 'medium') {
         let turnMade = false;
-
+        while (!turnMade) {
+            for (let avaliableBorder of availableBorders) {
+                let topCellBorderCount = 0;
+                let bottomCellBorderCount = 0;
+                if (avaliableBorder.xVal % 2 === 1 && avaliableBorder.yVal % 2 === 0) { // border is horizontal
+                    for (let drawnBorder of grid) {
+                        if (drawnBorder.drawn) {
+                            if (drawnBorder.yVal === avaliableBorder.yVal + 2 && drawnBorder.xVal === avaliableBorder.xVal) { // checks if the border is above the cell
+                                topCellBorderCount++;
+                            } else if (drawnBorder.yVal === avaliableBorder.yVal + 1 && drawnBorder.xVal === avaliableBorder.xVal - 1) { // checks if the border is to the right of the top cell
+                                topCellBorderCount++;
+                            } else if (drawnBorder.yVal === avaliableBorder.yVal + 1 && drawnBorder.xVal === avaliableBorder.xVal + 1) { // checks if the border is to the left of the top cell
+                                topCellBorderCount++;
+                            } else if (drawnBorder.yVal === avaliableBorder.yVal - 2 && drawnBorder.xVal === avaliableBorder.xVal) { // checks if the border is below the cell
+                                bottomCellBorderCount++;
+                            } else if (drawnBorder.yVal === avaliableBorder.yVal - 1 && drawnBorder.xVal === avaliableBorder.xVal - 1) { // checks if the border is to the right of the bottom cell
+                                bottomCellBorderCount++;
+                            } else if (drawnBorder.yVal === avaliableBorder.yVal - 1 && drawnBorder.xVal === avaliableBorder.xVal + 1) { // checks if the border is to the left of the bottom cell
+                                bottomCellBorderCount++;
+                            }
+                        }
+                    }
+                } else if (avaliableBorder.xVal % 2 === 0 && avaliableBorder.yVal % 2 === 1) { // border is vertical
+                    for (let drawnBorder of grid) {
+                        if (drawnBorder.drawn) {
+                            if (drawnBorder.xVal === avaliableBorder.xVal + 2 && drawnBorder.yVal === avaliableBorder.yVal) { // checks if the border is to the right of the cell
+                                topCellBorderCount++;
+                            } else if (drawnBorder.xVal === avaliableBorder.xVal + 1 && drawnBorder.yVal === avaliableBorder.yVal - 1) { // checks if the border is above the right cell
+                                topCellBorderCount++;
+                            } else if (drawnBorder.xVal === avaliableBorder.xVal + 1 && drawnBorder.yVal === avaliableBorder.yVal + 1) { // checks if the border is below the right cell
+                                topCellBorderCount++;
+                            } else if (drawnBorder.xVal === avaliableBorder.xVal - 2 && drawnBorder.yVal === avaliableBorder.yVal) { // checks if the border is to the left of the cell
+                                bottomCellBorderCount++;
+                            } else if (drawnBorder.xVal === avaliableBorder.xVal - 1 && drawnBorder.yVal === avaliableBorder.yVal - 1) { // checks if the border is above the left cell
+                                bottomCellBorderCount++;
+                            } else if (drawnBorder.xVal === avaliableBorder.xVal - 1 && drawnBorder.yVal === avaliableBorder.yVal + 1) { // checks if the border is below the left cell
+                                bottomCellBorderCount++;
+                            }
+                        }
+                    }
+                }
+                if (topCellBorderCount === 3 || bottomCellBorderCount === 3) {
+                    avaliableBorder.style.backgroundColor = 'orange';
+                    avaliableBorder.drawn = true;
+                    turnMade = true;
+                    break;
+                } else if (topCellBorderCount === 2 || bottomCellBorderCount === 2) {
+                    availableBorders.splice(avaliableBorder, 1);
+                }
+            }
+            if (!turnMade) {
+                let randomBorder = Math.floor(Math.random() * availableBorders.length);
+                availableBorders[randomBorder].style.backgroundColor = 'orange';
+                availableBorders[randomBorder].drawn = true;
+                turnMade = true;
+            }
+        }
     }
-        tick(grid);
-    }
+    tick(grid);
+}
 
-    /**
-     * Checks if any cell has 4 (or more) drawn borders around it. 
-     * If it does, it changes the background color of the cell to green.
-     * 
-     * @param {Array} grid - The gameboard grid of div elements.
-     */
-    function computeLastTurn(grid) {
-        let cellCount = 0;
-        let filledCells = 0;
-        let turn; //true = player, false = AI Opponent
+/**
+ * Checks if any cell has 4 (or more) drawn borders around it. 
+ * If it does, it changes the background color of the cell to green.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function computeLastTurn(grid) {
+    let cellCount = 0;
+    let filledCells = 0;
+    let turn; //true = player, false = AI Opponent
+    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+        turn = true;
+    } else {
+        turn = false;
+    }
+    let switchTurn = true;
+    // iterates through all the elements in the grid and only checks the cells
+    for (let cell of grid) {
+        if (cell.gridElementType === 'cell') {
+            cellCount++;
+            let currentX = cell.xVal;
+            let currentY = cell.yVal;
+            let drawnBorders = 0;
+            // iterates through all the elements in the grid and counts the number of drawn borders around the cell
+            for (let border of grid) {
+                if (border.gridElementType === 'border') {
+                    if (border.xVal + 1 === currentX && border.yVal === currentY) { // checks if the border is to the right of the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    } else if (border.xVal - 1 === currentX && border.yVal === currentY) { // checks if the border is to the left of the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    } else if (border.xVal === currentX && border.yVal + 1 === currentY) { // checks if the border is above the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    } else if (border.xVal === currentX && border.yVal - 1 === currentY) { // checks if the border is below the cell
+                        if (border.drawn) {
+                            drawnBorders++;
+                        }
+                    }
+                }
+            }
+            if (drawnBorders > 3) {
+                filledCells++;
+                if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
+                    if (turn) {
+                        cell.style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+                        let playerScore = document.getElementById('player-score').innerHTML;
+                        playerScore++;
+                        document.getElementById('player-score').innerHTML = playerScore;
+                        switchTurn = false;
+                    } else {
+                        cell.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+                        let aiScore = document.getElementById('ai-score').innerHTML;
+                        aiScore++;
+                        document.getElementById('ai-score').innerHTML = aiScore;
+                        switchTurn = false;
+                    }
+                }
+            }
+        }
+    }
+    if (switchTurn) {
+        trun = !turn;
         if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-            turn = true;
+            document.getElementById('player1').style.backgroundColor = 'initial';
+            document.getElementById('player2').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        } else if (document.getElementById('player2').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+            document.getElementById('player2').style.backgroundColor = 'initial';
+            document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        }
+    }
+    if (filledCells === cellCount) {
+        if (document.getElementById('player-score').innerHTML > document.getElementById('ai-score').innerHTML) {
+            alert('Player Wins!');
+        } else if (document.getElementById('player-score').innerHTML < document.getElementById('ai-score').innerHTML) {
+            alert('AI Wins!');
         } else {
-            turn = false;
-        }
-        let switchTurn = true;
-        // iterates through all the elements in the grid and only checks the cells
-        for (let cell of grid) {
-            if (cell.gridElementType === 'cell') {
-                cellCount++;
-                let currentX = cell.xVal;
-                let currentY = cell.yVal;
-                let drawnBorders = 0;
-                // iterates through all the elements in the grid and counts the number of drawn borders around the cell
-                for (let border of grid) {
-                    if (border.gridElementType === 'border') {
-                        if (border.xVal + 1 === currentX && border.yVal === currentY) { // checks if the border is to the right of the cell
-                            if (border.drawn) {
-                                drawnBorders++;
-                            }
-                        } else if (border.xVal - 1 === currentX && border.yVal === currentY) { // checks if the border is to the left of the cell
-                            if (border.drawn) {
-                                drawnBorders++;
-                            }
-                        } else if (border.xVal === currentX && border.yVal + 1 === currentY) { // checks if the border is above the cell
-                            if (border.drawn) {
-                                drawnBorders++;
-                            }
-                        } else if (border.xVal === currentX && border.yVal - 1 === currentY) { // checks if the border is below the cell
-                            if (border.drawn) {
-                                drawnBorders++;
-                            }
-                        }
-                    }
-                }
-                if (drawnBorders > 3) {
-                    filledCells++;
-                    if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
-                        if (turn) {
-                            cell.style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-                            let playerScore = document.getElementById('player-score').innerHTML;
-                            playerScore++;
-                            document.getElementById('player-score').innerHTML = playerScore;
-                            switchTurn = false;
-                        } else {
-                            cell.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
-                            let aiScore = document.getElementById('ai-score').innerHTML;
-                            aiScore++;
-                            document.getElementById('ai-score').innerHTML = aiScore;
-                            switchTurn = false;
-                        }
-                    }
-                }
-            }
-        }
-        if (switchTurn) {
-            trun = !turn;
-            if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-                document.getElementById('player1').style.backgroundColor = 'initial';
-                document.getElementById('player2').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-            } else if (document.getElementById('player2').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-                document.getElementById('player2').style.backgroundColor = 'initial';
-                document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-            }
-        }
-        if (filledCells === cellCount) {
-            if (document.getElementById('player-score').innerHTML > document.getElementById('ai-score').innerHTML) {
-                alert('Player Wins!');
-            } else if (document.getElementById('player-score').innerHTML < document.getElementById('ai-score').innerHTML) {
-                alert('AI Wins!');
-            } else {
-                alert('Tie!');
-            }
+            alert('Tie!');
         }
     }
+}
 
-    /**
-     * Creates a div element with specified x and y values. 
-     * Depending on if the x and y values are even or odd, 
-     * the div will have a different color and size.
-     * 
-     * @param {number} x - The x value.
-     * @param {number} y - The y value.
-     * @param {number} scale - The scale of the gameboard.
-     * @returns {HTMLDivElement} - The created div element.
-     */
-    function createDiv(y, x, scale) {
-        let div = document.createElement('div');
-        div.xVal = x;
-        div.yVal = y;
+/**
+ * Creates a div element with specified x and y values. 
+ * Depending on if the x and y values are even or odd, 
+ * the div will have a different color and size.
+ * 
+ * @param {number} x - The x value.
+ * @param {number} y - The y value.
+ * @param {number} scale - The scale of the gameboard.
+ * @returns {HTMLDivElement} - The created div element.
+ */
+function createDiv(y, x, scale) {
+    let div = document.createElement('div');
+    div.xVal = x;
+    div.yVal = y;
 
-        if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
-            div.style.backgroundColor = 'red';
-            div.gridElementType = 'border';
-            div.style.width = scale + "px";
-            div.style.height = scale * 3 + "px";
-            return div;
-        } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
-            div.style.backgroundColor = '#1E1E1E';
-            div.gridElementType = 'cell';
-            div.style.width = scale * 3 + "px";
-            div.style.height = scale * 3 + "px";
-            return div;
-        } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
-            div.style.backgroundColor = 'red';
-            div.gridElementType = 'border';
-
-            div.style.width = scale * 3 + "px";
-            div.style.height = scale + "px";
-            return div;
-        } else { // div is a corner
-            div.style.backgroundColor = 'gray';
-            div.gridElementType = 'corner';
-            div.style.width = scale + "px";
-            div.style.height = scale + "px";
-            return div;
-        }
+    if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
+        div.style.backgroundColor = 'red';
+        div.gridElementType = 'border';
+        div.style.width = scale + "px";
+        div.style.height = scale * 3 + "px";
+        return div;
+    } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
+        div.style.backgroundColor = '#1E1E1E';
+        div.gridElementType = 'cell';
+        div.style.width = scale * 3 + "px";
+        div.style.height = scale * 3 + "px";
+        return div;
+    } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
+        div.style.backgroundColor = 'red';
+        div.gridElementType = 'border';
+        div.style.width = scale * 3 + "px";
+        div.style.height = scale + "px";
+        return div;
+    } else { // div is a corner
+        div.style.backgroundColor = 'gray';
+        div.gridElementType = 'corner';
+        div.style.width = scale + "px";
+        div.style.height = scale + "px";
+        return div;
     }
+}
 
-    init();
+init();
