@@ -37,13 +37,17 @@ function init(playerName, goesFirst, gridSize) {
     for (let div of grid) {
         if (div.gridElementType === 'border') {
             div.addEventListener('click', function () {
-                this.style.backgroundColor = '#03DAC6';
-                this.drawn = true;
+                
+                drawBorder(div);
                 tick(grid);
             });
 
         }
     }
+}
+
+function drawBorder(border) {
+    border.drawn = true;
 }
 
 
@@ -80,8 +84,7 @@ function computerTurn(grid) {
     }
     if (difficulty === 'easy') {
         let randomBorder = Math.floor(Math.random() * availableBorders.length);
-        availableBorders[randomBorder].style.backgroundColor = '#03DAC6';
-        availableBorders[randomBorder].drawn = true;
+        drawBorder(availableBorders[randomBorder]);
     } else if (difficulty === 'medium') {
         let turnMade = false;
         while (!turnMade) {
@@ -126,8 +129,7 @@ function computerTurn(grid) {
                     }
                 }
                 if (topCellBorderCount === 3 || bottomCellBorderCount === 3) {
-                    avaliableBorder.style.backgroundColor = '#03DAC6';
-                    avaliableBorder.drawn = true;
+                    drawBorder(avaliableBorder);
                     turnMade = true;
                     break;
                 } else if (topCellBorderCount === 2 || bottomCellBorderCount === 2) {
@@ -137,8 +139,7 @@ function computerTurn(grid) {
             }
             if (!turnMade) {
                 let randomBorder = Math.floor(Math.random() * availableBorders.length);
-                availableBorders[randomBorder].style.backgroundColor = '#03DAC6';
-                availableBorders[randomBorder].drawn = true;
+                drawBorder(availableBorders[randomBorder]);
                 turnMade = true;
             }
         }
@@ -252,7 +253,6 @@ function createDiv(y, x, scale) {
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = '#444444';
         div.style.borderRadius = scale + 'px';
-        div.style.boxShadow = "inset 0 0 10px rgba(255, 255, 255, 0.5)";
         div.gridElementType = 'border';
         div.style.width = scale + "px";
         div.style.height = scale * 3 + "px";
@@ -267,7 +267,6 @@ function createDiv(y, x, scale) {
     } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
         div.style.backgroundColor = '#444444';
         div.style.borderRadius = scale + 'px';
-        div.style.boxShadow = "inset 0 0 10px rgba(255, 255, 255, 0.5)";
         div.gridElementType = 'border';
         div.style.width = scale * 3 + "px";
         div.style.height = scale + "px";
