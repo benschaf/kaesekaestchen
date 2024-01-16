@@ -46,19 +46,9 @@ function tick(grid) {
     } else {
         turn = false;
     }
-    let switchTurn = checkForSurroundedCells(grid);
-    if (switchTurn) {
-        turn = !turn;
-        console.log('switching turn');
-        if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-            document.getElementById('player1').style.backgroundColor = 'initial';
-            document.getElementById('player2').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-        } else if (document.getElementById('player2').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-            document.getElementById('player2').style.backgroundColor = 'initial';
-            document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-        }
-    }
-    // if its the computer's turn, run the computer's turn function
+    turn = checkForSurroundedCells(grid, turn);
+
+    // NEXT TURN: if its the computer's turn, run the computer's turn function
     if (turn) {
         console.log('player turn');
     } else {
@@ -76,7 +66,7 @@ function computerTurn(grid) {
  * 
  * @param {Array} grid - The gameboard grid of div elements.
  */
-function checkForSurroundedCells(grid) {
+function checkForSurroundedCells(grid, turn) {
     let switchTurn = true;
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
@@ -107,12 +97,37 @@ function checkForSurroundedCells(grid) {
                 }
             }
             if (drawnBorders > 3) {
-                cell.style.backgroundColor = 'green';
-                switchTurn = false;
+                if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
+                    if (turn) {
+                        cell.style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+                        let playerScore = document.getElementById('player-score').innerHTML;
+                        playerScore++;
+                        document.getElementById('player-score').innerHTML = playerScore;
+                        switchTurn = false;
+                    } else {
+                        cell.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+                        let aiScore = document.getElementById('ai-score').innerHTML;
+                        aiScore++;
+                        document.getElementById('ai-score').innerHTML = aiScore;
+                        switchTurn = false;
+                    }
+                }
             }
         }
     }
-    return switchTurn;
+    if (switchTurn) {
+        trun = !turn;
+        if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+            document.getElementById('player1').style.backgroundColor = 'initial';
+            document.getElementById('player2').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        } else if (document.getElementById('player2').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+            document.getElementById('player2').style.backgroundColor = 'initial';
+            document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        }
+        return turn;
+    } else {
+        return turn;
+    }
 }
 
 /**
@@ -137,7 +152,7 @@ function createDiv(y, x, scale) {
         div.style.height = scale * 3 + "px";
         return div;
     } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
-        div.style.backgroundColor = 'blue';
+        div.style.backgroundColor = '#1E1E1E';
         div.gridElementType = 'cell';
         div.style.width = scale * 3 + "px";
         div.style.height = scale * 3 + "px";
