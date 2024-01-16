@@ -51,6 +51,8 @@ function init(playerName, goesFirst, gridSize) {
 }
 
 function drawBorder(border) {
+    //mark the border as drawn with inset shadow
+    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
     border.drawn = true;
 }
 
@@ -200,13 +202,15 @@ function computeLastTurn(grid) {
                 filledCells++;
                 if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
                     if (turn) {
-                        cell.style.backgroundColor = 'rgba(185, 252, 134, 0.7)';
+                        cell.style.backgroundColor = 'unset';
+                        cell.style.boxShadow = 'inset 0 0 60px rgba(185, 252, 134)';
                         let playerScore = document.getElementById('player-score').innerHTML;
                         playerScore++;
                         document.getElementById('player-score').innerHTML = playerScore;
                         switchTurn = false;
                     } else {
-                        cell.style.backgroundColor = 'rgba(252, 134, 185, 0.7)';
+                        cell.style.backgroundColor = 'unset';
+                        cell.style.boxShadow = 'inset 0 0 60px rgba(252, 134, 185)';
                         let aiScore = document.getElementById('ai-score').innerHTML;
                         aiScore++;
                         document.getElementById('ai-score').innerHTML = aiScore;
