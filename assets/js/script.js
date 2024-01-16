@@ -40,8 +40,13 @@ function createGrid() {
 
 
 function tick(grid) {
-    const nextTurn = computeLastTurn(grid);
-
+    computeLastTurn(grid);
+    let nextTurn; 
+    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+        nextTurn = true;
+    } else {
+        nextTurn = false;
+    }
     // if its the computer's turn, run the computer's turn function
     if (nextTurn) {
         console.log('player turn');
@@ -124,9 +129,6 @@ function computeLastTurn(grid) {
             document.getElementById('player2').style.backgroundColor = 'initial';
             document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
         }
-        return turn;
-    } else {
-        return turn;
     }
 }
 
