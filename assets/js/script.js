@@ -1,4 +1,5 @@
 function init(){
+    document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
     createGrid();
 }
 
@@ -25,7 +26,6 @@ function createGrid() {
             gameboard.appendChild(div);
         }
     }
-    console.log(grid);
     for (let div of grid) {
         if (div.gridElementType === 'border') {
             div.addEventListener('click', function () {
@@ -40,13 +40,34 @@ function createGrid() {
 
 
 function tick(grid) {
-    let turn; //get element from html to check which player's turn it is
+    let turn; //true = player, false = AI Opponent
+    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+        turn = true;
+    } else {
+        turn = false;
+    }
     let switchTurn = checkForSurroundedCells(grid);
-    // switch turn if no cells were surrounded
-
+    if (switchTurn) {
+        turn = !turn;
+        console.log('switching turn');
+        if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+            document.getElementById('player1').style.backgroundColor = 'initial';
+            document.getElementById('player2').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        } else if (document.getElementById('player2').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+            document.getElementById('player2').style.backgroundColor = 'initial';
+            document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        }
+    }
     // if its the computer's turn, run the computer's turn function
+    if (turn) {
+        console.log('player turn');
+    } else {
+        computerTurn(grid);
+    }
+}
 
-
+function computerTurn(grid) {
+    console.log('computer turn');
 }
 
 /**
@@ -108,7 +129,6 @@ function createDiv(y, x, scale) {
     let div = document.createElement('div');
     div.xVal = x;
     div.yVal = y;
-    div.innerHTML = "" + x + " / " + y;
 
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = 'red';
