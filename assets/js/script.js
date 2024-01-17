@@ -224,8 +224,8 @@ function computeLastTurn(grid) {
         trun = !turn;
         if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
             document.getElementById('player1').style.backgroundColor = 'initial';
-            document.getElementById('player2').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-        } else if (document.getElementById('player2').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+            document.getElementById('player2').style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+        } else if (document.getElementById('player2').style.backgroundColor === 'rgba(252, 134, 185, 0.2)') {
             document.getElementById('player2').style.backgroundColor = 'initial';
             document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
         }
