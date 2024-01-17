@@ -218,6 +218,22 @@ function computeLastTurn(grid) {
                     if (turn) {
                         cell.style.backgroundColor = 'unset';
                         cell.style.boxShadow = 'inset 0 0 60px rgba(185, 252, 134)';
+
+                        let blurBackgroundElement = document.createElement('div');
+                        blurBackgroundElement.style.position = 'absolute';
+
+                        let rect = cell.getBoundingClientRect();
+                        blurBackgroundElement.style.top = rect.top + 'px';
+                        blurBackgroundElement.style.left = rect.left + 'px';
+
+                        blurBackgroundElement.style.width = 30 * 3 + 'px';
+                        blurBackgroundElement.style.height = 30 * 3 + 'px';
+                        blurBackgroundElement.style.borderRadius = 'cell.style.borderRadius';
+                        blurBackgroundElement.style.backgroundColor = 'rgba(185, 252, 134)';
+                        blurBackgroundElement.style.zIndex = '-1';
+                        blurBackgroundElement.style.filter = 'blur(100px)';
+                        document.getElementById('gameboard').appendChild(blurBackgroundElement);
+
                         let playerScore = document.getElementById('player-score').innerHTML;
                         playerScore++;
                         document.getElementById('player-score').innerHTML = playerScore;
@@ -225,6 +241,22 @@ function computeLastTurn(grid) {
                     } else {
                         cell.style.backgroundColor = 'unset';
                         cell.style.boxShadow = 'inset 0 0 60px rgba(252, 134, 185)';
+
+                        let blurBackgroundElement = document.createElement('div');
+                        blurBackgroundElement.style.position = 'absolute';
+
+                        let rect = cell.getBoundingClientRect();
+                        blurBackgroundElement.style.top = rect.top + 'px';
+                        blurBackgroundElement.style.left = rect.left + 'px';
+
+                        blurBackgroundElement.style.width = 30 * 3 + 'px';
+                        blurBackgroundElement.style.height = 30 * 3 + 'px';
+                        blurBackgroundElement.style.borderRadius = 'cell.style.borderRadius';
+                        blurBackgroundElement.style.backgroundColor = 'rgba(252, 134, 185)';
+                        blurBackgroundElement.style.zIndex = '-1';
+                        blurBackgroundElement.style.filter = 'blur(100px)';
+                        document.getElementById('gameboard').appendChild(blurBackgroundElement);
+
                         let aiScore = document.getElementById('ai-score').innerHTML;
                         aiScore++;
                         document.getElementById('ai-score').innerHTML = aiScore;
