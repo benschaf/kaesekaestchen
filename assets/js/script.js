@@ -178,8 +178,6 @@ async function computerTurn(grid) {
  * @param {Array} grid - The gameboard grid of div elements.
  */
 function computeLastTurn(grid) {
-    let cellCount = 0;
-    let filledCells = 0;
     let turn; //true = player, false = AI Opponent
     if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
         turn = true;
@@ -190,7 +188,6 @@ function computeLastTurn(grid) {
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
         if (cell.gridElementType === 'cell') {
-            cellCount++;
             let currentX = cell.xVal;
             let currentY = cell.yVal;
             let drawnBorders = 0;
@@ -217,7 +214,6 @@ function computeLastTurn(grid) {
                 }
             }
             if (drawnBorders > 3) {
-                filledCells++;
                 if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
                     if (turn) {
                         cell.style.backgroundColor = 'unset';
@@ -246,15 +242,6 @@ function computeLastTurn(grid) {
         } else if (document.getElementById('player2').style.backgroundColor === 'rgba(252, 134, 185, 0.2)') {
             document.getElementById('player2').style.backgroundColor = 'initial';
             document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-        }
-    }
-    if (filledCells === cellCount) {
-        if (document.getElementById('player-score').innerHTML > document.getElementById('ai-score').innerHTML) {
-            alert('Player Wins!');
-        } else if (document.getElementById('player-score').innerHTML < document.getElementById('ai-score').innerHTML) {
-            alert('AI Wins!');
-        } else {
-            alert('Tie!');
         }
     }
 }
