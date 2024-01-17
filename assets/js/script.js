@@ -41,8 +41,8 @@ function init(playerName, goesFirst, gridSize) {
                 if (div.drawn) {
                     return;
                 } else {
-                drawBorder(div);
-                tick(grid);
+                    drawBorder(div);
+                    tick(grid);
                 }
             });
 
@@ -73,7 +73,23 @@ function tick(grid) {
     }
 }
 
-function computerTurn(grid) {
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Calculates the computer's next move based on the difficulty.
+ * 
+ * easy:   randomly selects a border to draw
+ * medium: checks if any cell has 3 drawn borders around it. If it does, it draws the 4th border.
+ *         if a celll has 2 drawn borders around it, it removes that border from the available borders (so it doesn't draw it)
+ *         if no cell has 3 drawn borders around it, it randomly selects a border to draw.
+ * 
+ * Credits for async/await functionality: https://www.sitepoint.com/delay-sleep-pause-wait/
+ * 
+ * @param {Array} grid
+ */
+async function computerTurn(grid) {
     //let difficulty = document.getElementById('difficulty').value;
     let difficulty = 'medium';
     console.log('computer turn');
@@ -135,6 +151,7 @@ function computerTurn(grid) {
                     }
                 }
                 if (topCellBorderCount === 3 || bottomCellBorderCount === 3) {
+                    await sleep(1000);
                     drawBorder(avaliableBorder);
                     turnMade = true;
                     break;
@@ -145,6 +162,7 @@ function computerTurn(grid) {
             }
             if (!turnMade) {
                 let randomBorder = Math.floor(Math.random() * availableBorders.length);
+                await sleep(1000);
                 drawBorder(availableBorders[randomBorder]);
                 turnMade = true;
             }
