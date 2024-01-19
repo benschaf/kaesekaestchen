@@ -167,6 +167,9 @@ async function computerTurn(grid) {
                 turnMade = true;
             }
         }
+    } else if (difficulty === 'hard') {
+        let randomBorder = Math.floor(Math.random() * availableBorders.length);
+        drawBorder(availableBorders[randomBorder]);
     }
     tick(grid);
 }
