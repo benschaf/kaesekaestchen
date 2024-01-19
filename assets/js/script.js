@@ -38,7 +38,7 @@ function init(playerName, goesFirst, gridSize) {
         if (div.gridElementType === 'border') {
             div.addEventListener('click', function () {
                 //check if the border has already been drawn
-                if (div.drawn) {
+                if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
                     return;
                 } else {
                     drawBorder(div);
