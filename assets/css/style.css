@@ -118,15 +118,27 @@ main {
     flex-wrap: wrap;
 }
 
-#scores > div {
+#scores>div {
     margin-top: 3rem;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
+#scores div div {
+    display: flex;
+    flex-direction: column;
+}   
+
 #scores div div span {
-    display: block;  
+    display: block;
+}
+
+#player-name-label {
+    flex-grow: 1;
+}
+
+#vs-label {
+    align-self: center;
 }
 
 .player-score-scoreboard {
@@ -146,10 +158,11 @@ main {
     gap: 1rem;
 }
 
-input[type="text"], input[type="range"] {
-    padding: 0.5rem; 
-    border-radius: 0.5rem; 
-    border: 1px solid var(--p-highlight); 
+input[type="text"],
+input[type="range"] {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--p-highlight);
     background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -202,7 +215,7 @@ footer {
         font-size: 100%;
     }
 
-    #scores > div {
+    #scores>div {
         justify-content: center;
         gap: 1rem;
     }
@@ -216,6 +229,7 @@ footer {
         grid-template-rows: 1fr 0fr;
         align-items: start;
     }
+
     #game-area>#gameboard {
         grid-area: 1 / 1 / 2 / 3;
         justify-self: center;

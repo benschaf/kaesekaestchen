@@ -5,7 +5,7 @@
  * 
  * Runs the tick function when a border div is clicked.
  */
-function init(playerName, goesFirst, gridSize) {
+function init(playerName, goesFirst, difficulty, gridSize) {
     document.getElementById('gameboard').innerHTML = '';
     if (goesFirst) {
         document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
@@ -18,6 +18,9 @@ function init(playerName, goesFirst, gridSize) {
         playerName = 'Player';
     }
     document.getElementById('player-name-label').innerHTML = playerName;
+    // Credit: https://flexiple.com/javascript/javascript-capitalize-first-letter
+    const difficultyUppercase = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+    document.getElementById('difficulty-indicator').innerHTML = difficultyUppercase + ' Difficulty';
 
     let gameboard = document.getElementById('gameboard');
     const size = gridSize;
@@ -90,8 +93,8 @@ function sleep(ms) {
  * @param {Array} grid
  */
 async function computerTurn(grid) {
-    //let difficulty = document.getElementById('difficulty').value;
-    let difficulty = 'medium';
+    let difficulty ;
+    difficulty = document.getElementById('ai-difficulty').value;
     console.log('computer turn');
     let availableBorders = [];
     for (let border of grid) {
@@ -380,10 +383,11 @@ document.addEventListener('DOMContentLoaded', function () {
     startGameButton.addEventListener('click', function () {
         let playerName = playerNameInput.value;
         let goesFirst = playerTurnRadio.checked;
+        let difficulty = document.getElementById('ai-difficulty').value;
         let gridSize = gridSizeInput.value * 2;
 
-        init(playerName, goesFirst, gridSize);
+        init(playerName, goesFirst, difficulty, gridSize);
     });
 
-    init('Player', true, 6);
+    init('Player', true, 'medium', 6);
 });

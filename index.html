@@ -30,9 +30,10 @@
                         <span id="player-name-label" class="label">Player</span>
                         <span id="player-score" class="player-score-scoreboard player-color">0</span>
                     </div>
-                    <div class="label secondary-text">vs</div>
+                    <div id="vs-label" class="label secondary-text">vs</div>
                     <div id="player2" class="card">
                         <span class="label">AI Opponent</span>
+                        <span id="difficulty-indicator" class="secondary-text"></span>
                         <span id="ai-score" class="player-score-scoreboard ai-color">0</span>
                     </div>
                 </div>
@@ -55,6 +56,15 @@
                         <label for="ai-turn">AI goes first</label>
                     </div>
                 </div>
+                <div>
+                    <div>
+                        <label for="ai-difficulty">AI Difficulty:</label>
+                        <select id="ai-difficulty" name="ai-difficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard" disabled>Hard (in development)</option>
+                        </select>
+                    </div>
                 <div>
                     <div>
                         <label for="grid-size">Grid Size:</label>
