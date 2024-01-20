@@ -91,7 +91,7 @@ function sleep(ms) {
  */
 async function computerTurn(grid) {
     //let difficulty = document.getElementById('difficulty').value;
-    let difficulty = 'hard';
+    let difficulty = 'medium';
     console.log('computer turn');
     let availableBorders = [];
     for (let border of grid) {
@@ -105,67 +105,7 @@ async function computerTurn(grid) {
     if (difficulty === 'easy') {
         let randomBorder = Math.floor(Math.random() * availableBorders.length);
         drawBorder(availableBorders[randomBorder]);
-    } else if (difficulty === 'medium') {
-        let turnMade = false;
-        while (!turnMade) {
-            for (let avaliableBorder of availableBorders) {
-                let topCellBorderCount = 0;
-                let bottomCellBorderCount = 0;
-                if (avaliableBorder.xVal % 2 === 1 && avaliableBorder.yVal % 2 === 0) { // border is horizontal
-                    for (let drawnBorder of grid) {
-                        if (drawnBorder.drawn) {
-                            if (drawnBorder.yVal === avaliableBorder.yVal + 2 && drawnBorder.xVal === avaliableBorder.xVal) { // checks if the border is above the cell
-                                topCellBorderCount++;
-                            } else if (drawnBorder.yVal === avaliableBorder.yVal + 1 && drawnBorder.xVal === avaliableBorder.xVal - 1) { // checks if the border is to the right of the top cell
-                                topCellBorderCount++;
-                            } else if (drawnBorder.yVal === avaliableBorder.yVal + 1 && drawnBorder.xVal === avaliableBorder.xVal + 1) { // checks if the border is to the left of the top cell
-                                topCellBorderCount++;
-                            } else if (drawnBorder.yVal === avaliableBorder.yVal - 2 && drawnBorder.xVal === avaliableBorder.xVal) { // checks if the border is below the cell
-                                bottomCellBorderCount++;
-                            } else if (drawnBorder.yVal === avaliableBorder.yVal - 1 && drawnBorder.xVal === avaliableBorder.xVal - 1) { // checks if the border is to the right of the bottom cell
-                                bottomCellBorderCount++;
-                            } else if (drawnBorder.yVal === avaliableBorder.yVal - 1 && drawnBorder.xVal === avaliableBorder.xVal + 1) { // checks if the border is to the left of the bottom cell
-                                bottomCellBorderCount++;
-                            }
-                        }
-                    }
-                } else if (avaliableBorder.xVal % 2 === 0 && avaliableBorder.yVal % 2 === 1) { // border is vertical
-                    for (let drawnBorder of grid) {
-                        if (drawnBorder.drawn) {
-                            if (drawnBorder.xVal === avaliableBorder.xVal + 2 && drawnBorder.yVal === avaliableBorder.yVal) { // checks if the border is to the right of the cell
-                                topCellBorderCount++;
-                            } else if (drawnBorder.xVal === avaliableBorder.xVal + 1 && drawnBorder.yVal === avaliableBorder.yVal - 1) { // checks if the border is above the right cell
-                                topCellBorderCount++;
-                            } else if (drawnBorder.xVal === avaliableBorder.xVal + 1 && drawnBorder.yVal === avaliableBorder.yVal + 1) { // checks if the border is below the right cell
-                                topCellBorderCount++;
-                            } else if (drawnBorder.xVal === avaliableBorder.xVal - 2 && drawnBorder.yVal === avaliableBorder.yVal) { // checks if the border is to the left of the cell
-                                bottomCellBorderCount++;
-                            } else if (drawnBorder.xVal === avaliableBorder.xVal - 1 && drawnBorder.yVal === avaliableBorder.yVal - 1) { // checks if the border is above the left cell
-                                bottomCellBorderCount++;
-                            } else if (drawnBorder.xVal === avaliableBorder.xVal - 1 && drawnBorder.yVal === avaliableBorder.yVal + 1) { // checks if the border is below the left cell
-                                bottomCellBorderCount++;
-                            }
-                        }
-                    }
-                }
-                if (topCellBorderCount === 3 || bottomCellBorderCount === 3) {
-                    await sleep(1000);
-                    drawBorder(avaliableBorder);
-                    turnMade = true;
-                    break;
-                } else if (topCellBorderCount === 2 || bottomCellBorderCount === 2) {
-                    let index = availableBorders.indexOf(avaliableBorder);
-                    availableBorders.splice(index, 1);
-                }
-            }
-            if (!turnMade) {
-                let randomBorder = Math.floor(Math.random() * availableBorders.length);
-                await sleep(1000);
-                drawBorder(availableBorders[randomBorder]);
-                turnMade = true;
-            }
-        }
-    } else if (difficulty === 'hard') block1: {
+    } else if (difficulty === 'medium') block1: {
         //cycle through avaliable borders
         let leftOverBorders = availableBorders.slice(); // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. Cretits to https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
         for (let availableBorder of availableBorders) {
