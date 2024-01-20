@@ -91,19 +91,17 @@ function sleep(ms) {
  */
 async function computerTurn(grid) {
     //let difficulty = document.getElementById('difficulty').value;
-    let difficulty = 'medium';
+    let difficulty = 'hard';
     console.log('computer turn');
     let availableBorders = [];
-    let drawnBorders = [];
     for (let border of grid) {
         if (border.gridElementType === 'border') {
             if (!border.drawn) {
                 availableBorders.push(border);
-            } else {
-                drawnBorders.push(border);
             }
         }
     }
+
     if (difficulty === 'easy') {
         let randomBorder = Math.floor(Math.random() * availableBorders.length);
         drawBorder(availableBorders[randomBorder]);
@@ -167,11 +165,103 @@ async function computerTurn(grid) {
                 turnMade = true;
             }
         }
-    } else if (difficulty === 'hard') {
-        let randomBorder = Math.floor(Math.random() * availableBorders.length);
-        drawBorder(availableBorders[randomBorder]);
+    } else if (difficulty === 'hard') block1: {
+        //cycle through avaliable borders
+        let leftOverBorders = availableBorders.slice(); // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. Cretits to https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
+        for (let availableBorder of availableBorders) {
+            let adjacentCellsBorderCount = [0, 0];
+            //check if the border is horizontal or vertical
+            if (availableBorder.xVal % 2 === 1 && availableBorder.yVal % 2 === 0) { // border is horizontal
+                //check for adjacent cells
+                let cellAbove;
+                let cellBelow;
+                cellAbove = getDivByXY(availableBorder.xVal, availableBorder.yVal - 1, grid);
+                cellBelow = getDivByXY(availableBorder.xVal, availableBorder.yVal + 1, grid);
+                if (cellAbove !== null) {
+                    let borderCount = countDrawnBorders(cellAbove, grid);
+                    adjacentCellsBorderCount[0] = borderCount;
+                }
+                if (cellBelow !== null) {
+                    let borderCount = countDrawnBorders(cellBelow, grid);
+                    adjacentCellsBorderCount[1] = borderCount;
+                }
+            } else if (availableBorder.xVal % 2 === 0 && availableBorder.yVal % 2 === 1) { // border is vertical
+                //check for adjacent cells
+                let cellLeft;
+                let cellRight;
+                cellLeft = getDivByXY(availableBorder.xVal - 1, availableBorder.yVal, grid);
+                cellRight = getDivByXY(availableBorder.xVal + 1, availableBorder.yVal, grid);
+                //check how many borders are drawn around each adjacent cell
+                if (cellLeft !== null) {
+                    let borderCount = countDrawnBorders(cellLeft, grid);
+                    adjacentCellsBorderCount[0] = borderCount;
+                }
+                if (cellRight !== null) {
+                    let borderCount = countDrawnBorders(cellRight, grid);
+                    adjacentCellsBorderCount[1] = borderCount;
+                }
+            }
+            //if a cell has 3 drawn borders, draw the 4th border
+            if (adjacentCellsBorderCount[0] === 3 || adjacentCellsBorderCount[1] === 3) {
+                await sleep(1000);
+                drawBorder(availableBorder);
+                break block1;
+            }
+            //if a cell has 2 drawn borders, remove that border from the available borders
+            if (adjacentCellsBorderCount[0] === 2 || adjacentCellsBorderCount[1] === 2) {
+                let index;
+                index = leftOverBorders.indexOf(availableBorder);
+                leftOverBorders.splice(index, 1);
+                console.log('removed');
+            }
+        }
+        //if no cell has 3 or two drawn borders, randomly select a border to draw
+        if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
+            let randomBorder = Math.floor(Math.random() * availableBorders.length);
+            await sleep(1000);
+            drawBorder(availableBorders[randomBorder]);
+        } else {
+            let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
+            await sleep(1000);
+            drawBorder(leftOverBorders[randomBorder]);
+        }
     }
     tick(grid);
+}
+
+function getDivByXY(x, y, grid) {
+    for (let div of grid) {
+        if (div.xVal === x && div.yVal === y) {
+            return div;
+        }
+    }
+    return null;
+}
+
+function countDrawnBorders(cell, grid) {
+    let drawnBorders = 0;
+    for (let border of grid) {
+        if (border.gridElementType === 'border') {
+            if (border.xVal + 1 === cell.xVal && border.yVal === cell.yVal) { // checks if the border is to the right of the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            } else if (border.xVal - 1 === cell.xVal && border.yVal === cell.yVal) { // checks if the border is to the left of the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            } else if (border.xVal === cell.xVal && border.yVal + 1 === cell.yVal) { // checks if the border is below the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            } else if (border.xVal === cell.xVal && border.yVal - 1 === cell.yVal) { // checks if the border is above the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            }
+        }
+    }
+    return drawnBorders;
 }
 
 /**
