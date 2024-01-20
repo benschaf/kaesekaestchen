@@ -38,7 +38,7 @@ function init(playerName, goesFirst, difficulty, gridSize) {
         }
     }
     for (let div of grid) {
-        if (div.gridElementType === 'border') {
+        if (div.className === 'border') {
             div.addEventListener('click', function () {
                 //check if the border has already been drawn
                 if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
@@ -93,12 +93,12 @@ function sleep(ms) {
  * @param {Array} grid
  */
 async function computerTurn(grid) {
-    let difficulty ;
+    let difficulty;
     difficulty = document.getElementById('ai-difficulty').value;
     console.log('computer turn');
     let availableBorders = [];
     for (let border of grid) {
-        if (border.gridElementType === 'border') {
+        if (border.className === 'border') {
             if (!border.drawn) {
                 availableBorders.push(border);
             }
@@ -184,7 +184,7 @@ function getDivByXY(x, y, grid) {
 function countDrawnBorders(cell, grid) {
     let drawnBorders = 0;
     for (let border of grid) {
-        if (border.gridElementType === 'border') {
+        if (border.className === 'border') {
             if (border.xVal + 1 === cell.xVal && border.yVal === cell.yVal) { // checks if the border is to the right of the cell
                 if (border.drawn) {
                     drawnBorders++;
@@ -215,21 +215,23 @@ function countDrawnBorders(cell, grid) {
  */
 function computeLastTurn(grid) {
     let turn; //true = player, false = AI Opponent
+    let switchTurn = true;
+    let filledCells = 0;
     if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
         turn = true;
     } else {
         turn = false;
     }
-    let switchTurn = true;
+
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
-        if (cell.gridElementType === 'cell') {
+        if (cell.className === 'cell') {
             let currentX = cell.xVal;
             let currentY = cell.yVal;
             let drawnBorders = 0;
             // iterates through all the elements in the grid and counts the number of drawn borders around the cell
             for (let border of grid) {
-                if (border.gridElementType === 'border') {
+                if (border.className === 'border') {
                     if (border.xVal + 1 === currentX && border.yVal === currentY) { // checks if the border is to the right of the cell
                         if (border.drawn) {
                             drawnBorders++;
@@ -250,6 +252,7 @@ function computeLastTurn(grid) {
                 }
             }
             if (drawnBorders > 3) {
+                filledCells++;
                 if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
                     if (turn) {
                         cell.style.backgroundColor = 'unset';
@@ -312,6 +315,23 @@ function computeLastTurn(grid) {
             document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
         }
     }
+    let totalCells = document.getElementsByClassName('cell').length;
+    if (filledCells === totalCells && filledCells !== 0) {
+        endGame();
+    }
+}
+
+function endGame() {
+    let playerScore = document.getElementById('player-score').innerHTML;
+    let aiScore = document.getElementById('ai-score').innerHTML;
+    if (playerScore > aiScore) {
+        document.getElementById('game-end-message').innerHTML = 'You Win!';
+    } else if (aiScore > playerScore) {
+        document.getElementById('game-end-message').innerHTML = 'You Lose!';
+    } else {
+        document.getElementById('game-end-message').innerHTML = 'Tie!';
+    }
+    document.getElementById('game-end-screen').style.display = 'block';
 }
 
 /**
@@ -334,21 +354,22 @@ function createDiv(y, x, scale) {
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = '#444444';
         div.style.borderRadius = scale + 'px';
-        div.gridElementType = 'border';
+        // set the class name. Credit: https://www.w3schools.com/jsref/prop_html_classname.asp
+        div.className = 'border';
         div.style.width = scale + "px";
         div.style.height = scale * 3 + "px";
         return div;
     } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
         div.style.backgroundColor = '#1E1E1E';
         div.style.borderRadius = scale + 'px';
-        div.gridElementType = 'cell';
+        div.className = 'cell';
         div.style.width = scale * 3 + "px";
         div.style.height = scale * 3 + "px";
         return div;
     } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
         div.style.backgroundColor = '#444444';
         div.style.borderRadius = scale + 'px';
-        div.gridElementType = 'border';
+        div.className = 'border';
         div.style.width = scale * 3 + "px";
         div.style.height = scale + "px";
         return div;
@@ -356,7 +377,7 @@ function createDiv(y, x, scale) {
         div.style.backgroundColor = '#101010';
         div.style.borderRadius = '50%';
         div.style.boxShadow = "inset 0 0 10px rgba(255, 255, 255, 0.5)";
-        div.gridElementType = 'corner';
+        div.className = 'corner';
         div.style.width = scale + "px";
         div.style.height = scale + "px";
         return div;
