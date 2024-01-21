@@ -324,14 +324,16 @@ function computeLastTurn(grid) {
 function endGame() {
     let playerScore = document.getElementById('player-score').innerHTML;
     let aiScore = document.getElementById('ai-score').innerHTML;
+    let endGameMessage;
     if (playerScore > aiScore) {
-        document.getElementById('game-end-message').innerHTML = 'You Win!';
+        endGameMessage = 'You Win!';
     } else if (aiScore > playerScore) {
-        document.getElementById('game-end-message').innerHTML = 'You Lose!';
+        endGameMessage = 'You Lose!';
     } else {
-        document.getElementById('game-end-message').innerHTML = 'Tie!';
+        endGameMessage = 'Tie!';
     }
-    document.getElementById('game-end-screen').style.display = 'block';
+    alert('Game Over! ' + endGameMessage);
+    document.getElementById('game-end-message').innerHTML = endGameMessage;
 }
 
 /**

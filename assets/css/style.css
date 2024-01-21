@@ -119,9 +119,15 @@ main {
 }
 
 #scores>div {
-    margin-top: 3rem;
+    margin-top: 1.5rem;
     display: flex;
     justify-content: center;
+}
+
+#game-end-message {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
 }
 
 #scores div div {
