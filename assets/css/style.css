@@ -113,6 +113,7 @@ main {
 
 
 #game-area>#gameboard {
+    position: relative;
     box-sizing: content-box;
     display: flex;
     flex-wrap: wrap;

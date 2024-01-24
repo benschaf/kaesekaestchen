@@ -93,6 +93,7 @@ function sleep(ms) {
  * @param {Array} grid
  */
 async function computerTurn(grid) {
+    thinkingAnimation(); //only maybe keep this - looks kinda cheap - maybe make it a loading bar below the gameboard or something
     let difficulty;
     difficulty = document.getElementById('ai-difficulty').value;
     console.log('computer turn');
@@ -179,6 +180,28 @@ function getDivByXY(x, y, grid) {
         }
     }
     return null;
+}
+
+function thinkingAnimation() {
+    let thinkingAnimationElement = document.createElement('div');
+    thinkingAnimationElement.id = 'thinking-animation';
+    thinkingAnimationElement.style.position = 'absolute';
+    thinkingAnimationElement.style.top = '50%';
+    thinkingAnimationElement.style.left = '50%';
+    thinkingAnimationElement.style.width = '150px';
+    thinkingAnimationElement.style.height = '150px';
+    thinkingAnimationElement.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+    thinkingAnimationElement.style.display = 'flex';
+    thinkingAnimationElement.style.justifyContent = 'center';
+    thinkingAnimationElement.style.alignItems = 'center';
+    thinkingAnimationElement.style.fontSize = '1rem';
+    thinkingAnimationElement.style.borderRadius = '50%';
+    thinkingAnimationElement.style.transform = 'translate(-50%, -50%)';
+    thinkingAnimationElement.innerHTML = 'AI is playing...';
+    document.getElementById('gameboard').appendChild(thinkingAnimationElement);
+    setTimeout(function () {
+        thinkingAnimationElement.remove();
+    }, 1000);
 }
 
 function countDrawnBorders(cell, grid) {
