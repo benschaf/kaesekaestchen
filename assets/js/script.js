@@ -325,6 +325,7 @@ function endGame() {
     let playerScore = document.getElementById('player-score').innerHTML;
     let aiScore = document.getElementById('ai-score').innerHTML;
     let endGameMessage;
+
     if (playerScore > aiScore) {
         endGameMessage = 'You Win!';
     } else if (aiScore > playerScore) {
@@ -332,9 +333,20 @@ function endGame() {
     } else {
         endGameMessage = 'Tie!';
     }
-    alert('Game Over! ' + endGameMessage);
     document.getElementById('game-end-message').innerHTML = endGameMessage;
+
+    let endMessageAlertBox = document.createElement('div');
+    endMessageAlertBox.id = 'end-message-alert-box';
+    endMessageAlertBox.innerHTML = endGameMessage;
+    document.getElementById('gameboard').appendChild(endMessageAlertBox);
+
+    // Remove the endMessageAlertBox after 3 seconds
+    setTimeout(function () {
+        endMessageAlertBox.remove();
+    }, 3000);
 }
+
+
 
 /**
  * Creates a div element with specified x and y values. 
