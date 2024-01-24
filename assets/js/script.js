@@ -48,8 +48,10 @@ function init(playerName, goesFirst, difficulty, gridSize) {
                     tick(grid);
                 }
             });
-
         }
+    }
+    if(!goesFirst) {
+        computerTurn(grid);
     }
 }
 
