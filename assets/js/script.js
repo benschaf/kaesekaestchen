@@ -24,12 +24,11 @@ function init(playerName, goesFirst, difficulty, gridSize) {
 
     let gameboard = document.getElementById('gameboard');
     const size = gridSize;
-    scale = 30;
 
     let grid = [];
     for (let i = 0; i <= size; i++) {
         for (let j = 0; j <= size; j++) {
-            let div = createDiv(i, j, scale);
+            let div = createDiv(i, j);
             grid.push(div);
             gameboard.appendChild(div);
         }
@@ -383,17 +382,18 @@ function endGame() {
  * 
  * @param {number} x - The x value.
  * @param {number} y - The y value.
- * @param {number} scale - The scale of the gameboard.
  * @returns {HTMLDivElement} - The created div element.
  */
-function createDiv(y, x, scale) {
+function createDiv(y, x) {
+    let scale = 10; //this scale value is only temporary and will be overriden by the rescaleGameboard function
     let div = document.createElement('div');
     div.xVal = x;
     div.yVal = y;
 
+    div.style.margin = 2 + 'px';
+
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = '#444444';
-        div.style.borderRadius = scale + 'px';
         // set the class name. Credit: https://www.w3schools.com/jsref/prop_html_classname.asp
         div.className = 'border';
         div.style.width = scale + "px";
@@ -401,22 +401,18 @@ function createDiv(y, x, scale) {
         return div;
     } else if (x % 2 === 1 && y % 2 === 1) { // div is a cell
         div.style.backgroundColor = '#1E1E1E';
-        div.style.borderRadius = scale + 'px';
         div.className = 'cell';
         div.style.width = scale * 3 + "px";
         div.style.height = scale * 3 + "px";
         return div;
     } else if (x % 2 === 1 && y % 2 === 0) { // div is a vertical border
         div.style.backgroundColor = '#444444';
-        div.style.borderRadius = scale + 'px';
         div.className = 'border';
         div.style.width = scale * 3 + "px";
         div.style.height = scale + "px";
         return div;
     } else { // div is a corner
         div.style.backgroundColor = '#101010';
-        div.style.borderRadius = '50%';
-        div.style.boxShadow = "inset 0 0 10px rgba(255, 255, 255, 0.5)";
         div.className = 'corner';
         div.style.width = scale + "px";
         div.style.height = scale + "px";
@@ -455,27 +451,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-function rescaleGameboard(grid, gridSize){
-    if (window.innerWidth >= 1440) {
-    } else {
-        let scale = parseInt((document.getElementById('game-area').offsetWidth-32) / (gridSize * 2 + 1));
+function rescaleGameboard(grid, gridSize) {
+
+    if (window.innerWidth >= 1440) {} else {
+        let scale = parseInt((document.getElementById('game-area').offsetWidth - 32) / (gridSize * 2 + 1)-2);
         console.log(scale);
         resizeGrid(grid, scale, gridSize);
 
     }
 }
 
-resizeGrid = function(grid, scale, gridSize){
+resizeGrid = function (grid, scale, gridSize) {
     let originalScale = parseInt(grid[0].style.width);
-
     let gameboard = document.getElementById('gameboard');
-    gameboard.style.width = scale * (gridSize * 2 + 1) + 'px';
-    gameboard.style.height = scale * (gridSize * 2 + 1) + 'px';
+    // total width of the gameboard: width of all divs + 2px border on each side of each div
+    let gameboardSideLength = scale * (gridSize * 2 + 1) + 2*2*(gridSize+1);
+    
+    gameboard.style.width = gameboardSideLength + 'px';
+    gameboard.style.height = gameboardSideLength + 'px';
 
     for (let div of grid) {
         let newWidth = parseInt(div.style.width) * scale / originalScale + 'px';
         let newHeight = parseInt(div.style.height) * scale / originalScale + 'px';
         div.style.width = newWidth;
         div.style.height = newHeight;
+        div.style.borderRadius = scale + 'px';
+        
+        if (div.className === 'corner') { // div is a corner
+            let newBlurRadius = parseInt(div.style.width) / 2 + 'px';
+            div.style.boxShadow = "inset 0 0 "+newBlurRadius+" rgba(255, 255, 255, 0.5)";
+        }
     }
 }
