@@ -26,9 +26,9 @@ function init(playerName, goesFirst, difficulty, gridSize) {
     const size = gridSize;
     const scale = 30;
 
-    gameboard.style.width = scale * (size * 2 + 1) + size * 6 + 'px';
-    gameboard.style.height = scale * (size * 2 + 1) + size * 6 + 'px';
-
+    gameboard.style.width = scale * (size * 2 + 1) + 'px';
+    gameboard.style.height = scale * (size * 2 + 1) + 'px';
+    
     let grid = [];
     for (let i = 0; i <= size; i++) {
         for (let j = 0; j <= size; j++) {
@@ -387,8 +387,6 @@ function createDiv(y, x, scale) {
     let div = document.createElement('div');
     div.xVal = x;
     div.yVal = y;
-
-    div.style.margin = '2px';
 
     if (x % 2 === 0 && y % 2 === 1) { // div is a horizontal border
         div.style.backgroundColor = '#444444';
