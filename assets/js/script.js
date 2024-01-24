@@ -24,11 +24,8 @@ function init(playerName, goesFirst, difficulty, gridSize) {
 
     let gameboard = document.getElementById('gameboard');
     const size = gridSize;
-    const scale = 30;
+    scale = 30;
 
-    gameboard.style.width = scale * (size * 2 + 1) + 'px';
-    gameboard.style.height = scale * (size * 2 + 1) + 'px';
-    
     let grid = [];
     for (let i = 0; i <= size; i++) {
         for (let j = 0; j <= size; j++) {
@@ -37,6 +34,8 @@ function init(playerName, goesFirst, difficulty, gridSize) {
             gameboard.appendChild(div);
         }
     }
+    rescaleGameboard(grid, gridSize);
+
     for (let div of grid) {
         if (div.className === 'border') {
             div.addEventListener('click', function () {
@@ -50,7 +49,11 @@ function init(playerName, goesFirst, difficulty, gridSize) {
             });
         }
     }
-    if(!goesFirst) {
+    window.addEventListener('resize', function () {
+        rescaleGameboard(grid, gridSize);
+    });
+
+    if (!goesFirst) {
         computerTurn(grid);
     }
 }
@@ -449,3 +452,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
     init('Player', true, 'medium', 6);
 });
+
+
+
+function rescaleGameboard(grid, gridSize){
+    if (window.innerWidth >= 1440) {
+    } else {
+        let scale = parseInt((document.getElementById('game-area').offsetWidth-32) / (gridSize * 2 + 1));
+        console.log(scale);
+        resizeGrid(grid, scale, gridSize);
+
+    }
+}
+
+resizeGrid = function(grid, scale, gridSize){
+    let originalScale = parseInt(grid[0].style.width);
+
+    let gameboard = document.getElementById('gameboard');
+    gameboard.style.width = scale * (gridSize * 2 + 1) + 'px';
+    gameboard.style.height = scale * (gridSize * 2 + 1) + 'px';
+
+    for (let div of grid) {
+        let newWidth = parseInt(div.style.width) * scale / originalScale + 'px';
+        let newHeight = parseInt(div.style.height) * scale / originalScale + 'px';
+        div.style.width = newWidth;
+        div.style.height = newHeight;
+    }
+}
