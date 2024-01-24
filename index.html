@@ -66,28 +66,30 @@
                             <option value="hard" disabled>Hard (in development)</option>
                         </select>
                     </div>
-                <div>
                     <div>
-                        <label for="grid-size">Grid Size:</label>
-                        <input type="range" id="grid-size" name="grid-size" min="2" max="8" value="3">
-                        <span id="grid-size-value">3 x 3</span>
+                        <div>
+                            <label for="grid-size">Grid Size:</label>
+                            <input type="range" id="grid-size" name="grid-size" min="2" max="8" value="3">
+                            <span id="grid-size-value">3 x 3</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="start-game">Start New Game</div>
                     </div>
                 </div>
-                <div>
-                    <div id="start-game">Start New Game</div>
-                </div>
-            </div>
         </section>
         <section id="instructions" class="card">
             <h2>How to Play Käsekästchen</h2>
             <ol>
-                <li><strong>Start the game:</strong> Click on the 'Start' button.</li>
-                <li><strong>Draw a line:</strong> On your turn, click on a dot to start a line and click on an adjacent
-                    dot to finish the line.</li>
-                <li><strong>Complete a box:</strong> If you complete a box, you get another turn. The box will be filled
-                    with your color.</li>
-                <li><strong>End of the game:</strong> The game ends when all boxes have been filled. The player with the
+                <li><strong>Draw a line:</strong> On your turn, click on a line to draw it.</li>
+                <li><strong>Complete boxes:</strong> Once a player draws the fourth line around a box, the box is
+                    completed. The box will be filled
+                    with your color. If you complete a box, you get another turn. </li>
+                <li><strong>End of the game:</strong> The game ends when all boxes have been filled. The player who
+                    filled the
                     most boxes wins.</li>
+                <li><strong>Play again:</strong> Try changing some options in the options
+                    panel this time. Then click "Start new Game"</li>
             </ol>
             <p>Good luck and have fun!</p>
         </section>
