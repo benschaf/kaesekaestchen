@@ -5,6 +5,7 @@
     --dark-backgorund: #121212;
     --card-background: #1E1E1E;
     --p-highlight: #03DAC6;
+    --p-highlight-transparent: rgba(3, 218, 198, 0.8);
     --p-text: #FFFFFF;
     --s-text: #A5A5A5;
     --player-color: #BAfC86;
@@ -175,17 +176,46 @@ main {
 }
 
 #options div div {
+    margin-bottom: .5rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 input[type="text"],
 input[type="range"] {
     padding: 0.5rem;
     border-radius: 0.5rem;
-    border: 1px solid var(--p-highlight);
+    border: 1px solid var(--s-highlight);
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+input[type="text"]:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+input[type="radio"] {
+    appearance: none;
+    margin: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--s-highlight);
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+input[type="radio"]:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+input[type="radio"]:checked {
+    background-color: var(--p-highlight);
+    border-color: var(--p-highlight);
+}
+
+input[type="radio"]:checked:hover {
+    background-color: var(--p-highlight-transparent);
 }
 
 #start-game {
