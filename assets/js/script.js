@@ -286,6 +286,11 @@ function computeLastTurn(grid) {
                 filledCells++;
                 if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
                     if (turn) {
+                        let gameboard = document.getElementById('gameboard');
+                        let gameboardRect = gameboard.getBoundingClientRect();
+
+                        
+
                         cell.style.backgroundColor = 'unset';
                         cell.style.boxShadow = 'inset 0 0 60px rgba(185, 252, 134)';
 
@@ -293,11 +298,10 @@ function computeLastTurn(grid) {
                         blurBackgroundElement.style.position = 'absolute';
 
                         let rect = cell.getBoundingClientRect();
-                        blurBackgroundElement.style.top = rect.top + 'px';
-                        blurBackgroundElement.style.left = rect.left + 'px';
-
-                        blurBackgroundElement.style.width = 30 * 3 + 'px';
-                        blurBackgroundElement.style.height = 30 * 3 + 'px';
+                        blurBackgroundElement.style.top = (rect.top - gameboardRect.top) + 'px';
+                        blurBackgroundElement.style.left = (rect.left - gameboardRect.left) + 'px';
+                        blurBackgroundElement.style.width = rect.width + 'px';
+                        blurBackgroundElement.style.height = rect.height + 'px';
                         blurBackgroundElement.style.borderRadius = 'cell.style.borderRadius';
                         blurBackgroundElement.style.backgroundColor = 'rgba(185, 252, 134)';
                         blurBackgroundElement.style.zIndex = '-1';
@@ -309,6 +313,9 @@ function computeLastTurn(grid) {
                         document.getElementById('player-score').innerHTML = playerScore;
                         switchTurn = false;
                     } else {
+                        let gameboard = document.getElementById('gameboard');
+                        let gameboardRect = gameboard.getBoundingClientRect();
+                        
                         cell.style.backgroundColor = 'unset';
                         cell.style.boxShadow = 'inset 0 0 60px rgba(252, 134, 185)';
 
@@ -316,11 +323,10 @@ function computeLastTurn(grid) {
                         blurBackgroundElement.style.position = 'absolute';
 
                         let rect = cell.getBoundingClientRect();
-                        blurBackgroundElement.style.top = rect.top + 'px';
-                        blurBackgroundElement.style.left = rect.left + 'px';
-
-                        blurBackgroundElement.style.width = 30 * 3 + 'px';
-                        blurBackgroundElement.style.height = 30 * 3 + 'px';
+                        blurBackgroundElement.style.top = (rect.top - gameboardRect.top) + 'px';
+                        blurBackgroundElement.style.left = (rect.left - gameboardRect.left) + 'px';
+                        blurBackgroundElement.style.width = rect.width + 'px';
+                        blurBackgroundElement.style.height = rect.height + 'px';
                         blurBackgroundElement.style.borderRadius = 'cell.style.borderRadius';
                         blurBackgroundElement.style.backgroundColor = 'rgba(252, 134, 185)';
                         blurBackgroundElement.style.zIndex = '-1';
