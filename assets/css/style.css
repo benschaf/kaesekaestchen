@@ -13,6 +13,8 @@
 }
 
 html {
+    /* smooth scrolling for section links */
+    scroll-behavior: smooth;
     /* Smaller text on small phones */
     font-size: 80%;
 }
