@@ -1,23 +1,27 @@
 /**
- * Creates a grid of div elements and appends them to the gameboard div.
+ * Resets all scores on the scores card to 0.
+ * Sets the background color of the player or the AI to indicate who goes first.
+ * Sets the player name label to the specified name.
+ * Sets the difficulty indicator to the specified difficulty.
  * 
- * Adds a click event listener to each border div.
- * 
- * Runs the tick function when a border div is clicked.
+ * @param {string} playerName - The name of the player.
+ * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.
+ * @param {string} difficulty - The difficulty of the AI.
  */
-function init(playerName, goesFirst, difficulty, gridSize) {
-    // Reset the scores
+function resetScoresCard(playerName, goesFirst, difficulty) {
     document.getElementById('player-score').innerHTML = 0;
     document.getElementById('ai-score').innerHTML = 0;
 
-    document.getElementById('gameboard').innerHTML = '';
     if (goesFirst) {
-        document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        let playerColor = 'rgba(185, 252, 134, 0.2)';
+        document.getElementById('player1').style.backgroundColor = playerColor;
         document.getElementById('player2').style.backgroundColor = 'initial';
-    } else {
-        document.getElementById('player2').style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+    } else if (!goesFirst) {
+        let  aiColor = 'rgba(252, 134, 185, 0.2)';
+        document.getElementById('player2').style.backgroundColor = aiColor;
         document.getElementById('player1').style.backgroundColor = 'initial';
-    }
+    } // should I write an else statement here to catch any errors?
+    
     if (playerName === '') {
         playerName = 'Player';
     }
@@ -25,7 +29,16 @@ function init(playerName, goesFirst, difficulty, gridSize) {
     // Credit: https://flexiple.com/javascript/javascript-capitalize-first-letter
     const difficultyUppercase = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
     document.getElementById('difficulty-indicator').innerHTML = difficultyUppercase + ' Difficulty';
+}
 
+/**
+ * Clears the gameboard and creates a new gameboard with the specified grid size.
+ * 
+ * @param {number} gridSize - The size of the gameboard.
+ * @returns {Array} The gameboard grid of div elements.
+ */
+function createGameboard(gridSize) {
+    document.getElementById('gameboard').innerHTML = '';
     let gameboard = document.getElementById('gameboard');
     const size = gridSize;
 
@@ -38,7 +51,16 @@ function init(playerName, goesFirst, difficulty, gridSize) {
         }
     }
     rescaleGameboard(grid, gridSize);
+    return grid;
+}
 
+/**
+ * Sets up event listeners for the gameboard.
+ * Sets up an event listener if the window is resized.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function setupEventListeners(grid) {
     for (let div of grid) {
         if (div.className === 'border') {
             div.addEventListener('click', function () {
@@ -52,10 +74,26 @@ function init(playerName, goesFirst, difficulty, gridSize) {
             });
         }
     }
+
     window.addEventListener('resize', function () {
         rescaleGameboard(grid, gridSize);
     });
+}
 
+/**
+ * Initializes the game.
+ * 
+ * @param {string} playerName - The name of the player.
+ * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.
+ * @param {string} difficulty - The difficulty of the AI.
+ * @param {number} gridSize - The size of the gameboard.
+ */
+function init(playerName, goesFirst, difficulty, gridSize) {
+    resetScoresCard(playerName, goesFirst, difficulty);
+    let grid = createGameboard(gridSize);
+    setupEventListeners(grid);
+
+    // if the player goes first, do nothing and wait for the player to click a border
     if (!goesFirst) {
         computerTurn(grid);
     }
