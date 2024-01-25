@@ -282,62 +282,28 @@ function computeLastTurn(grid) {
                     }
                 }
             }
-            if (drawnBorders > 3) {
+            if (drawnBorders > 3) {                
                 filledCells++;
                 if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
+                    let gameboard = document.getElementById('gameboard');
+                    cell.style.backgroundColor = 'unset';
+                
                     if (turn) {
-                        let gameboard = document.getElementById('gameboard');
-                        let gameboardRect = gameboard.getBoundingClientRect();
-
-                        
-
-                        cell.style.backgroundColor = 'unset';
                         cell.style.boxShadow = 'inset 0 0 60px rgba(185, 252, 134)';
-
-                        let blurBackgroundElement = document.createElement('div');
-                        blurBackgroundElement.style.position = 'absolute';
-
-                        let rect = cell.getBoundingClientRect();
-                        blurBackgroundElement.style.top = (rect.top - gameboardRect.top) + 'px';
-                        blurBackgroundElement.style.left = (rect.left - gameboardRect.left) + 'px';
-                        blurBackgroundElement.style.width = rect.width + 'px';
-                        blurBackgroundElement.style.height = rect.height + 'px';
-                        blurBackgroundElement.style.borderRadius = 'cell.style.borderRadius';
-                        blurBackgroundElement.style.backgroundColor = 'rgba(185, 252, 134)';
-                        blurBackgroundElement.style.zIndex = '-1';
-                        blurBackgroundElement.style.filter = 'blur(100px)';
-                        document.getElementById('gameboard').appendChild(blurBackgroundElement);
-
+                        gameboard.appendChild(createBlurBackgroundElement('rgba(185, 252, 134)', cell, gameboard));
+                
                         let playerScore = document.getElementById('player-score').innerHTML;
                         playerScore++;
                         document.getElementById('player-score').innerHTML = playerScore;
-                        switchTurn = false;
                     } else {
-                        let gameboard = document.getElementById('gameboard');
-                        let gameboardRect = gameboard.getBoundingClientRect();
-                        
-                        cell.style.backgroundColor = 'unset';
                         cell.style.boxShadow = 'inset 0 0 60px rgba(252, 134, 185)';
-
-                        let blurBackgroundElement = document.createElement('div');
-                        blurBackgroundElement.style.position = 'absolute';
-
-                        let rect = cell.getBoundingClientRect();
-                        blurBackgroundElement.style.top = (rect.top - gameboardRect.top) + 'px';
-                        blurBackgroundElement.style.left = (rect.left - gameboardRect.left) + 'px';
-                        blurBackgroundElement.style.width = rect.width + 'px';
-                        blurBackgroundElement.style.height = rect.height + 'px';
-                        blurBackgroundElement.style.borderRadius = 'cell.style.borderRadius';
-                        blurBackgroundElement.style.backgroundColor = 'rgba(252, 134, 185)';
-                        blurBackgroundElement.style.zIndex = '-1';
-                        blurBackgroundElement.style.filter = 'blur(100px)';
-                        document.getElementById('gameboard').appendChild(blurBackgroundElement);
-
+                        gameboard.appendChild(createBlurBackgroundElement('rgba(252, 134, 185)', cell, gameboard));
+                
                         let aiScore = document.getElementById('ai-score').innerHTML;
                         aiScore++;
                         document.getElementById('ai-score').innerHTML = aiScore;
-                        switchTurn = false;
                     }
+                    switchTurn = false;
                 }
             }
         }
@@ -356,6 +322,21 @@ function computeLastTurn(grid) {
     if (filledCells === totalCells && filledCells !== 0) {
         endGame();
     }
+}
+
+function createBlurBackgroundElement(color, cell, gameboard) {
+    let blurBackgroundElement = document.createElement('div');
+    blurBackgroundElement.className = 'blur-background';
+
+    let rect = cell.getBoundingClientRect();
+    let gameboardRect = gameboard.getBoundingClientRect();
+    blurBackgroundElement.style.top = (rect.top - gameboardRect.top) + 'px';
+    blurBackgroundElement.style.left = (rect.left - gameboardRect.left) + 'px';
+    blurBackgroundElement.style.width = rect.width + 'px';
+    blurBackgroundElement.style.height = rect.height + 'px';
+    blurBackgroundElement.style.borderRadius = cell.style.borderRadius;
+    blurBackgroundElement.style.backgroundColor = color;
+    return blurBackgroundElement;
 }
 
 function endGame() {

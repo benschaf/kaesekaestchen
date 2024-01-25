@@ -120,6 +120,12 @@ main {
     flex-wrap: wrap;
 }
 
+.blur-background {
+    position: absolute;
+    z-index: -1;
+    filter: blur(100px);
+}
+
 #end-message-alert-box {
     position: absolute;
     top: 0;
