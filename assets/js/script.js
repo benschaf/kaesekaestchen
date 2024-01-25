@@ -453,9 +453,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function rescaleGameboard(grid, gridSize) {
 
-    if (window.innerWidth >= 1440) {} else {
-        let scale = parseInt((document.getElementById('game-area').offsetWidth - 32) / (gridSize * 2 + 1)-2);
-        console.log(scale);
+    if (window.innerWidth >= 1600) {
+        let scale = parseInt((document.getElementById('game-area').offsetWidth/12*6) / (gridSize * 2 + 1)-2);
+        resizeGrid(grid, scale, gridSize);
+    } else {
+        let scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1)-2);
         resizeGrid(grid, scale, gridSize);
 
     }
