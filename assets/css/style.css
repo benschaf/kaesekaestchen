@@ -1,5 +1,7 @@
+/* Google Fonts import */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/* CSS Variables */
 :root {
     /* p = Primary / s = Secondary */
     --dark-backgorund: #121212;
@@ -12,20 +14,21 @@
     --ai-color: #BB86FC;
 }
 
+/* General Styles */
 html {
-    /* smooth scrolling for section links */
+    /* smooth scrolling to section links */
     scroll-behavior: smooth;
     /* Smaller text on small phones */
     font-size: 80%;
 }
 
 body {
+    margin: 0;
     background-color: var(--dark-backgorund);
     color: var(--p-text);
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
-    margin: 0;
-    /* arrange body items in a column */
+    /* allows for main: flex-grow: 1; so the main section stretches if the body doesn't fill the screen height */
     display: flex;
     flex-direction: column;
 }
@@ -71,6 +74,9 @@ h2 {
     color: var(--ai-color);
 }
 
+/* Layout Styles */
+
+/* Header Styles */
 header {
     padding: 1rem;
     display: flex;
@@ -92,6 +98,11 @@ nav>ul>li>a {
     font-weight: 700;
 }
 
+nav>ul>li>a:hover {
+    color: var(--p-highlight-transparent);
+}
+
+/* Main Styles */
 main {
     padding: 1rem;
     /* Pushes footer down when there is not enough content on the page */
@@ -100,32 +111,6 @@ main {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-}
-
-#game-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-}
-
-#game-area>div {
-    width: 100%;
-}
-
-
-#game-area>#gameboard {
-    position: relative;
-    box-sizing: content-box;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.blur-background {
-    position: absolute;
-    z-index: -1;
-    filter: blur(100px);
 }
 
 #end-message-alert-box {
@@ -143,6 +128,33 @@ main {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+#game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+#game-area>div {
+    width: 100%;
+}
+
+/* Gameboard */
+#game-area>#gameboard {
+    position: relative;
+    box-sizing: content-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blur-background {
+    position: absolute;
+    z-index: -1;
+    filter: blur(100px);
+}
+
+/* Scores Card */
 #scores>div {
     margin-top: 1.5rem;
     display: flex;
@@ -158,7 +170,7 @@ main {
 #scores div div {
     display: flex;
     flex-direction: column;
-}   
+}
 
 #scores div div span {
     display: block;
@@ -177,6 +189,7 @@ main {
     font-size: 3rem;
 }
 
+/* Options Card */
 #options {
     display: flex;
     flex-direction: column;
@@ -237,6 +250,7 @@ input[type="radio"]:checked:hover {
     font-weight: 700;
 }
 
+/* Instructions Card */
 #instructions {
     padding: 2rem;
     max-width: 768px;
@@ -261,6 +275,7 @@ input[type="radio"]:checked:hover {
     font-size: 1.2rem;
 }
 
+/* Footer Styles */
 footer {
     padding: 1rem;
     color: var(--s-text);
@@ -269,7 +284,7 @@ footer {
     border-top: 1px solid var(--s-text);
 }
 
-footer > div {
+footer>div {
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -290,8 +305,10 @@ footer > div {
     color: #000;
 }
 
+/* Media Queries */
 @media screen and (min-width: 375px) {
     html {
+        /* larger text on larger screens */
         font-size: 100%;
     }
 
@@ -302,6 +319,7 @@ footer > div {
 }
 
 @media screen and (min-width: 768px) {
+    /* Arrange Scores and Options Cards Horizontally below Gameboard */
     #game-area {
         max-width: 768px;
         display: grid;
@@ -325,16 +343,20 @@ footer > div {
 }
 
 @media screen and (min-width: 1440px) {
+    /* Increase Spacing on large screens */
     main {
         padding: 3rem;
         gap: 3rem;
     }
+
+    /* Arrange Scores and Options Cards vertically and to the left of the Gameboard */
     #game-area {
         max-width: initial;
         grid-template-columns: 6fr 8fr;
         grid-template-rows: auto 1fr;
         gap: 3rem;
     }
+
     #game-area>#gameboard {
         grid-area: 1 / 2 / 3 / 3;
     }
@@ -354,6 +376,7 @@ footer > div {
 }
 
 @media screen and (min-width: 1800px) {
+    /* Arrange all children of #game-area horizontally */
     #game-area {
         grid-template-columns: 3fr 6fr 3fr;
         grid-template-rows: 1fr;
@@ -374,4 +397,3 @@ footer > div {
         grid-area: 1 / 3 / 2 / 4;
     }
 }
-
