@@ -6,6 +6,10 @@
  * Runs the tick function when a border div is clicked.
  */
 function init(playerName, goesFirst, difficulty, gridSize) {
+    // Reset the scores
+    document.getElementById('player-score').innerHTML = 0;
+    document.getElementById('ai-score').innerHTML = 0;
+
     document.getElementById('gameboard').innerHTML = '';
     if (goesFirst) {
         document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
@@ -443,6 +447,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let difficulty = document.getElementById('ai-difficulty').value;
         let gridSize = gridSizeInput.value * 2;
 
+
         init(playerName, goesFirst, difficulty, gridSize);
     });
 
@@ -454,10 +459,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function rescaleGameboard(grid, gridSize) {
 
     if (window.innerWidth >= 1600) {
-        let scale = parseInt((document.getElementById('game-area').offsetWidth/12*6) / (gridSize * 2 + 1)-2);
+        let scale = parseInt((document.getElementById('game-area').offsetWidth / 12 * 6) / (gridSize * 2 + 1) - 2);
         resizeGrid(grid, scale, gridSize);
     } else {
-        let scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1)-2);
+        let scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1) - 2);
         resizeGrid(grid, scale, gridSize);
 
     }
@@ -467,8 +472,8 @@ resizeGrid = function (grid, scale, gridSize) {
     let originalScale = parseInt(grid[0].style.width);
     let gameboard = document.getElementById('gameboard');
     // total width of the gameboard: width of all divs + 2px border on each side of each div
-    let gameboardSideLength = scale * (gridSize * 2 + 1) + 2*2*(gridSize+1);
-    
+    let gameboardSideLength = scale * (gridSize * 2 + 1) + 2 * 2 * (gridSize + 1);
+
     gameboard.style.width = gameboardSideLength + 'px';
     gameboard.style.height = gameboardSideLength + 'px';
 
@@ -478,10 +483,10 @@ resizeGrid = function (grid, scale, gridSize) {
         div.style.width = newWidth;
         div.style.height = newHeight;
         div.style.borderRadius = scale + 'px';
-        
+
         if (div.className === 'corner') { // div is a corner
             let newBlurRadius = parseInt(div.style.width) / 2 + 'px';
-            div.style.boxShadow = "inset 0 0 "+newBlurRadius+" rgba(255, 255, 255, 0.5)";
+            div.style.boxShadow = "inset 0 0 " + newBlurRadius + " rgba(255, 255, 255, 0.5)";
         }
     }
 }
