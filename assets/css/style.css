@@ -264,10 +264,30 @@ input[type="radio"]:checked:hover {
 footer {
     padding: 1rem;
     color: var(--s-text);
-    text-align: center;
     display: flex;
     justify-content: space-between;
     border-top: 1px solid var(--s-text);
+}
+
+footer > div {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.fab {
+    background-color: var(--card-background);
+    font-size: 1.5rem;
+    color: var(--p-text);
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.fab:hover {
+    background-color: var(--p-highlight);
+    color: #000;
 }
 
 @media (min-width: 375px) {

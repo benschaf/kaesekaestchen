@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Käsekästchen</title>
     <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
 
 <body>
@@ -20,9 +19,15 @@
             </ul>
         </nav>
     </header>
+
     <main>
+        <!-- The Game Area contains the Scores and Options cards and the Gameboard itself -->
         <section id="game-area">
+
+            <!-- The Gameboard contains the game. It is populated in "assets/js/script.js" -->
             <div id="gameboard" class="card"></div>
+
+            <!-- The Scoreboard card shows the score and indicates, whose turn it is -->
             <div id="scores" class="card">
                 <h2>Scores</h2>
                 <div id="game-end-message"></div>
@@ -39,6 +44,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- The Options card allows the player to change some settings -->
             <div id="options" class="card">
                 <h2>Options</h2>
                 <div>
@@ -78,6 +85,8 @@
                     </div>
                 </div>
         </section>
+
+        <!-- The Instructions card shows the rules of the game -->
         <section id="instructions" class="card">
             <h2>How to Play Käsekästchen</h2>
             <ol>
@@ -94,13 +103,19 @@
             <p>Good luck and have fun!</p>
         </section>
     </main>
+
     <footer>
-        <div id="licence">Licence</div>
-        <div id="social-media"></div>
-        <div id="links"></div>
+        <div id="licence">
+            &copy; 2024 Benjamin Schäfer, All Rights Reserved
+        </div>
+        <div id="social-media">
+            <a href="https://github.com/your-username" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/your-username" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
     </footer>
 
     <script src="assets/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/8f0b8db894.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
