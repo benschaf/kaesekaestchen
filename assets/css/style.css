@@ -290,7 +290,7 @@ footer > div {
     color: #000;
 }
 
-@media (min-width: 375px) {
+@media screen and (min-width: 375px) {
     html {
         font-size: 100%;
     }
@@ -301,7 +301,7 @@ footer > div {
     }
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
     #game-area {
         max-width: 768px;
         display: grid;
@@ -324,7 +324,7 @@ footer > div {
     }
 }
 
-@media (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
     main {
         padding: 3rem;
         gap: 3rem;
@@ -353,7 +353,7 @@ footer > div {
     }
 }
 
-@media (min-width: 1800px) {
+@media screen and (min-width: 1800px) {
     #game-area {
         grid-template-columns: 3fr 6fr 3fr;
         grid-template-rows: 1fr;
