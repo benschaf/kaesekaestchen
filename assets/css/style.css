@@ -302,14 +302,37 @@ footer {
     }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1440px) {
     main {
         padding: 3rem;
         gap: 3rem;
     }
-
     #game-area {
         max-width: initial;
+        grid-template-columns: 6fr 8fr;
+        grid-template-rows: auto 1fr;
+        gap: 3rem;
+    }
+    #game-area>#gameboard {
+        grid-area: 1 / 2 / 3 / 3;
+    }
+
+    #scores {
+        justify-self: end;
+        max-width: 400px;
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    #options {
+        align-self: start;
+        justify-self: end;
+        max-width: 400px;
+        grid-area: 2 / 1 / 3 / 2;
+    }
+}
+
+@media (min-width: 1800px) {
+    #game-area {
         grid-template-columns: 3fr 6fr 3fr;
         grid-template-rows: 1fr;
         gap: 3rem;
@@ -326,9 +349,7 @@ footer {
     }
 
     #options {
-        max-width: 400px;
         grid-area: 1 / 3 / 2 / 4;
     }
-
-
 }
+

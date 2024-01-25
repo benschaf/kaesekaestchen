@@ -411,8 +411,6 @@ function createDiv(y, x) {
     }
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
     // Get references to the elements
     let playerNameInput = document.getElementById('player-name');
@@ -441,12 +439,17 @@ document.addEventListener('DOMContentLoaded', function () {
     init('Player', true, 'medium', 6);
 });
 
-
-
 function rescaleGameboard(grid, gridSize) {
 
-    if (window.innerWidth >= 1600) {
-        let scale = parseInt((document.getElementById('game-area').offsetWidth / 12 * 6) / (gridSize * 2 + 1) - 2);
+    if (window.innerWidth >= 1440) {
+        let scale;
+        let horizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
+        let verticalSpace = document.documentElement.clientHeight / 100 * 70;
+        if (horizontalSpace < verticalSpace) {
+            scale = parseInt(horizontalSpace / (gridSize * 2 + 1) - 2);
+        } else {
+            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
+        }
         resizeGrid(grid, scale, gridSize);
     } else {
         let scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1) - 2);
