@@ -74,6 +74,13 @@ h2 {
     color: var(--ai-color);
 }
 
+.blur-background {
+    position: absolute;
+    z-index: -1;
+    filter: blur(100px);
+    background-color: var(--p-highlight-transparent);
+}
+
 /* Layout Styles */
 
 /* Header Styles */
@@ -83,6 +90,13 @@ header {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--s-text);
+}
+
+#header-blur-element {
+    width: 70px;
+    height: 90vh;
+    top: 20vh;
+    left: -10px;
 }
 
 nav>ul {
@@ -146,12 +160,6 @@ main {
     box-sizing: content-box;
     display: flex;
     flex-wrap: wrap;
-}
-
-.blur-background {
-    position: absolute;
-    z-index: -1;
-    filter: blur(100px);
 }
 
 /* Scores Card */
@@ -277,6 +285,7 @@ input[type="radio"]:checked:hover {
 
 /* Footer Styles */
 footer {
+    position: relative;
     padding: 1rem;
     color: var(--s-text);
     display: flex;
@@ -298,6 +307,13 @@ footer>div {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#footer-blur-element {
+    width: 50%;
+    height: 70px;
+    top: 0;
+    right: 0;
 }
 
 .fab:hover {
