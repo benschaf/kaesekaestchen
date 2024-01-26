@@ -1,6 +1,10 @@
-# Käsekästchen
+# [Käsekästchen](https://benschaf.github.io/kaesekaestchen)
 
 Käsekästchen (German for: dots and boxes) is a web app that allows users to play the game of Käsekästchen online. The game is played on a grid of dots, where two players take turns drawing lines between the dots. The goal is to complete a square by drawing the fourth line around it. The player who completes the most squares wins the game.
+
+The deployed site can be found [here](https://benschaf.github.io/kaesekaestchen)
+
+![responsive-image](documentation/responsive-image.png)
 
 ## UX
 
@@ -140,7 +144,6 @@ This section will allow the user to see copyright information. The footer also c
 - [Visual Studio Code](https://visualstudio.microsoft.com/de/#vscode-section) used a  local IDE for development
 - [draw.io](https://www.drawio.com/) used for wireframe creation
 - [Figma](https://figma.com) used for design creation
-- [Material Design 2](https://m2.material.io/design/color/dark-theme.html) used for design guidelines
 - [Windows Snipping Tool](https://support.microsoft.com/de-de/windows/aufnehmen-von-screenshots-mithilfe-des-snipping-tools-00246869-1843-655f-f220-97299b865f6b) used to take screenshots and screencasts on Windows
 - [Adobe free mp4 to gif converter](https://www.adobe.com/express/feature/video/convert/mp4-to-gif) used to convert screencasts to gif
 
@@ -201,5 +204,7 @@ You can fork this repository by using the following steps:
 ### Media
 | Source | Location | filename | Notes |
 | --- | --- | --- | --- |
+|[Fontawesome](https://fontawesome.com) | Footer | various icons | icons used: fa-github, fa-linkedin |
+|[Material Design 2](https://m2.material.io/design/color/dark-theme.html) | Colour Scheme and Design | N/A | used for design guidelines |
 
 ### Acknowledgements
