@@ -70,26 +70,26 @@ The `--p-highlight-transparent` variable is used for the hover effect on buttons
 
 ## Features
 
-### Logo and Heading:
+### Logo and Heading
 Featured at the top of the page, the Käsekästchen typography logo is easy to see for the user. Upon viewing the page, the user will be able to see the name of the game. The how to play button is displayed on the right side of the display. This button will scroll the user down to the instructions section.
 
 ![feature-logo](documentation/feature-logo.png)
 
-### Gameboard:
+### Gameboard
 This section will allow the user to play the Käsekästchen game. The user will be able to easily see the grid of dots and draw lines between them by clicking on a disabled line. When a box is completed, the box will be automatically filled with the active players colour. Once all boxes are completed, the game will end and a message will be displayed to the user. A new game can then be started by clicking on the "Start New Game" button in the options area.
 
 ![feature-gameboard](documentation/feature-gameboard.png)
 
-### AI Opponent:
+### AI Opponent
 The AI opponent is implemented in the game logic and will play against the user. The AI opponent will play a random move on the "Easy" difficulty level. The "Medium" difficulty follows an algorithm. Check it out in the code comments in the [game.js](assets/js/game.js) file. The "Hard" difficulty is currently disabled and in development.
 
 
-### Score Card:
+### Score Card
 This section will allow the user to see exactly how many squares they have completed and how many squares their opponent has completed, indicating who is winning. The Score Card will also display the name of the player and the difficulty level of the AI. Lastly it indicates whose turn it is by colouring the background of the active player's name and score.
 
 ![feature-scorecard](documentation/feature-scorecard.png)
 
-### Options Area:
+### Options Area
 This section allows the user to customize their game experience. The options available are:
 
 - ***Player Name:*** The user can input their desired name.
@@ -100,12 +100,12 @@ This section allows the user to customize their game experience. The options ava
 
 ![feature-options](documentation/feature-options.png)
 
-### Instructions:
+### Instructions
 This section will allow the user to read the instructions on how to play the game. The user can click on the "How to Play" button in the header to scroll down to this section.
 
 ![feature-instructions](documentation/feature-instructions.png)
 
-**Footer:** 
+### Footer
 This section will allow the user to see copyright information. The footer also contains links to the developer's GitHub and LinkedIn profiles.
 
 ![feature-footer](documentation/feature-footer.png)
