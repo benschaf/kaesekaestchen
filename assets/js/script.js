@@ -433,7 +433,7 @@ function mediumComputerTurn(availableBorders, grid) {
         }
         //if a cell has 3 drawn borders, draw the 4th border
         if (adjacentCellsBorderCount[0] === 3 || adjacentCellsBorderCount[1] === 3) {
-        
+
             markBorder(availableBorder);
             return;
         }
@@ -447,11 +447,11 @@ function mediumComputerTurn(availableBorders, grid) {
     //if no cell has 3 or two drawn borders, randomly select a border to draw
     if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
         let randomBorder = Math.floor(Math.random() * availableBorders.length);
-    
+
         markBorder(availableBorders[randomBorder]);
     } else {
         let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
-    
+
         markBorder(leftOverBorders[randomBorder]);
     }
 }
@@ -481,7 +481,7 @@ function computerTurn(grid) {
     let difficulty = document.getElementById('ai-difficulty').value;
     let availableBorders = determineAvaliableBorders(grid);
 
-    setTimeout( () => {
+    setTimeout(() => {
         if (difficulty === 'easy') {
             easyComputerTurn(availableBorders);
         } else if (difficulty === 'medium') {
@@ -598,23 +598,23 @@ function rescaleGameboard(grid, gridSize) {
  */
 function contentLoaded() {
     // Get references to the elements
-    let gridSizeInput = document.getElementById('grid-size');
-    let gridSizeLabel = document.getElementById('grid-size-value');
-    let startGameButton = document.getElementById('start-game');
+    const gridSizeInput = document.getElementById('grid-size');
+    const gridSizeLabel = document.getElementById('grid-size-value');
+    const startGameButton = document.getElementById('start-game');
 
     gridSizeInput.addEventListener('input', () => {
         gridSizeLabel.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
     });
 
     startGameButton.addEventListener('click', () => {
-        let playerNameInput = document.getElementById('player-name');
-        let playerTurnRadio = document.getElementById('player-turn');
-        let difficultySelect = document.getElementById('ai-difficulty');
+        const playerNameInput = document.getElementById('player-name');
+        const playerTurnRadio = document.getElementById('player-turn');
+        const difficultySelect = document.getElementById('ai-difficulty');
 
-        let playerName = playerNameInput.value;
-        let goesFirst = playerTurnRadio.checked;
-        let difficulty = difficultySelect.value;
-        let gridSize = gridSizeInput.value * 2;
+        const playerName = playerNameInput.value;
+        const goesFirst = playerTurnRadio.checked;
+        const difficulty = difficultySelect.value;
+        const gridSize = gridSizeInput.value * 2;
 
         init(playerName, goesFirst, difficulty, gridSize);
     });
