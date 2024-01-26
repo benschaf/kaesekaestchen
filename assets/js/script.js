@@ -344,7 +344,7 @@ function thinkingAnimation() {
  * Determines which borders are available to draw.
  * 
  * @param {Array} grid - The gameboard grid of div elements.
- * @returns {Array} - The available borders to draw.
+ * @returns {Array} avaliableBorders - The available borders to draw.
  */
 function determineAvaliableBorders(grid) {
     let availableBorders = [];
@@ -366,6 +366,24 @@ function determineAvaliableBorders(grid) {
 function easyComputerTurn(availableBorders) {
     let randomBorder = Math.floor(Math.random() * availableBorders.length);
     markBorder(availableBorders[randomBorder]);
+}
+
+// Credits for return JSdoc comment: https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type
+/**
+ * Gets a div element from the gameboard grid based on its x and y values.
+ * 
+ * @param {number} x - The x value of the div element.
+ * @param {number} y - The y value of the div element.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {HTMLDivElement | null} The div element with the specified x and y values. Null if no div element is found.
+ */
+function getDivByXY(x, y, grid) {
+    for (let div of grid) {
+        if (div.xVal === x && div.yVal === y) {
+            return div;
+        }
+    }
+    return null;
 }
 
 /**
@@ -473,43 +491,6 @@ function computerTurn(grid) {
     }, 1000); // Delay of 1 second
 }
 
-function getDivByXY(x, y, grid) {
-    for (let div of grid) {
-        if (div.xVal === x && div.yVal === y) {
-            return div;
-        }
-    }
-    return null;
-}
-
-
-
-function countDrawnBorders(cell, grid) {
-    let drawnBorders = 0;
-    for (let border of grid) {
-        if (border.className === 'border') {
-            if (border.xVal + 1 === cell.xVal && border.yVal === cell.yVal) { // checks if the border is to the right of the cell
-                if (border.drawn) {
-                    drawnBorders++;
-                }
-            } else if (border.xVal - 1 === cell.xVal && border.yVal === cell.yVal) { // checks if the border is to the left of the cell
-                if (border.drawn) {
-                    drawnBorders++;
-                }
-            } else if (border.xVal === cell.xVal && border.yVal + 1 === cell.yVal) { // checks if the border is below the cell
-                if (border.drawn) {
-                    drawnBorders++;
-                }
-            } else if (border.xVal === cell.xVal && border.yVal - 1 === cell.yVal) { // checks if the border is above the cell
-                if (border.drawn) {
-                    drawnBorders++;
-                }
-            }
-        }
-    }
-    return drawnBorders;
-}
-
 /**
  * Creates a div element with specified x and y values. 
  * Depending on if the x and y values are even or odd, 
@@ -517,7 +498,7 @@ function countDrawnBorders(cell, grid) {
  * 
  * @param {number} x - The x value.
  * @param {number} y - The y value.
- * @returns {HTMLDivElement} - The created div element.
+ * @returns {HTMLDivElement} The created div element.
  */
 function createDiv(y, x) {
     let scale = 10; //this scale value is only temporary and will be overriden by the rescaleGameboard function
@@ -555,53 +536,13 @@ function createDiv(y, x) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Get references to the elements
-    let playerNameInput = document.getElementById('player-name');
-    let playerTurnRadio = document.getElementById('player-turn');
-    let aiTurnRadio = document.getElementById('ai-turn');
-    let gridSizeInput = document.getElementById('grid-size');
-    let gridSizeValueSpan = document.getElementById('grid-size-value');
-    let startGameButton = document.getElementById('start-game');
-
-    // Update the grid size value display when the grid size input changes
-    gridSizeInput.addEventListener('input', function () {
-        gridSizeValueSpan.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
-    });
-
-    // Start a new game when the start game button is clicked
-    startGameButton.addEventListener('click', function () {
-        let playerName = playerNameInput.value;
-        let goesFirst = playerTurnRadio.checked;
-        let difficulty = document.getElementById('ai-difficulty').value;
-        let gridSize = gridSizeInput.value * 2;
-
-
-        init(playerName, goesFirst, difficulty, gridSize);
-    });
-
-    init('Player', true, 'medium', 6);
-});
-
-function rescaleGameboard(grid, gridSize) {
-
-    if (window.innerWidth >= 1440) {
-        let scale;
-        let horizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
-        let verticalSpace = document.documentElement.clientHeight / 100 * 70;
-        if (horizontalSpace < verticalSpace) {
-            scale = parseInt(horizontalSpace / (gridSize * 2 + 1) - 2);
-        } else {
-            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
-        }
-        resizeGrid(grid, scale, gridSize);
-    } else {
-        let scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1) - 2);
-        resizeGrid(grid, scale, gridSize);
-
-    }
-}
-
+/**
+ * Resizes the gameboard grid.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @param {number} scale - The scale to resize the grid to.
+ * @param {number} gridSize - The size of the gameboard.
+ */
 resizeGrid = function (grid, scale, gridSize) {
     let originalScale = parseInt(grid[0].style.width);
     let gameboard = document.getElementById('gameboard');
@@ -624,3 +565,60 @@ resizeGrid = function (grid, scale, gridSize) {
         }
     }
 }
+
+/**
+ * Rescales the gameboard based on the size of the window.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @param {number} gridSize - The size of the gameboard.
+ */
+function rescaleGameboard(grid, gridSize) {
+    if (window.innerWidth >= 1440) {
+        let scale;
+        let horizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
+        let verticalSpace = document.documentElement.clientHeight / 100 * 70;
+        if (horizontalSpace < verticalSpace) {
+            scale = parseInt(horizontalSpace / (gridSize * 2 + 1) - 2);
+        } else {
+            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
+        }
+        resizeGrid(grid, scale, gridSize);
+    } else {
+        let scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1) - 2);
+        resizeGrid(grid, scale, gridSize);
+
+    }
+}
+
+// Credits for arrow functions: https://www.w3schools.com/js/js_arrow_function.asp
+/**
+ * Initializes the game when the DOM is loaded.
+ * Adds event listeners to the start game button and the grid size input.
+ * Starts a game with default settings.
+ */
+function DOMContentLoaded() {
+    // Get references to the elements
+    let playerNameInput = document.getElementById('player-name');
+    let playerTurnRadio = document.getElementById('player-turn');
+    let gridSizeInput = document.getElementById('grid-size');
+    let gridSizeValueSpan = document.getElementById('grid-size-value');
+    let startGameButton = document.getElementById('start-game');
+
+    gridSizeInput.addEventListener('input', function () {
+        gridSizeValueSpan.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
+    });
+
+    startGameButton.addEventListener('click', function () {
+        let playerName = playerNameInput.value;
+        let goesFirst = playerTurnRadio.checked;
+        let difficulty = document.getElementById('ai-difficulty').value;
+        let gridSize = gridSizeInput.value * 2;
+
+        init(playerName, goesFirst, difficulty, gridSize);
+    });
+
+    init('Player', true, 'medium', 6);
+
+}
+
+document.addEventListener('DOMContentLoaded', DOMContentLoaded);
