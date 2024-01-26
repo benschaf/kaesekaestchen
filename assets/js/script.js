@@ -262,7 +262,7 @@ function endGame() {
  * Ends game if all cells have been filled.
  * 
  * @param {Array} grid - The gameboard grid of div elements.
- */ 
+ */
 function computeLastTurn(grid) {
     let turn = determineTurn();
     let switchTurn = true;
@@ -270,7 +270,6 @@ function computeLastTurn(grid) {
 
     // iterates through all the elements in the grid and only checks the cells
     for (let cell of grid) {
-        console.log(cell);
         if (cell.className === 'cell') {
             let drawnBorderCount = countDrawnBorders(cell, grid);
             if (drawnBorderCount > 3) {
@@ -314,119 +313,7 @@ function tick(grid) {
     }
 }
 
-function markBorder(border) {
-    //mark the border as drawn with inset shadow
-    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
-    border.drawn = true;
-}
-
-
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
- * Calculates the computer's next move based on the difficulty.
- * 
- * easy:   randomly selects a border to draw
- * medium: checks if any cell has 3 drawn borders around it. If it does, it draws the 4th border.
- *         if a celll has 2 drawn borders around it, it removes that border from the available borders (so it doesn't draw it)
- *         if no cell has 3 drawn borders around it, it randomly selects a border to draw.
- * 
- * Credits for async/await functionality: https://www.sitepoint.com/delay-sleep-pause-wait/
- * 
- * @param {Array} grid
- */
-async function computerTurn(grid) {
-    thinkingAnimation(); //only maybe keep this - looks kinda cheap - maybe make it a loading bar below the gameboard or something
-    let difficulty;
-    difficulty = document.getElementById('ai-difficulty').value;
-    console.log('computer turn');
-    let availableBorders = [];
-    for (let border of grid) {
-        if (border.className === 'border') {
-            if (!border.drawn) {
-                availableBorders.push(border);
-            }
-        }
-    }
-
-    if (difficulty === 'easy') {
-        let randomBorder = Math.floor(Math.random() * availableBorders.length);
-        markBorder(availableBorders[randomBorder]);
-    } else if (difficulty === 'medium') block1: {
-        //cycle through avaliable borders
-        let leftOverBorders = availableBorders.slice(); // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. Cretits to https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
-        for (let availableBorder of availableBorders) {
-            let adjacentCellsBorderCount = [0, 0];
-            //check if the border is horizontal or vertical
-            if (availableBorder.xVal % 2 === 1 && availableBorder.yVal % 2 === 0) { // border is horizontal
-                //check for adjacent cells
-                let cellAbove;
-                let cellBelow;
-                cellAbove = getDivByXY(availableBorder.xVal, availableBorder.yVal - 1, grid);
-                cellBelow = getDivByXY(availableBorder.xVal, availableBorder.yVal + 1, grid);
-                if (cellAbove !== null) {
-                    let borderCount = countDrawnBorders(cellAbove, grid);
-                    adjacentCellsBorderCount[0] = borderCount;
-                }
-                if (cellBelow !== null) {
-                    let borderCount = countDrawnBorders(cellBelow, grid);
-                    adjacentCellsBorderCount[1] = borderCount;
-                }
-            } else if (availableBorder.xVal % 2 === 0 && availableBorder.yVal % 2 === 1) { // border is vertical
-                //check for adjacent cells
-                let cellLeft;
-                let cellRight;
-                cellLeft = getDivByXY(availableBorder.xVal - 1, availableBorder.yVal, grid);
-                cellRight = getDivByXY(availableBorder.xVal + 1, availableBorder.yVal, grid);
-                //check how many borders are drawn around each adjacent cell
-                if (cellLeft !== null) {
-                    let borderCount = countDrawnBorders(cellLeft, grid);
-                    adjacentCellsBorderCount[0] = borderCount;
-                }
-                if (cellRight !== null) {
-                    let borderCount = countDrawnBorders(cellRight, grid);
-                    adjacentCellsBorderCount[1] = borderCount;
-                }
-            }
-            //if a cell has 3 drawn borders, draw the 4th border
-            if (adjacentCellsBorderCount[0] === 3 || adjacentCellsBorderCount[1] === 3) {
-                await sleep(1000);
-                markBorder(availableBorder);
-                break block1;
-            }
-            //if a cell has 2 drawn borders, remove that border from the available borders
-            if (adjacentCellsBorderCount[0] === 2 || adjacentCellsBorderCount[1] === 2) {
-                let index;
-                index = leftOverBorders.indexOf(availableBorder);
-                leftOverBorders.splice(index, 1);
-                console.log('removed');
-            }
-        }
-        //if no cell has 3 or two drawn borders, randomly select a border to draw
-        if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
-            let randomBorder = Math.floor(Math.random() * availableBorders.length);
-            await sleep(1000);
-            markBorder(availableBorders[randomBorder]);
-        } else {
-            let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
-            await sleep(1000);
-            markBorder(leftOverBorders[randomBorder]);
-        }
-    }
-    tick(grid);
-}
-
-function getDivByXY(x, y, grid) {
-    for (let div of grid) {
-        if (div.xVal === x && div.yVal === y) {
-            return div;
-        }
-    }
-    return null;
-}
+//only maybe keep this - looks kinda cheap - maybe make it a loading bar below the gameboard or something
 
 function thinkingAnimation() {
     let thinkingAnimationElement = document.createElement('div');
@@ -449,6 +336,120 @@ function thinkingAnimation() {
         thinkingAnimationElement.remove();
     }, 1000);
 }
+
+function determineAvaliableBorders(grid) {
+    let availableBorders = [];
+    for (let border of grid) {
+        if (border.className === 'border') {
+            if (!border.drawn) {
+                availableBorders.push(border);
+            }
+        }
+    }
+    return availableBorders;
+}
+
+async function easyComputerTurn(availableBorders) {
+    let randomBorder = Math.floor(Math.random() * availableBorders.length);
+
+    markBorder(availableBorders[randomBorder]);
+}
+
+async function mediumComputerTurn(availableBorders, grid) {
+    //cycle through avaliable borders
+    let leftOverBorders = availableBorders.slice(); // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. Cretits to https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
+    for (let availableBorder of availableBorders) {
+        let adjacentCellsBorderCount = [0, 0];
+        //check if the border is horizontal or vertical
+        if (availableBorder.xVal % 2 === 1 && availableBorder.yVal % 2 === 0) { // border is horizontal
+            //check for adjacent cells
+            let cellAbove;
+            let cellBelow;
+            cellAbove = getDivByXY(availableBorder.xVal, availableBorder.yVal - 1, grid);
+            cellBelow = getDivByXY(availableBorder.xVal, availableBorder.yVal + 1, grid);
+            if (cellAbove !== null) {
+                let borderCount = countDrawnBorders(cellAbove, grid);
+                adjacentCellsBorderCount[0] = borderCount;
+            }
+            if (cellBelow !== null) {
+                let borderCount = countDrawnBorders(cellBelow, grid);
+                adjacentCellsBorderCount[1] = borderCount;
+            }
+        } else if (availableBorder.xVal % 2 === 0 && availableBorder.yVal % 2 === 1) { // border is vertical
+            //check for adjacent cells
+            let cellLeft;
+            let cellRight;
+            cellLeft = getDivByXY(availableBorder.xVal - 1, availableBorder.yVal, grid);
+            cellRight = getDivByXY(availableBorder.xVal + 1, availableBorder.yVal, grid);
+            //check how many borders are drawn around each adjacent cell
+            if (cellLeft !== null) {
+                let borderCount = countDrawnBorders(cellLeft, grid);
+                adjacentCellsBorderCount[0] = borderCount;
+            }
+            if (cellRight !== null) {
+                let borderCount = countDrawnBorders(cellRight, grid);
+                adjacentCellsBorderCount[1] = borderCount;
+            }
+        }
+        //if a cell has 3 drawn borders, draw the 4th border
+        if (adjacentCellsBorderCount[0] === 3 || adjacentCellsBorderCount[1] === 3) {
+        
+            markBorder(availableBorder);
+            return;
+        }
+        //if a cell has 2 drawn borders, remove that border from the available borders
+        if (adjacentCellsBorderCount[0] === 2 || adjacentCellsBorderCount[1] === 2) {
+            let index;
+            index = leftOverBorders.indexOf(availableBorder);
+            leftOverBorders.splice(index, 1);
+        }
+    }
+    //if no cell has 3 or two drawn borders, randomly select a border to draw
+    if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
+        let randomBorder = Math.floor(Math.random() * availableBorders.length);
+    
+        markBorder(availableBorders[randomBorder]);
+    } else {
+        let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
+    
+        markBorder(leftOverBorders[randomBorder]);
+    }
+}
+
+function markBorder(border) {
+    //mark the border as drawn with inset shadow
+    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
+    border.drawn = true;
+}
+
+// Credits for async/ functionality: https://www.sitepoint.com/delay-sleep-pause-wait/
+
+function computerTurn(grid) {
+    thinkingAnimation();
+
+    let difficulty = document.getElementById('ai-difficulty').value;
+    let availableBorders = determineAvaliableBorders(grid);
+
+    setTimeout(function() {
+        if (difficulty === 'easy') {
+            easyComputerTurn(availableBorders);
+        } else if (difficulty === 'medium') {
+            mediumComputerTurn(availableBorders, grid);
+        }
+        tick(grid);
+    }, 1000); // Delay of 1 second
+}
+
+function getDivByXY(x, y, grid) {
+    for (let div of grid) {
+        if (div.xVal === x && div.yVal === y) {
+            return div;
+        }
+    }
+    return null;
+}
+
+
 
 function countDrawnBorders(cell, grid) {
     let drawnBorders = 0;
