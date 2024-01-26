@@ -81,7 +81,7 @@ This section will allow the user to play the Käsekästchen game. The user will 
 ![feature-gameboard](documentation/feature-gameboard.png)
 
 ### AI Opponent
-The AI opponent is implemented in the game logic and will play against the user. The AI opponent will play a random move on the "Easy" difficulty level. The "Medium" difficulty follows an algorithm. Check it out in the code comments in the [game.js](assets/js/game.js) file. The "Hard" difficulty is currently disabled and in development.
+The AI opponent is implemented in the game logic and will play against the user. The AI opponent will play a random move on the "Easy" difficulty level. The "Medium" difficulty follows an algorithm. Check it out in the code comments in the !!Link TO FILE!! file. The "Hard" difficulty is currently disabled and in development.
 
 
 ### Score Card
