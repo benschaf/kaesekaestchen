@@ -150,7 +150,6 @@ function countDrawnBorders(cell, grid) {
     return drawnBorders;
 }
 
-
 /**
  * Creates a blur background element behind a cell.
  * 
