@@ -4,7 +4,7 @@ Käsekästchen (German for: dots and boxes) is a web app that allows users to pl
 
 The deployed site can be found [here](https://benschaf.github.io/kaesekaestchen)
 
-![responsive-image](documentation/responsive-image.png)
+![responsive-image from amiresponsive](documentation/responsive-image.png)
 
 ## UX
 
