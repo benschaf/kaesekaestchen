@@ -60,7 +60,7 @@ function createGameboard(gridSize) {
  * 
  * @param {Array} grid - The gameboard grid of div elements.
  */
-function setupEventListeners(grid) {
+function setupEventListeners(grid, gridSize) {
     for (let div of grid) {
         if (div.className === 'border') {
             div.addEventListener('click', function () {
@@ -91,7 +91,7 @@ function setupEventListeners(grid) {
 function init(playerName, goesFirst, difficulty, gridSize) {
     resetScoresCard(playerName, goesFirst, difficulty);
     let grid = createGameboard(gridSize);
-    setupEventListeners(grid);
+    setupEventListeners(grid, gridSize);
 
     // if the player goes first, do nothing and wait for the player to click a border
     if (!goesFirst) {
@@ -542,7 +542,7 @@ function createDiv(y, x) {
  * @param {number} scale - The scale to resize the grid to.
  * @param {number} gridSize - The size of the gameboard.
  */
-resizeGrid = function (grid, scale, gridSize) {
+function resizeGrid (grid, scale, gridSize) {
     let originalScale = parseInt(grid[0].style.width);
     let gameboard = document.getElementById('gameboard');
     // total width of the gameboard: width of all divs + 2px border on each side of each div
