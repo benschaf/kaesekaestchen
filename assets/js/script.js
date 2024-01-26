@@ -313,8 +313,11 @@ function tick(grid) {
     }
 }
 
-//only maybe keep this - looks kinda cheap - maybe make it a loading bar below the gameboard or something
-
+//only maybe keep this thinking animation function - looks kinda cheap - maybe make it a loading bar below the gameboard or something
+/**
+ * Creates an AI is playing animation.
+ * Removes the animation after 1 second.
+ */
 function thinkingAnimation() {
     let thinkingAnimationElement = document.createElement('div');
     thinkingAnimationElement.id = 'thinking-animation';
@@ -337,6 +340,12 @@ function thinkingAnimation() {
     }, 1000);
 }
 
+/**
+ * Determines which borders are available to draw.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {Array} - The available borders to draw.
+ */
 function determineAvaliableBorders(grid) {
     let availableBorders = [];
     for (let border of grid) {
@@ -349,13 +358,26 @@ function determineAvaliableBorders(grid) {
     return availableBorders;
 }
 
-async function easyComputerTurn(availableBorders) {
+/**
+ * Randomly selects a border to draw.
+ * 
+ * @param {Array} availableBorders - The available borders to choose from.
+ */
+function easyComputerTurn(availableBorders) {
     let randomBorder = Math.floor(Math.random() * availableBorders.length);
-
     markBorder(availableBorders[randomBorder]);
 }
 
-async function mediumComputerTurn(availableBorders, grid) {
+/**
+ * Determines which border to draw based on the number of drawn borders around adjacent cells.
+ * If a cell has 3 drawn borders, draws the 4th border.
+ * If a cell has 2 drawn borders, removes that border from the available borders.
+ * If no cell has 3 or 2 drawn borders, randomly selects a border to draw.
+ * 
+ * @param {Array} availableBorders - The available borders to choose from.
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function mediumComputerTurn(availableBorders, grid) {
     //cycle through avaliable borders
     let leftOverBorders = availableBorders.slice(); // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. Cretits to https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
     for (let availableBorder of availableBorders) {
@@ -416,14 +438,25 @@ async function mediumComputerTurn(availableBorders, grid) {
     }
 }
 
+/**
+ * Marks a border as drawn by applying an inset shadow.
+ * Changes the drawn property of the border to true.
+ * 
+ * @param {HTMLDivElement} border - The border to mark as drawn.
+ */
 function markBorder(border) {
-    //mark the border as drawn with inset shadow
     border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
     border.drawn = true;
 }
 
-// Credits for async/ functionality: https://www.sitepoint.com/delay-sleep-pause-wait/
-
+/**
+ * Displays an AI is playing animation.
+ * Determines the difficulty of the AI and calls the appropriate function.
+ * Delays the AI's turn by 1 second.
+ * Calls tick to update the gameboard.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
 function computerTurn(grid) {
     thinkingAnimation();
 
