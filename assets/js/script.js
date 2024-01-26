@@ -17,11 +17,11 @@ function resetScoresCard(playerName, goesFirst, difficulty) {
         document.getElementById('player1').style.backgroundColor = playerColor;
         document.getElementById('player2').style.backgroundColor = 'initial';
     } else if (!goesFirst) {
-        let  aiColor = 'rgba(252, 134, 185, 0.2)';
+        let aiColor = 'rgba(252, 134, 185, 0.2)';
         document.getElementById('player2').style.backgroundColor = aiColor;
         document.getElementById('player1').style.backgroundColor = 'initial';
     } // should I write an else statement here to catch any errors?
-    
+
     if (playerName === '') {
         playerName = 'Player';
     }
@@ -68,7 +68,7 @@ function setupEventListeners(grid) {
                 if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
                     return;
                 } else {
-                    drawBorder(div);
+                    markBorder(div);
                     tick(grid);
                 }
             });
@@ -99,28 +99,228 @@ function init(playerName, goesFirst, difficulty, gridSize) {
     }
 }
 
-function drawBorder(border) {
-    //mark the border as drawn with inset shadow
-    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
-    border.drawn = true;
+/**
+ * Determines whose turn it is by checking the background color of the player on the scoreboard.
+ * 
+ * @returns {boolean} - True if it is the player's turn, false if it is the AI's turn.
+ */
+function determineTurn() {
+    let turn; //true = player, false = AI Opponent
+    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+        turn = true;
+    } else {
+        turn = false;
+    }
+    return turn;
+}
+
+/**
+ * Counts the number of drawn borders around a cell.
+ * 
+ * @param {HTMLDivElement} cell - The cell to count the drawn borders around.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {number} - The number of drawn borders around the cell.
+ */
+function countDrawnBorders(cell, grid) {
+    let currentX = cell.xVal;
+    let currentY = cell.yVal;
+    let drawnBorders = 0;
+    // iterates through all the elements in the grid and counts the number of drawn borders around the cell
+    for (let border of grid) {
+        if (border.className === 'border') {
+            if (border.xVal + 1 === currentX && border.yVal === currentY) { // checks if the border is to the right of the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            } else if (border.xVal - 1 === currentX && border.yVal === currentY) { // checks if the border is to the left of the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            } else if (border.xVal === currentX && border.yVal + 1 === currentY) { // checks if the border is above the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            } else if (border.xVal === currentX && border.yVal - 1 === currentY) { // checks if the border is below the cell
+                if (border.drawn) {
+                    drawnBorders++;
+                }
+            }
+        }
+    }
+    return drawnBorders;
 }
 
 
+/**
+ * Creates a blur background element behind a cell.
+ * 
+ * @param {string} color - The color of the blur background element.
+ * @param {HTMLDivElement} cell - The cell to create the blur background element behind.
+ * @returns {HTMLDivElement} - The created blur background element.
+ */
+function createBlurBackgroundElement(color, cell) {
+    let gameboard = document.getElementById('gameboard');
+    let blurBackgroundElement = document.createElement('div');
+    blurBackgroundElement.className = 'blur-background';
+
+    let rect = cell.getBoundingClientRect();
+    let gameboardRect = gameboard.getBoundingClientRect();
+    blurBackgroundElement.style.top = (rect.top - gameboardRect.top) + 'px';
+    blurBackgroundElement.style.left = (rect.left - gameboardRect.left) + 'px';
+    blurBackgroundElement.style.width = rect.width + 'px';
+    blurBackgroundElement.style.height = rect.height + 'px';
+    blurBackgroundElement.style.borderRadius = cell.style.borderRadius;
+    blurBackgroundElement.style.backgroundColor = color;
+    gameboard.appendChild(blurBackgroundElement);
+}
+
+// Credits for HTMLDivELement: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction#dom_interfaces
+
+/**
+ * Fills a cell with the correct color (boxShadow) based on whose turn it is.
+ * Calls createBlurBackgroundElement to create a blur background element behind the cell.
+ * 
+ * @param {HTMLDivElement} cell - The cell to fill.
+ * @param {boolean} turn - True if it is the player's turn, false if it is the AI's turn.
+ */
+function fillCell(cell, turn) {
+    cell.style.backgroundColor = 'unset';
+    if (turn) {
+        cell.style.boxShadow = 'inset 0 0 60px rgba(185, 252, 134)';
+        createBlurBackgroundElement('rgba(185, 252, 134)', cell);
+    } else {
+        cell.style.boxShadow = 'inset 0 0 60px rgba(252, 134, 185)';
+        createBlurBackgroundElement('rgba(252, 134, 185)', cell);
+    }
+}
+
+/**
+ * Adds 1 to the score of the player or the AI on the scoreboard, depending on whose turn it is.
+ * 
+ * @param {boolean} turn - True if it is the player's turn, false if it is the AI's turn.
+ */
+function updateScoreboard(turn) {
+    if (turn) {
+        let playerScore = document.getElementById('player-score').innerHTML;
+        playerScore++;
+        document.getElementById('player-score').innerHTML = playerScore;
+    } else {
+        let aiScore = document.getElementById('ai-score').innerHTML;
+        aiScore++;
+        document.getElementById('ai-score').innerHTML = aiScore;
+    }
+
+}
+
+/**
+ * Switches the background color of the player and the AI on the scoreboard to indicate whose turn it is.
+ */
+function switchTurns() {
+    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
+        document.getElementById('player1').style.backgroundColor = 'initial';
+        document.getElementById('player2').style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+    } else if (document.getElementById('player2').style.backgroundColor === 'rgba(252, 134, 185, 0.2)') {
+        document.getElementById('player2').style.backgroundColor = 'initial';
+        document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+    }
+}
+
+/**
+ * Sets the correct end game message based on the scores.
+ * Displays 2 costum alert boxes with the end game message over the gameboard and in the scores card.
+ * Removes the alert box over the gameboard after 3 seconds.
+ */
+function endGame() {
+    let playerScore = document.getElementById('player-score').innerHTML;
+    let aiScore = document.getElementById('ai-score').innerHTML;
+    let endGameMessage;
+
+    if (playerScore > aiScore) {
+        endGameMessage = 'You Win!';
+    } else if (aiScore > playerScore) {
+        endGameMessage = 'You Lose!';
+    } else {
+        endGameMessage = 'Tie!';
+    }
+    document.getElementById('game-end-message').innerHTML = endGameMessage;
+
+    let endMessageAlertBox = document.createElement('div');
+    endMessageAlertBox.id = 'end-message-alert-box';
+    endMessageAlertBox.innerHTML = endGameMessage;
+    document.getElementById('gameboard').appendChild(endMessageAlertBox);
+
+    setTimeout(function () {
+        endMessageAlertBox.remove();
+    }, 3000);
+}
+
+/**
+ * Fills and counts the cells that have 4 drawn borders around them.
+ * Picks the right color to fill each cell with based on whose turn it is.
+ * Updates the scores on the scoreboard.
+ * Switches turns if no new cells have been filled.
+ * Ends game if all cells have been filled.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */ 
+function computeLastTurn(grid) {
+    let turn = determineTurn();
+    let switchTurn = true;
+    let filledCells = 0;
+
+    // iterates through all the elements in the grid and only checks the cells
+    for (let cell of grid) {
+        console.log(cell);
+        if (cell.className === 'cell') {
+            let drawnBorderCount = countDrawnBorders(cell, grid);
+            if (drawnBorderCount > 3) {
+                filledCells++;
+                if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
+                    fillCell(cell, turn);
+                    updateScoreboard(turn);
+                    switchTurn = false;
+                }
+            }
+        }
+    }
+    if (switchTurn) {
+        switchTurns();
+    }
+    let totalCells = document.getElementsByClassName('cell').length;
+    if (filledCells === totalCells && filledCells !== 0) {
+        endGame();
+    }
+}
+
+/**
+ * Calls computeLastTurn.
+ * If it is the AI's turn, calls computerTurn. Else, does nothing (waits for the player to click a border).
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
 function tick(grid) {
     computeLastTurn(grid);
+
     let nextTurn;
     if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
         nextTurn = true;
     } else {
         nextTurn = false;
     }
-    // if its the computer's turn, run the computer's turn function
-    if (nextTurn) {
-        console.log('player turn');
-    } else {
+    if (!nextTurn) {
         computerTurn(grid);
+    } else {
+        //wait for the player to click a border
     }
 }
+
+function markBorder(border) {
+    //mark the border as drawn with inset shadow
+    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
+    border.drawn = true;
+}
+
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -154,7 +354,7 @@ async function computerTurn(grid) {
 
     if (difficulty === 'easy') {
         let randomBorder = Math.floor(Math.random() * availableBorders.length);
-        drawBorder(availableBorders[randomBorder]);
+        markBorder(availableBorders[randomBorder]);
     } else if (difficulty === 'medium') block1: {
         //cycle through avaliable borders
         let leftOverBorders = availableBorders.slice(); // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. Cretits to https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
@@ -194,7 +394,7 @@ async function computerTurn(grid) {
             //if a cell has 3 drawn borders, draw the 4th border
             if (adjacentCellsBorderCount[0] === 3 || adjacentCellsBorderCount[1] === 3) {
                 await sleep(1000);
-                drawBorder(availableBorder);
+                markBorder(availableBorder);
                 break block1;
             }
             //if a cell has 2 drawn borders, remove that border from the available borders
@@ -209,11 +409,11 @@ async function computerTurn(grid) {
         if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
             let randomBorder = Math.floor(Math.random() * availableBorders.length);
             await sleep(1000);
-            drawBorder(availableBorders[randomBorder]);
+            markBorder(availableBorders[randomBorder]);
         } else {
             let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
             await sleep(1000);
-            drawBorder(leftOverBorders[randomBorder]);
+            markBorder(leftOverBorders[randomBorder]);
         }
     }
     tick(grid);
@@ -275,134 +475,6 @@ function countDrawnBorders(cell, grid) {
     }
     return drawnBorders;
 }
-
-/**
- * Checks if any cell has 4 (or more) drawn borders around it. 
- * If it does, it changes the background color of the cell to green.
- * 
- * @param {Array} grid - The gameboard grid of div elements.
- */
-function computeLastTurn(grid) {
-    let turn; //true = player, false = AI Opponent
-    let switchTurn = true;
-    let filledCells = 0;
-    if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-        turn = true;
-    } else {
-        turn = false;
-    }
-
-    // iterates through all the elements in the grid and only checks the cells
-    for (let cell of grid) {
-        if (cell.className === 'cell') {
-            let currentX = cell.xVal;
-            let currentY = cell.yVal;
-            let drawnBorders = 0;
-            // iterates through all the elements in the grid and counts the number of drawn borders around the cell
-            for (let border of grid) {
-                if (border.className === 'border') {
-                    if (border.xVal + 1 === currentX && border.yVal === currentY) { // checks if the border is to the right of the cell
-                        if (border.drawn) {
-                            drawnBorders++;
-                        }
-                    } else if (border.xVal - 1 === currentX && border.yVal === currentY) { // checks if the border is to the left of the cell
-                        if (border.drawn) {
-                            drawnBorders++;
-                        }
-                    } else if (border.xVal === currentX && border.yVal + 1 === currentY) { // checks if the border is above the cell
-                        if (border.drawn) {
-                            drawnBorders++;
-                        }
-                    } else if (border.xVal === currentX && border.yVal - 1 === currentY) { // checks if the border is below the cell
-                        if (border.drawn) {
-                            drawnBorders++;
-                        }
-                    }
-                }
-            }
-            if (drawnBorders > 3) {                
-                filledCells++;
-                if (cell.style.backgroundColor === 'rgb(30, 30, 30)') {
-                    let gameboard = document.getElementById('gameboard');
-                    cell.style.backgroundColor = 'unset';
-                
-                    if (turn) {
-                        cell.style.boxShadow = 'inset 0 0 60px rgba(185, 252, 134)';
-                        gameboard.appendChild(createBlurBackgroundElement('rgba(185, 252, 134)', cell, gameboard));
-                
-                        let playerScore = document.getElementById('player-score').innerHTML;
-                        playerScore++;
-                        document.getElementById('player-score').innerHTML = playerScore;
-                    } else {
-                        cell.style.boxShadow = 'inset 0 0 60px rgba(252, 134, 185)';
-                        gameboard.appendChild(createBlurBackgroundElement('rgba(252, 134, 185)', cell, gameboard));
-                
-                        let aiScore = document.getElementById('ai-score').innerHTML;
-                        aiScore++;
-                        document.getElementById('ai-score').innerHTML = aiScore;
-                    }
-                    switchTurn = false;
-                }
-            }
-        }
-    }
-    if (switchTurn) {
-        trun = !turn;
-        if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
-            document.getElementById('player1').style.backgroundColor = 'initial';
-            document.getElementById('player2').style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
-        } else if (document.getElementById('player2').style.backgroundColor === 'rgba(252, 134, 185, 0.2)') {
-            document.getElementById('player2').style.backgroundColor = 'initial';
-            document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
-        }
-    }
-    let totalCells = document.getElementsByClassName('cell').length;
-    if (filledCells === totalCells && filledCells !== 0) {
-        endGame();
-    }
-}
-
-function createBlurBackgroundElement(color, cell, gameboard) {
-    let blurBackgroundElement = document.createElement('div');
-    blurBackgroundElement.className = 'blur-background';
-
-    let rect = cell.getBoundingClientRect();
-    let gameboardRect = gameboard.getBoundingClientRect();
-    blurBackgroundElement.style.top = (rect.top - gameboardRect.top) + 'px';
-    blurBackgroundElement.style.left = (rect.left - gameboardRect.left) + 'px';
-    blurBackgroundElement.style.width = rect.width + 'px';
-    blurBackgroundElement.style.height = rect.height + 'px';
-    blurBackgroundElement.style.borderRadius = cell.style.borderRadius;
-    blurBackgroundElement.style.backgroundColor = color;
-    return blurBackgroundElement;
-}
-
-function endGame() {
-    let playerScore = document.getElementById('player-score').innerHTML;
-    let aiScore = document.getElementById('ai-score').innerHTML;
-    let endGameMessage;
-
-    if (playerScore > aiScore) {
-        endGameMessage = 'You Win!';
-    } else if (aiScore > playerScore) {
-        endGameMessage = 'You Lose!';
-    } else {
-        endGameMessage = 'Tie!';
-    }
-    document.getElementById('game-end-message').innerHTML = endGameMessage;
-
-    let endMessageAlertBox = document.createElement('div');
-    endMessageAlertBox.id = 'end-message-alert-box';
-    endMessageAlertBox.innerHTML = endGameMessage;
-    document.getElementById('gameboard').appendChild(endMessageAlertBox);
-
-    // Remove the endMessageAlertBox after 3 seconds
-    setTimeout(function () {
-        endMessageAlertBox.remove();
-    }, 3000);
-}
-
-
 
 /**
  * Creates a div element with specified x and y values. 
