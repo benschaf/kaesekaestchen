@@ -596,29 +596,30 @@ function rescaleGameboard(grid, gridSize) {
  * Adds event listeners to the start game button and the grid size input.
  * Starts a game with default settings.
  */
-function DOMContentLoaded() {
+function contentLoaded() {
     // Get references to the elements
-    let playerNameInput = document.getElementById('player-name');
-    let playerTurnRadio = document.getElementById('player-turn');
     let gridSizeInput = document.getElementById('grid-size');
-    let gridSizeValueSpan = document.getElementById('grid-size-value');
+    let gridSizeLabel = document.getElementById('grid-size-value');
     let startGameButton = document.getElementById('start-game');
 
     gridSizeInput.addEventListener('input', () => {
-        gridSizeValueSpan.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
+        gridSizeLabel.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
     });
 
     startGameButton.addEventListener('click', () => {
+        let playerNameInput = document.getElementById('player-name');
+        let playerTurnRadio = document.getElementById('player-turn');
+        let difficultySelect = document.getElementById('ai-difficulty');
+
         let playerName = playerNameInput.value;
         let goesFirst = playerTurnRadio.checked;
-        let difficulty = document.getElementById('ai-difficulty').value;
+        let difficulty = difficultySelect.value;
         let gridSize = gridSizeInput.value * 2;
 
         init(playerName, goesFirst, difficulty, gridSize);
     });
 
     init('Player', true, 'medium', 6);
-
 }
 
-document.addEventListener('DOMContentLoaded', DOMContentLoaded);
+document.addEventListener('DOMContentLoaded', contentLoaded);
