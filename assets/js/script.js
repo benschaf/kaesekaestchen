@@ -3,6 +3,7 @@
  * Sets the background color of the player or the AI to indicate who goes first.
  * Sets the player name label to the specified name.
  * Sets the difficulty indicator to the specified difficulty.
+ * Sets the game end message to an empty string.
  * 
  * @param {string} playerName - The name of the player.
  * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.
@@ -29,6 +30,8 @@ function resetScoresCard(playerName, goesFirst, difficulty) {
     // Credit: https://flexiple.com/javascript/javascript-capitalize-first-letter
     const difficultyUppercase = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
     document.getElementById('difficulty-indicator').innerHTML = difficultyUppercase + ' Difficulty';
+
+    document.getElementById('game-end-message').innerHTML = '';
 }
 
 /**
