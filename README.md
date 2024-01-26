@@ -126,11 +126,32 @@ This section will allow the user to see copyright information. The footer also c
 
 
 ## Tools & Technologies Used
+- [JavaScript](https://en.wikipedia.org/wiki/JavaScript) used for the game logic and some of the responsive design
+- [HTML](https://en.wikipedia.org/wiki/HTML) used for the main site content
+- [CSS](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout
+- [CSS Flexbox](https://www.w3schools.com/css/css3_flexbox.asp) used for an enhanced responsive layout
+- [CSS Grid](https://www.w3schools.com/css/css_grid.asp) used for an enhanced responsive layout
+- [Git](https://git-scm.com/) used for version control (`git add`, `git commit`, `git push`)
+- [GitHub](https://github.com/) used for secure online code storage
+- [GitHub Pages](https://pages.github.com/) used for hosting the deployed front-end site
+- [Github Issues](https://github.com/benschaf/kaesekaestchen/issues) used for issue tracking
+- [GitHub Projects](https://github.com/users/benschaf/projects/3) used for project management in conjunction with GitHub Issues
+- [Gitpod](https://gitpod.io/) used as a cloud-based IDE for development
+- [Visual Studio Code](https://visualstudio.microsoft.com/de/#vscode-section) used a  local IDE for development
+- [draw.io](https://www.drawio.com/) used for wireframe creation
+- [Figma](https://figma.com) used for design creation
+- [Material Design 2](https://m2.material.io/design/color/dark-theme.html) used for design guidelines
+- [Windows Snipping Tool](https://support.microsoft.com/de-de/windows/aufnehmen-von-screenshots-mithilfe-des-snipping-tools-00246869-1843-655f-f220-97299b865f6b) used to take screenshots and screencasts on Windows
+- [Adobe free mp4 to gif converter](https://www.adobe.com/express/feature/video/convert/mp4-to-gif) used to convert screencasts to gif
+
+Still to be used:
+- [autoprefixer](https://autoprefixer.github.io/) used to add vendor prefixes to css for browser compatibility
 
 ## Testing
 Code Validation and Testing can be found in a separate file called [TESTING.md](TESTING.md)
 
 ## Deployment
+
 
 ## Credits
 
