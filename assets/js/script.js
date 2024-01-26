@@ -573,8 +573,8 @@ resizeGrid = function (grid, scale, gridSize) {
  * @param {number} gridSize - The size of the gameboard.
  */
 function rescaleGameboard(grid, gridSize) {
+    let scale;
     if (window.innerWidth >= 1440) {
-        let scale;
         let horizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
         let verticalSpace = document.documentElement.clientHeight / 100 * 70;
         if (horizontalSpace < verticalSpace) {
@@ -582,12 +582,10 @@ function rescaleGameboard(grid, gridSize) {
         } else {
             scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
         }
-        resizeGrid(grid, scale, gridSize);
     } else {
-        let scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1) - 2);
-        resizeGrid(grid, scale, gridSize);
-
+        scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1) - 2);
     }
+    resizeGrid(grid, scale, gridSize);
 }
 
 // Credits for arrow functions: https://www.w3schools.com/js/js_arrow_function.asp
