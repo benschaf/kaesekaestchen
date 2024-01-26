@@ -481,7 +481,7 @@ function computerTurn(grid) {
     let difficulty = document.getElementById('ai-difficulty').value;
     let availableBorders = determineAvaliableBorders(grid);
 
-    setTimeout(function() {
+    setTimeout( () => {
         if (difficulty === 'easy') {
             easyComputerTurn(availableBorders);
         } else if (difficulty === 'medium') {
@@ -604,11 +604,11 @@ function DOMContentLoaded() {
     let gridSizeValueSpan = document.getElementById('grid-size-value');
     let startGameButton = document.getElementById('start-game');
 
-    gridSizeInput.addEventListener('input', function () {
+    gridSizeInput.addEventListener('input', () => {
         gridSizeValueSpan.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
     });
 
-    startGameButton.addEventListener('click', function () {
+    startGameButton.addEventListener('click', () => {
         let playerName = playerNameInput.value;
         let goesFirst = playerTurnRadio.checked;
         let difficulty = document.getElementById('ai-difficulty').value;
