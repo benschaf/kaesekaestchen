@@ -545,7 +545,7 @@ function createDiv(y, x) {
  * @param {number} scale - The scale to resize the grid to.
  * @param {number} gridSize - The size of the gameboard.
  */
-function resizeGrid (grid, scale, gridSize) {
+function resizeGrid(grid, scale, gridSize) {
     let originalScale = parseInt(grid[0].style.width);
     let gameboard = document.getElementById('gameboard');
     // total width of the gameboard: width of all divs + 2px border on each side of each div
@@ -576,16 +576,21 @@ function resizeGrid (grid, scale, gridSize) {
  */
 function rescaleGameboard(grid, gridSize) {
     let scale;
+    const verticalSpace = document.documentElement.clientHeight / 100 * 70;
     if (window.innerWidth >= 1440) {
-        let horizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
-        let verticalSpace = document.documentElement.clientHeight / 100 * 70;
-        if (horizontalSpace < verticalSpace) {
-            scale = parseInt(horizontalSpace / (gridSize * 2 + 1) - 2);
+        const largeHorizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
+        if (largeHorizontalSpace < verticalSpace) {
+            scale = parseInt(largeHorizontalSpace / (gridSize * 2 + 1) - 2);
         } else {
             scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
         }
     } else {
-        scale = parseInt((document.getElementById('game-area').offsetWidth) / (gridSize * 2 + 1) - 2);
+        const smallHorizontalSpace = (document.getElementById('game-area').offsetWidth);
+        if (smallHorizontalSpace < verticalSpace) {
+            scale = parseInt(smallHorizontalSpace / (gridSize * 2 + 1) - 2);
+        } else {
+            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
+        }
     }
     resizeGrid(grid, scale, gridSize);
 }
