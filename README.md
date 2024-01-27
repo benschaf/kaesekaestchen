@@ -115,6 +115,16 @@ The background blur design elements are used to create a more interesting and pl
 
 ![feature-background-blur](documentation/feature-background-blur.png)
 
+### Responsiveness
+The website is fully responsive on all devices. This is acheived using media queries and CSS Grid and Flexbox for most of the layout. 
+
+The gameboard is responsive using JavaScript. Each DOM element of the gameboard is individually created and resized depending on the size of the viewport. The gameboard is also responsive to the size of the grid. The grid size can be adjusted by the user in the options area. The gameboard will then be resized accordingly.
+
+![responsive-image from amiresponsive](documentation/responsive-image.png)
+
+### Single Page Application
+The website is a single page application. This means that the user can play the game without having to reload the page. The user can also change the game settings without having to reload the page. This is achieved using JavaScript and DOM manipulation.
+
 ### Future User stories
 |As a|I would like to|so that I can|
 |----|----|----|
