@@ -16,8 +16,8 @@ This web app is displayed in a dark theme. The colour scheme adheres to the [Mat
 - `#03DAC6` used for primary highlights
 - `#FFFFFF` used for primary text
 - `#A5A5A5` used for secondary text
-- `#BAFC86` used for player color
-- `#BB86FC` used for AI color
+- `#BAFC86` used for player colour
+- `#BB86FC` used for AI colour
 
 The player colour is a green colour, while the AI colour is a purple colour. These colours are used throughout the website to differentiate between the two players.
 
@@ -109,6 +109,11 @@ This section will allow the user to read the instructions on how to play the gam
 This section will allow the user to see copyright information. The footer also contains links to the developer's GitHub and LinkedIn profiles.
 
 ![feature-footer](documentation/feature-footer.png)
+
+### Background Blur Design elements
+The background blur design elements are used to create a more interesting and playful design. The background blur elements are used behind the header and the footer. When the game is played, more backgorund blur elements are generated behind the gameboard. These elements are coloured after the player colours, depending on who completed which box.
+
+![feature-background-blur](documentation/feature-background-blur.png)
 
 ### Future User stories
 |As a|I would like to|so that I can|
