@@ -1,3 +1,4 @@
+// Credit for JSdoc syntax: https://medium.com/@martink_rsa/js-docs-a-quickstart-guide-da6ce5df4a73
 /**
  * Resets all scores on the scores card to 0.
  * Sets the background color of the player or the AI to indicate who goes first.
@@ -66,7 +67,8 @@ function createGameboard(gridSize) {
 function setupEventListeners(grid, gridSize) {
     for (let div of grid) {
         if (div.className === 'border') {
-            div.addEventListener('click', function () {
+            // Credit for arrow functions: https://www.w3schools.com/js/js_arrow_function.asp
+            div.addEventListener('click', () => {
                 //check if the border has already been drawn
                 if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
                     return;
@@ -78,7 +80,7 @@ function setupEventListeners(grid, gridSize) {
         }
     }
 
-    window.addEventListener('resize', function () {
+    window.addEventListener('resize', () => {
         rescaleGameboard(grid, gridSize);
     });
 }
@@ -117,6 +119,7 @@ function determineTurn() {
     return turn;
 }
 
+// Credit for HTMLDivELement Parameter: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction#dom_interfaces
 /**
  * Counts the number of drawn borders around a cell.
  * 
@@ -153,6 +156,7 @@ function countDrawnBorders(cell, grid) {
     return drawnBorders;
 }
 
+// Credit for Blur Backgrounds: https://www.w3schools.com/howto/howto_css_blurred_background.asp
 /**
  * Creates a blur background element behind a cell.
  * 
@@ -175,8 +179,6 @@ function createBlurBackgroundElement(color, cell) {
     blurBackgroundElement.style.backgroundColor = color;
     gameboard.appendChild(blurBackgroundElement);
 }
-
-// Credits for HTMLDivELement: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction#dom_interfaces
 
 /**
  * Fills a cell with the correct color (boxShadow) based on whose turn it is.
@@ -251,6 +253,7 @@ function endGame() {
     endMessageAlertBox.innerHTML = endGameMessage;
     document.getElementById('gameboard').appendChild(endMessageAlertBox);
 
+    // Credit for setTimeout: https://www.w3schools.com/jsref/met_win_settimeout.asp
     setTimeout(function () {
         endMessageAlertBox.remove();
     }, 3000);
@@ -294,6 +297,7 @@ function computeLastTurn(grid) {
 }
 
 /**
+ * Parent function for the "gameloop" logic
  * Calls computeLastTurn.
  * If it is the AI's turn, calls computerTurn. Else, does nothing (waits for the player to click a border).
  * 
@@ -323,9 +327,11 @@ function tick(grid) {
 function thinkingAnimation() {
     let thinkingAnimationElement = document.createElement('div');
     thinkingAnimationElement.id = 'thinking-animation';
+    // Credit for centering the element: https://www.w3schools.com/css/tryit.asp?filename=trycss_align_transform
     thinkingAnimationElement.style.position = 'absolute';
     thinkingAnimationElement.style.top = '50%';
     thinkingAnimationElement.style.left = '50%';
+    thinkingAnimationElement.style.transform = 'translate(-50%, -50%)';
     thinkingAnimationElement.style.width = '150px';
     thinkingAnimationElement.style.height = '150px';
     thinkingAnimationElement.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
@@ -334,7 +340,6 @@ function thinkingAnimation() {
     thinkingAnimationElement.style.alignItems = 'center';
     thinkingAnimationElement.style.fontSize = '1rem';
     thinkingAnimationElement.style.borderRadius = '50%';
-    thinkingAnimationElement.style.transform = 'translate(-50%, -50%)';
     thinkingAnimationElement.innerHTML = 'AI is playing...';
     document.getElementById('gameboard').appendChild(thinkingAnimationElement);
     setTimeout(function () {
@@ -361,6 +366,17 @@ function determineAvaliableBorders(grid) {
 }
 
 /**
+ * Marks a border as drawn by applying an inset shadow.
+ * Changes the drawn property of the border to true.
+ * 
+ * @param {HTMLDivElement} border - The border to mark as drawn.
+ */
+function markBorder(border) {
+    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
+    border.drawn = true;
+}
+
+/**
  * Randomly selects a border to draw.
  * 
  * @param {Array} availableBorders - The available borders to choose from.
@@ -370,7 +386,7 @@ function easyComputerTurn(availableBorders) {
     markBorder(availableBorders[randomBorder]);
 }
 
-// Credits for return JSdoc comment: https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type
+// Credit for return JSdoc syntax: https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type
 /**
  * Gets a div element from the gameboard grid based on its x and y values.
  * 
@@ -398,8 +414,10 @@ function getDivByXY(x, y, grid) {
  * @param {Array} grid - The gameboard grid of div elements.
  */
 function mediumComputerTurn(availableBorders, grid) {
+    // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. 
+    //Credit: https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
+    let leftOverBorders = availableBorders.slice();
     //cycle through avaliable borders
-    let leftOverBorders = availableBorders.slice(); // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. Cretits to https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
     for (let availableBorder of availableBorders) {
         let adjacentCellsBorderCount = [0, 0];
         //check if the border is horizontal or vertical
@@ -456,17 +474,6 @@ function mediumComputerTurn(availableBorders, grid) {
 
         markBorder(leftOverBorders[randomBorder]);
     }
-}
-
-/**
- * Marks a border as drawn by applying an inset shadow.
- * Changes the drawn property of the border to true.
- * 
- * @param {HTMLDivElement} border - The border to mark as drawn.
- */
-function markBorder(border) {
-    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
-    border.drawn = true;
 }
 
 /**
@@ -548,7 +555,7 @@ function createDiv(y, x) {
 function resizeGrid(grid, scale, gridSize) {
     let originalScale = parseInt(grid[0].style.width);
     let gameboard = document.getElementById('gameboard');
-    // total width of the gameboard: width of all divs + 2px border on each side of each div
+    // Formula for determining grid width and height. Total width of the gameboard: width of all divs + 2px border on each side of each div
     let gameboardSideLength = scale * (gridSize * 2 + 1) + 2 * 2 * (gridSize + 1);
 
     gameboard.style.width = gameboardSideLength + 'px';
@@ -561,7 +568,7 @@ function resizeGrid(grid, scale, gridSize) {
         div.style.height = newHeight;
         div.style.borderRadius = scale + 'px';
 
-        if (div.className === 'corner') { // div is a corner
+        if (div.className === 'corner') {
             let newBlurRadius = parseInt(div.style.width) / 2 + 'px';
             div.style.boxShadow = "inset 0 0 " + newBlurRadius + " rgba(255, 255, 255, 0.5)";
         }
@@ -569,7 +576,8 @@ function resizeGrid(grid, scale, gridSize) {
 }
 
 /**
- * Rescales the gameboard based on the size of the window.
+ * Rescales the gameboard based on the size of the window and game-area div.
+ * Since the gameboard is a square, the gameboard will always be the size of the dimension with less space (horizontal or vertical).
  * 
  * @param {Array} grid - The gameboard grid of div elements.
  * @param {number} gridSize - The size of the gameboard.
@@ -595,7 +603,7 @@ function rescaleGameboard(grid, gridSize) {
     resizeGrid(grid, scale, gridSize);
 }
 
-// Credits for arrow functions: https://www.w3schools.com/js/js_arrow_function.asp
+
 /**
  * Initializes the game when the DOM is loaded.
  * Adds event listeners to the start game button and the grid size input.
