@@ -2,9 +2,16 @@
 
 Käsekästchen (German for: dots and boxes) is a web app that allows users to play the game of Käsekästchen online. The game is played on a grid of dots, where two players take turns drawing lines between the dots. The goal is to complete a square by drawing the fourth line around it. The player who completes the most squares wins the game.
 
-![GitHub deployments](https://img.shields.io/github/deployments/benschaf/kaesekaestchen/github-pages?label=github%20pages) ![Website](https://img.shields.io/website?url=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F) ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/benschaf/kaesekaestchen) ![GitHub issues](https://img.shields.io/github/issues/benschaf/kaesekaestchen) ![GitHub closed issues](https://img.shields.io/github/issues-closed/benschaf/kaesekaestchen) ![GitHub closed issues by-label](https://img.shields.io/github/issues-closed/benschaf/kaesekaestchen/bug) ![GitHub language count](https://img.shields.io/github/languages/count/benschaf/kaesekaestchen) ![GitHub top language](https://img.shields.io/github/languages/top/benschaf/kaesekaestchen) ![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F&label=w3c%20html) ![W3C Validation](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&label=w3c%20css)
-
-The deployed site can be found [here](https://benschaf.github.io/kaesekaestchen)
+[![GitHub deployments](https://img.shields.io/github/deployments/benschaf/kaesekaestchen/github-pages?label=github%20pages)](https://github.com/benschaf/kaesekaestchen/deployments)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F)](https://benschaf.github.io/kaesekaestchen/)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/t/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen/commits)
+[![GitHub issues](https://img.shields.io/github/issues/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub closed issues by-label: bug](https://img.shields.io/github/issues-closed/benschaf/kaesekaestchen/bug)](https://github.com/benschaf/kaesekaestchen/issues?q=is%3Aissue+is%3Aclosed+label%3Abug)
+[![GitHub language count](https://img.shields.io/github/languages/count/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen)
+[![GitHub top language](https://img.shields.io/github/languages/top/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen)
+[![W3C Validation html](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F&label=w3c%20html)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F)
+[![W3C Validation css](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&label=w3c%20css)](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 ![responsive-image from amiresponsive](documentation/responsive-image.png)
 
