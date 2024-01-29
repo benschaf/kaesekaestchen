@@ -1,7 +1,11 @@
 /* Google Fonts import */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/* CSS Variables */
+/* 
+CSS Variables
+Credits: https://www.w3schools.com/cssref/sel_root.php,
+https://www.w3schools.com/css/css3_variables.asp 
+*/
 :root {
     /* p = Primary / s = Secondary */
     --dark-backgorund: #121212;
@@ -77,6 +81,7 @@ h2 {
 .blur-background {
     position: absolute;
     z-index: -1;
+    /* Credits: https://www.w3schools.com/howto/howto_css_blurred_background.asp */
     filter: blur(100px);
     background-color: var(--p-highlight-transparent);
 }
@@ -157,6 +162,7 @@ main {
 /* Gameboard */
 #game-area>#gameboard {
     position: relative;
+    /* Credit: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing */
     box-sizing: content-box;
     display: flex;
     flex-wrap: wrap;
@@ -300,6 +306,7 @@ footer>div {
 }
 
 .fab {
+    /* Restyle Font Awesome icons */
     background-color: var(--card-background);
     font-size: 1.5rem;
     color: var(--p-text);
@@ -309,16 +316,16 @@ footer>div {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+.fab:hover {
+    background-color: var(--p-highlight);
+    color: #000;
+}
+
 #footer-blur-element {
     width: 50%;
     height: 70px;
     top: 0;
     right: 0;
-}
-
-.fab:hover {
-    background-color: var(--p-highlight);
-    color: #000;
 }
 
 /* Media Queries */
@@ -335,9 +342,12 @@ footer>div {
 }
 
 @media screen and (min-width: 768px) {
+
     /* Arrange Scores and Options Cards Horizontally below Gameboard */
     #game-area {
         max-width: 768px;
+        /* Credit: https://grid.layoutit.com/,
+        https://mozilladevelopers.github.io/playground/css-grid*/
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 0fr;
@@ -359,6 +369,7 @@ footer>div {
 }
 
 @media screen and (min-width: 1440px) {
+
     /* Increase Spacing on large screens */
     main {
         padding: 3rem;
@@ -392,6 +403,7 @@ footer>div {
 }
 
 @media screen and (min-width: 1800px) {
+
     /* Arrange all children of #game-area horizontally */
     #game-area {
         grid-template-columns: 3fr 6fr 3fr;
