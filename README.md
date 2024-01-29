@@ -90,26 +90,28 @@ Some of the design was finalized while implementing it in code. The final design
 
 ## Features
 
-### Logo and Heading
+### Existing Features
+
+#### Logo and Heading
 Featured at the top of the page, the Käsekästchen typography logo is easy to see for the user. Upon viewing the page, the user will be able to see the name of the game. The how to play button is displayed on the right side of the display. This button will scroll the user down to the instructions section.
 
 ![feature-logo](documentation/feature-logo.png)
 
-### Gameboard
+#### Gameboard
 This section will allow the user to play the Käsekästchen game. The user will be able to easily see the grid of dots and draw lines between them by clicking on a disabled line. When a box is completed, the box will be automatically filled with the active players colour. Once all boxes are completed, the game will end and a message will be displayed to the user. A new game can then be started by clicking on the "Start New Game" button in the options area.
 
 ![feature-gameboard](documentation/feature-gameboard.png)
 
-### AI Opponent
+#### AI Opponent
 The AI opponent is implemented in the game logic and will play against the user. The AI opponent will play a random move on the "Easy" difficulty level. The "Medium" difficulty follows an algorithm. Check it out in the code comments in the !!Link TO FILE!! file. The "Hard" difficulty is currently disabled and in development.
 
 
-### Score Card
+#### Score Card
 This section will allow the user to see exactly how many squares they have completed and how many squares their opponent has completed, indicating who is winning. The Score Card will also display the name of the player and the difficulty level of the AI. Lastly it indicates whose turn it is by colouring the background of the active player's name and score.
 
 ![feature-scorecard](documentation/feature-scorecard.png)
 
-### Options Area
+#### Options Area
 This section allows the user to customize their game experience. The options available are:
 
 - ***Player Name:*** The user can input their desired name.
@@ -120,32 +122,34 @@ This section allows the user to customize their game experience. The options ava
 
 ![feature-options](documentation/feature-options.png)
 
-### Instructions
+#### Instructions
 This section will allow the user to read the instructions on how to play the game. The user can click on the "How to Play" button in the header to scroll down to this section.
 
 ![feature-instructions](documentation/feature-instructions.png)
 
-### Footer
+#### Footer
 This section will allow the user to see copyright information. The footer also contains links to the developer's GitHub and LinkedIn profiles.
 
 ![feature-footer](documentation/feature-footer.png)
 
-### Background Blur Design elements
+#### Background Blur Design elements
 The background blur design elements are used to create a more interesting and playful design. The background blur elements are used behind the header and the footer. When the game is played, more backgorund blur elements are generated behind the gameboard. These elements are coloured after the player colours, depending on who completed which box.
 
 ![feature-background-blur](documentation/feature-background-blur.png)
 
-### Responsiveness
+#### Responsiveness
 The website is fully responsive on all devices. This is acheived using media queries and CSS Grid and Flexbox for most of the layout. 
 
 The gameboard is responsive using JavaScript. Each DOM element of the gameboard is individually created and resized depending on the size of the viewport. The gameboard is also responsive to the size of the grid. The grid size can be adjusted by the user in the options area. The gameboard will then be resized accordingly. Note that on mobile devices, a grid size larger than 4x4 is not recommended.
 
 ![responsive-image from amiresponsive](documentation/responsive-image.png)
 
-### Single Page Application
+#### Single Page Application
 The website is a single page application. This means that the user can play the game without having to reload the page. The user can also change the game settings without having to reload the page. This is achieved using JavaScript and DOM manipulation.
 
-### Future User stories
+### Future Features
+
+#### Proposed Future User stories
 |As a|I would like to|so that I can|
 |----|----|----|
 |User|select the number of players|play against my friends|
@@ -153,7 +157,7 @@ The website is a single page application. This means that the user can play the 
 |User|play against a harder AI|challenge myself|
 |User|display the game in a light theme|play in a light theme|
 
-### Future Features
+#### Proposed Future Features
 
 **Multiplayer:** Allow users to play against each other online.
 
