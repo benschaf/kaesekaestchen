@@ -7,6 +7,8 @@ The deployed site can be found [here](https://benschaf.github.io/kaesekaestchen)
 ![responsive-image from amiresponsive](documentation/responsive-image.png)
 
 ## UX
+### User Persona
+The target audience for this web app is anyone who wants to play a fun and easy to learn game online. It's possible to play the game for 5 Minutes but if someone wants to play for longer, they can adjust the size of the grid to make the game more complex. The game is single player, so no second player is required. The game is also playable on mobile devices, so it can be played on the go (although a grid larger than 4x4 is not recommended on mobile devices).
 
 ### Colour Scheme
 This web app is displayed in a dark theme. The colour scheme adheres to the [Material Design 2 Dark Theme guidelines](https://m2.material.io/design/color/dark-theme.html). This provides a familiar experience for users who are used to the dark theme on their devices. The dark theme also reduces eye strain which enables users to play the game for longer periods of time. The colours used are:
@@ -118,7 +120,7 @@ The background blur design elements are used to create a more interesting and pl
 ### Responsiveness
 The website is fully responsive on all devices. This is acheived using media queries and CSS Grid and Flexbox for most of the layout. 
 
-The gameboard is responsive using JavaScript. Each DOM element of the gameboard is individually created and resized depending on the size of the viewport. The gameboard is also responsive to the size of the grid. The grid size can be adjusted by the user in the options area. The gameboard will then be resized accordingly.
+The gameboard is responsive using JavaScript. Each DOM element of the gameboard is individually created and resized depending on the size of the viewport. The gameboard is also responsive to the size of the grid. The grid size can be adjusted by the user in the options area. The gameboard will then be resized accordingly. Note that on mobile devices, a grid size larger than 4x4 is not recommended.
 
 ![responsive-image from amiresponsive](documentation/responsive-image.png)
 
