@@ -78,6 +78,9 @@ The cards are also used to create a visual hierarchy.
 *Note: User stories that aren't in the scope of this version can be found under Future Features.*
 
 ## Wireframes / Mockups
+The wireframes were created using [draw.io](https://www.drawio.com/). The mockups were created using [Figma](https://figma.com). The mockups were created after the wireframes to visualize the design of the website. The mockups were used as a reference during development.
+
+Some of the design was finalized while implementing it in code. The final design differs slightly from the mockups. The final design can be found in the [Features](#features) section.
 
 | Device | Wireframe | Figma Mockup |
 |-|-|-|
