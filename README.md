@@ -238,6 +238,9 @@ You can fork this repository by using the following steps:
 ## Credits
 
 ### Content
+To go to the source of the content, click on the link in the "Source" column.
+To go to the relevant code inside this project, click on the link in the "Location" column.
+
 | Source | Location | Notes |
 | --- | --- | --- |
 |[Wikipedia](https://en.wikipedia.org/wiki/Dots_and_Boxes) | [instructions card](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/index.html#L98-L112) | used for game instructions |
