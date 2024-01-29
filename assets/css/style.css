@@ -3,7 +3,7 @@
 
 /* 
 CSS Variables
-Credits: https://www.w3schools.com/cssref/sel_root.php,
+Credit: https://www.w3schools.com/cssref/sel_root.php,
 https://www.w3schools.com/css/css3_variables.asp 
 */
 :root {
@@ -81,7 +81,7 @@ h2 {
 .blur-background {
     position: absolute;
     z-index: -1;
-    /* Credits: https://www.w3schools.com/howto/howto_css_blurred_background.asp */
+    /* Credit: https://www.w3schools.com/howto/howto_css_blurred_background.asp */
     filter: blur(100px);
     background-color: var(--p-highlight-transparent);
 }
@@ -347,7 +347,7 @@ footer>div {
     #game-area {
         max-width: 768px;
         /* Credit: https://grid.layoutit.com/,
-        https://mozilladevelopers.github.io/playground/css-grid*/
+        https://mozilladevelopers.github.io/playground/css-grid */
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr 0fr;

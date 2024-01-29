@@ -254,7 +254,7 @@ function endGame() {
     document.getElementById('gameboard').appendChild(endMessageAlertBox);
 
     // Credit for setTimeout: https://www.w3schools.com/jsref/met_win_settimeout.asp
-    setTimeout(function () {
+    setTimeout( () => {
         endMessageAlertBox.remove();
     }, 3000);
 }

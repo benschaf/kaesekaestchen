@@ -184,6 +184,7 @@ The website is a single page application. This means that the user can play the 
 - [draw.io](https://www.drawio.com/) used for wireframe creation
 - [Figma](https://figma.com) used for design creation
 - [Windows Snipping Tool](https://support.microsoft.com/de-de/windows/aufnehmen-von-screenshots-mithilfe-des-snipping-tools-00246869-1843-655f-f220-97299b865f6b) used to take screenshots and screencasts on Windows
+- [grid.layoutit.com](https://grid.layoutit.com/) used to create the gameboard grid
 - [Adobe free mp4 to gif converter](https://www.adobe.com/express/feature/video/convert/mp4-to-gif) used to convert screencasts to gif
 
 Still to be used:
@@ -239,12 +240,30 @@ You can fork this repository by using the following steps:
 ### Content
 | Source | Location | Notes |
 | --- | --- | --- |
+|[Wikipedia](https://en.wikipedia.org/wiki/Dots_and_Boxes) | [instructions card](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/index.html#L98-L112) | used for game instructions |
+|[Wikipedia](https://en.wikipedia.org/wiki/Dots_and_Boxes) | [function computeLastTurn](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L271-L297) | used for game logic |
+|[Favicon W3C](https://www.w3schools.com/html/html_favicon.asp) | [Favicon link](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/index.html#L9) | used for favicon syntax |
+|[CSS Blurred Background W3C](https://www.w3schools.com/howto/howto_css_blurred_background.asp) | [filter: blur(100px)](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/css/style.css#L85) and [function createBackgroundBlurElement()](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L160-L181) | used for background blur syntax |
+|[CSS :root Selector W3C](https://www.w3schools.com/cssref/sel_root.php) | [:root](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/css/style.css#L9-L19) | used for CSS root syntax |
+|[CSS Variables W3C](https://www.w3schools.com/css/css3_variables.asp) | [:root](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/css/style.css#L9-L19) | used for CSS variables syntax |
+|[developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) | [box-sizing: border-box;](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/css/style.css#L57) | used for CSS box-sizing syntax |
+|[mozilladevelopers.github.io](https://mozilladevelopers.github.io/playground/css-grid) | [game-area media query](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/css/style.css#L346-L368) | used for CSS grid syntax |
+|[Medium Article by Martin Kearn](https://medium.com/@martink_rsa/js-docs-a-quickstart-guide-da6ce5df4a73) | [script.js](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js) | used for JSDoc syntax |
+|[Flexiple](https://flexiple.com/javascript/javascript-capitalize-first-letter) | [Difficulty indicator](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L32-L33) | used for capitalizing the first letter of the difficulty string |
+|[W3Schools](https://www.w3schools.com/js/js_arrow_function.asp) | [div.addEventListener('click', () => {](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L71-L79) | used for arrow function syntax |
+|[MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction#dom_interfaces) | [* @param {HTMLDivElement}](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L126) | used for understanding HTMLDivElement parameter and for using it in JSdoc comments in |
+|[W3Schools](https://www.w3schools.com/jsref/met_win_settimeout.asp) | [setTimeout( () => { }](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L257-L259) | used for setTimeout function to delay AI turns |
+|[W3Schools](https://www.w3schools.com/css/tryit.asp?filename=trycss_align_transform) | [thinkingAnimationElement](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L331-L334) | used for centering the "AI is thinking..." element |
+|[Stack Overflow](https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type) | [@ return {two arguments}](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L396) | used for understanding JSDoc return syntax and for using it in JSDoc comments |
+|[Stack Overflow](https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array) | [let leftOverBorders = availableBorders.slice();](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L419) | used for understanding how to create an independent copy of an array |
+|[W3Schools](https://www.w3schools.com/jsref/prop_html_classname.asp) | [div.className = 'border';](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L523) | used for understanding how to set and address the class names of the divs in the gameboard grid |
 
 ### Media
 | Source | Location | filename | Notes |
 | --- | --- | --- | --- |
 |[Fontawesome](https://fontawesome.com) | Footer | various icons | icons used: fa-github, fa-linkedin |
 |[Material Design 2](https://m2.material.io/design/color/dark-theme.html) | Colour Scheme and Design | N/A | used for design guidelines |
+
 
 ### Acknowledgements
 - I would like to thank my Code Institute mentor, [Tim Nelson](https://tim.2bn.dev/) for his support throughout the development of this project.
