@@ -59,6 +59,26 @@ function createGameboard(gridSize) {
 }
 
 /**
+ * Checks if a border has already been drawn.
+ * If it hasn't, marks the border as drawn and calls tick to update the gameboard.
+ * 
+ * @param {HTMLDivElement} div - The border to add an event listener to.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns 
+ */
+function borderClickListener(div, grid) {
+    return () => {
+        //check if the border has already been drawn
+        if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
+            return;
+        } else {
+            markBorder(div);
+            tick(grid);
+        }
+    };
+}
+
+/**
  * Sets up event listeners for the gameboard.
  * Sets up an event listener if the window is resized.
  * 
@@ -67,16 +87,7 @@ function createGameboard(gridSize) {
 function setupEventListeners(grid, gridSize) {
     for (let div of grid) {
         if (div.className === 'border') {
-            // Credit for arrow functions: https://www.w3schools.com/js/js_arrow_function.asp
-            div.addEventListener('click', () => {
-                //check if the border has already been drawn
-                if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
-                    return;
-                } else {
-                    markBorder(div);
-                    tick(grid);
-                }
-            });
+            div.addEventListener('click', borderClickListener(div, grid));
         }
     }
 
