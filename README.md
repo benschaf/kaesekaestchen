@@ -40,6 +40,18 @@ I've used CSS :root variables to easily update the global colour scheme by chang
 ```
 The `--p-highlight-transparent` variable is used for the hover effect on buttons.
 
+#### Accessibility for colours
+The colours used in the web app are accessible for users with colour blindness. The colour scheme was tested using the [Colorable](https://colorable.jxnblk.com/) tool. The colour scheme was also tested using the [Contrast Checker](https://contrastchecker.com/) tool. The results can be found below:
+
+### Layout
+The layout of the website also adheres to the [Material Design 2 Dark Theme guidelines](https://m2.material.io/design/color/dark-theme.html). The Layout is based on cards. The cards are used to group related content together. 
+
+#### Information Architecture
+The cards are also used to create a visual hierarchy.
+- The biggest card is the **gameboard**, making it the main focus of the website. 
+- The card on the top left is the **score card**, which is the second most important card. 
+- The **options card** is the third most important card and always appears below or after the score card. 
+- The **instructions card** is only visible upon scrolling down or clicking on the "How to Play" button in the header.
 
 ### Typography
 - [Nunito](https://fonts.google.com/specimen/Nunito) was used for all text on the website. This font was chosen because of its playful roundness, which fits the theme and style of the game.
