@@ -30,8 +30,8 @@ I've used CSS :root variables to easily update the global colour scheme by chang
     /* p = Primary / s = Secondary */
     --dark-backgorund: #121212;
     --card-background: #1E1E1E;
-    --p-highlight: #03DAC6;
-    --p-highlight-transparent: rgba(3, 218, 198, 0.8);
+    --p-highlight: #03DAC5;
+    --p-highlight-transparent: rgba(3, 218, 197, 0.8);
     --p-text: #FFFFFF;
     --s-text: #A5A5A5;
     --player-color: #BAfC86;
@@ -39,6 +39,9 @@ I've used CSS :root variables to easily update the global colour scheme by chang
 }
 ```
 The `--p-highlight-transparent` variable is used for the hover effect on buttons.
+
+I used the [coolors.co](https://coolors.co/) tool to visualize the colour scheme:
+![coolors-theme](documentation/coolors-theme.png)
 
 #### Accessibility for colours
 The colours used in the web app are accessible for users with colour blindness. The colour scheme was tested using the [Colorable](https://colorable.jxnblk.com/) tool. The colour scheme was also tested using the [Contrast Checker](https://contrastchecker.com/) tool. The results can be found below:
