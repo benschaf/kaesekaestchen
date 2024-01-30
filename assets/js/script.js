@@ -44,6 +44,7 @@ function rescaleGameboard(grid, gridSize) {
     let scale;
     const verticalSpace = document.documentElement.clientHeight / 100 * 70;
     if (window.innerWidth >= 1440) {
+        // 8/12th of the width of the game-area to allow space for the scores and options cards
         const largeHorizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
         if (largeHorizontalSpace < verticalSpace) {
             scale = parseInt(largeHorizontalSpace / (gridSize * 2 + 1) - 2);
@@ -51,7 +52,8 @@ function rescaleGameboard(grid, gridSize) {
             scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
         }
     } else {
-        const smallHorizontalSpace = (document.getElementById('game-area').offsetWidth);
+        // Horizontal width - 32px (16px padding on each side)
+        const smallHorizontalSpace = document.getElementById('game-area').offsetWidth - 32;
         if (smallHorizontalSpace < verticalSpace) {
             scale = parseInt(smallHorizontalSpace / (gridSize * 2 + 1) - 2);
         } else {
