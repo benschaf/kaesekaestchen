@@ -383,9 +383,9 @@ function tick(grid) {
     } else {
         nextTurn = false;
     }
-    
+
     indicateTurn(nextTurn);
-    
+
     if (!nextTurn) {
         computerTurn(grid);
     } else {
@@ -479,6 +479,48 @@ function getDivByXY(x, y, grid) {
 }
 
 /**
+ * Returns an array of the cells adjacent to a border.
+ * If the border is horizontal, returns the cell above and below the border.
+ * If the border is vertical, returns the cell to the left and right of the border.
+ * 
+ * @param {HTMLDivElement} availableBorder - The border to get the adjacent cells of.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {Array} - The cells adjacent to the border.
+ */
+function getAdjacentCells(availableBorder, grid) {
+    let cellAboveOrLeft;
+    let cellBelowOrRight;
+    if (availableBorder.xVal % 2 === 1 && availableBorder.yVal % 2 === 0) { // border is horizontal
+        cellAboveOrLeft = getDivByXY(availableBorder.xVal, availableBorder.yVal - 1, grid);
+        cellBelowOrRight = getDivByXY(availableBorder.xVal, availableBorder.yVal + 1, grid);
+    } else if (availableBorder.xVal % 2 === 0 && availableBorder.yVal % 2 === 1) { // border is vertical
+        cellAboveOrLeft = getDivByXY(availableBorder.xVal - 1, availableBorder.yVal, grid);
+        cellBelowOrRight = getDivByXY(availableBorder.xVal + 1, availableBorder.yVal, grid);
+    }
+    return [cellAboveOrLeft, cellBelowOrRight];
+}
+
+/**
+ * Counts the number of drawn borders around an Array of cells.
+ * 
+ * @param {Array} cells - The cells to count the drawn borders around.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {Array} - The number of drawn borders around each cell.
+ */
+function getBorderCounts(cells, grid) {
+    let adjacentCellsBorderCount = [0, 0];
+
+    for (let i in cells) {
+        if (cells[i] !== null) {
+            let borderCount = countDrawnBorders(cells[i], grid);
+            adjacentCellsBorderCount[i] = borderCount;
+        }
+    }
+
+    return adjacentCellsBorderCount;
+}
+
+/**
  * Determines which border to draw based on the number of drawn borders around adjacent cells.
  * If a cell has 3 drawn borders, draws the 4th border.
  * If a cell has 2 drawn borders, removes that border from the available borders.
@@ -491,53 +533,25 @@ function mediumComputerTurn(availableBorders, grid) {
     // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. 
     //Credit: https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
     let leftOverBorders = availableBorders.slice();
+
     //cycle through avaliable borders
     for (let availableBorder of availableBorders) {
-        let adjacentCellsBorderCount = [0, 0];
-        //check if the border is horizontal or vertical
-        if (availableBorder.xVal % 2 === 1 && availableBorder.yVal % 2 === 0) { // border is horizontal
-            //check for adjacent cells
-            let cellAbove;
-            let cellBelow;
-            cellAbove = getDivByXY(availableBorder.xVal, availableBorder.yVal - 1, grid);
-            cellBelow = getDivByXY(availableBorder.xVal, availableBorder.yVal + 1, grid);
-            if (cellAbove !== null) {
-                let borderCount = countDrawnBorders(cellAbove, grid);
-                adjacentCellsBorderCount[0] = borderCount;
-            }
-            if (cellBelow !== null) {
-                let borderCount = countDrawnBorders(cellBelow, grid);
-                adjacentCellsBorderCount[1] = borderCount;
-            }
-        } else if (availableBorder.xVal % 2 === 0 && availableBorder.yVal % 2 === 1) { // border is vertical
-            //check for adjacent cells
-            let cellLeft;
-            let cellRight;
-            cellLeft = getDivByXY(availableBorder.xVal - 1, availableBorder.yVal, grid);
-            cellRight = getDivByXY(availableBorder.xVal + 1, availableBorder.yVal, grid);
-            //check how many borders are drawn around each adjacent cell
-            if (cellLeft !== null) {
-                let borderCount = countDrawnBorders(cellLeft, grid);
-                adjacentCellsBorderCount[0] = borderCount;
-            }
-            if (cellRight !== null) {
-                let borderCount = countDrawnBorders(cellRight, grid);
-                adjacentCellsBorderCount[1] = borderCount;
-            }
-        }
-        //if a cell has 3 drawn borders, draw the 4th border
-        if (adjacentCellsBorderCount[0] === 3 || adjacentCellsBorderCount[1] === 3) {
+        //check for border count in each adjacent cell
+        let adjacentCells = getAdjacentCells(availableBorder, grid);
+        let adjacentCellsBorderCount = getBorderCounts(adjacentCells, grid);
 
+        //if one of the adjacent cells has 3 drawn borders, draw the 4th border
+        if (adjacentCellsBorderCount.includes(3)) {
             markBorder(availableBorder);
             return;
         }
-        //if a cell has 2 drawn borders, remove that border from the available borders
-        if (adjacentCellsBorderCount[0] === 2 || adjacentCellsBorderCount[1] === 2) {
-            let index;
-            index = leftOverBorders.indexOf(availableBorder);
-            leftOverBorders.splice(index, 1);
+
+        //if one of the adjacent cells has 2 drawn borders, remove that border from the available borders
+        if (adjacentCellsBorderCount.includes(2)) {
+            leftOverBorders = leftOverBorders.filter(border => border !== availableBorder);
         }
     }
+
     //if no cell has 3 or two drawn borders, randomly select a border to draw
     if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
         let randomBorder = Math.floor(Math.random() * availableBorders.length);
