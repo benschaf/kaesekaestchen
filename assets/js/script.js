@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 /*
 functions for gameboard responsiveness
 */
