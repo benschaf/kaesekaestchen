@@ -232,11 +232,12 @@ main {
     gap: 2rem;
 }
 
+/* Credit for default styles: https://stackoverflow.com/questions/75536172/css-variables-are-not-statically-checked */
 input[type="text"],
 input[type="range"] {
     padding: 0.5rem;
     border-radius: 0.5rem;
-    border: 1px solid var(--s-highlight);
+    border: 1px solid var(--s-highlight, #03DAC5);
     background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -250,7 +251,7 @@ input[type="radio"] {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    border: 1px solid var(--s-highlight);
+    border: 1px solid var(--s-highlight, #03DAC5);
     background-color: rgba(255, 255, 255, 0.1);
     cursor: pointer;
 }

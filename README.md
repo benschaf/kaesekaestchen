@@ -273,6 +273,7 @@ To go to the relevant code inside this project, click on the link in the "Locati
 |[W3Schools](https://www.w3schools.com/jsref/prop_html_classname.asp) | [div.className = 'border';](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L523) | used for understanding how to set and address the class names of the divs in the gameboard grid |
 |[Medium Article by Steve Amaza](https://medium.com/@steveamaza/how-to-write-a-proper-git-commit-message-e028865e5791) | git version control | used for understanding how to write git commit messages with a body using the vim interface |
 |[W3Schools - CSS Animation](https://www.w3schools.com/cssref/css3_pr_animation.php) | [animations in script.js](https://github.com/benschaf/kaesekaestchen/blob/c51470de48a20362fad0839bfc943c286c25b4c5/assets/js/script.js#L274-L291) and [style.css](https://github.com/benschaf/kaesekaestchen/blob/c51470de48a20362fad0839bfc943c286c25b4c5/assets/css/style.css#L207-L219) | understanding CSS animations |
+|[Stack Overflow](https://stackoverflow.com/questions/75536172/css-variables-are-not-statically-checked) | [CSS Variables](https://github.com/benschaf/kaesekaestchen/blob/67177f61fe4f4c34a261769736ea54d37665825a/assets/css/style.css#L240) | used for understanding and removing the jigsaw warning "CSS variables are not statically checked" |
 
 ### Media
 | Source | Location | filename | Notes |
