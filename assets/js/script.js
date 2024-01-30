@@ -270,6 +270,26 @@ function switchTurns() {
     }
 }
 
+// Credit for animation: https://www.w3schools.com/cssref/css3_pr_animation.php
+/**
+ * Creates a light up animation on the player or the AI on the scoreboard to indicate whose turn it is.
+ * 
+ * @param {boolean} turn - True if it is the player's turn, false if it is the AI's turn.
+ */
+function indicateTurn(turn) {
+    let element;
+    if (turn) {
+        element = document.getElementById('player1');
+    } else {
+        element = document.getElementById('player2');
+    }
+    element.style.animation = `lightUp 1s`;
+
+    setTimeout(function () {
+        element.style.animation = 'none';
+    }, 1000);
+}
+
 /**
  * Sets the correct end game message based on the scores.
  * Displays 2 costum alert boxes with the end game message over the gameboard and in the scores card.
@@ -330,6 +350,8 @@ function computeLastTurn(grid) {
     }
     if (switchTurn) {
         switchTurns();
+    } else {
+        indicateTurn(turn);
     }
     let totalCells = document.getElementsByClassName('cell').length;
     if (filledCells === totalCells && filledCells !== 0) {

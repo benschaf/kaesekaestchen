@@ -203,6 +203,21 @@ main {
     font-size: 3rem;
 }
 
+/* Credit for animation: https://www.w3schools.com/cssref/css3_pr_animation.php */
+@keyframes lightUp {
+    0% {
+        box-shadow: none;
+    }
+
+    50% {
+        box-shadow: inset 0 0 15px rgb(255, 255, 255);
+    }
+
+    100% {
+        box-shadow: none;
+    }
+}
+
 /* Options Card */
 #options {
     display: flex;
