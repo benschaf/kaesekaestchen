@@ -66,14 +66,14 @@ function createGameboard(gridSize) {
  * @param {Array} grid - The gameboard grid of div elements.
  */
 function borderClickListener(div, grid) {
-        div.style.backgroundColor = "#444444";
-        //check if the border has already been drawn
-        if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
-            return;
-        } else {
-            markBorder(div);
-            tick(grid);
-        }
+    div.style.backgroundColor = "#444444";
+    //check if the border has already been drawn
+    if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
+        return;
+    } else {
+        markBorder(div);
+        tick(grid);
+    }
 }
 
 /**
@@ -83,11 +83,11 @@ function borderClickListener(div, grid) {
  * @param {HTMLDivElement} div - The border to highlight.
  */
 function borderMouseoverListener(div) {
-        if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
-            return;
-        } else {
-            div.style.backgroundColor = "#8a8a8a";
-        }
+    if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
+        return;
+    } else {
+        div.style.backgroundColor = "#8a8a8a";
+    }
 }
 
 /**
@@ -96,7 +96,7 @@ function borderMouseoverListener(div) {
  * @param {HTMLDivElement} div - The border to remove the highlight from.
  */
 function borderMouseoutListener(div) {
-            div.style.backgroundColor = "#444444";
+    div.style.backgroundColor = "#444444";
 }
 
 // Credit for anonymous functions: https://medium.com/@andrewasmit/passing-arguments-to-your-event-listeners-callback-function-d9d8369cc3a4
@@ -315,7 +315,7 @@ function endGame() {
     document.getElementById('gameboard').appendChild(endMessageAlertBox);
 
     // Credit for setTimeout: https://www.w3schools.com/jsref/met_win_settimeout.asp
-    setTimeout( () => {
+    setTimeout(() => {
         endMessageAlertBox.remove();
     }, 3000);
 }
@@ -328,6 +328,7 @@ function endGame() {
  * Ends game if all cells have been filled.
  * 
  * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {boolean} - True if the game is over, false if the game is not over.
  */
 function computeLastTurn(grid) {
     let turn = determineTurn();
@@ -348,15 +349,18 @@ function computeLastTurn(grid) {
             }
         }
     }
+
+    let totalCells = document.getElementsByClassName('cell').length;
+    if (filledCells === totalCells && filledCells !== 0) {
+        endGame();
+        return true;
+    }
     if (switchTurn) {
         switchTurns();
     } else {
         indicateTurn(turn);
     }
-    let totalCells = document.getElementsByClassName('cell').length;
-    if (filledCells === totalCells && filledCells !== 0) {
-        endGame();
-    }
+    return false;
 }
 
 /**
@@ -367,7 +371,11 @@ function computeLastTurn(grid) {
  * @param {Array} grid - The gameboard grid of div elements.
  */
 function tick(grid) {
-    computeLastTurn(grid);
+    let gameOver = computeLastTurn(grid);
+
+    if (gameOver) {
+        return;
+    }
 
     let nextTurn;
     if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
