@@ -355,10 +355,9 @@ function computeLastTurn(grid) {
         endGame();
         return true;
     }
+
     if (switchTurn) {
         switchTurns();
-    } else {
-        indicateTurn(turn);
     }
     return false;
 }
@@ -366,6 +365,7 @@ function computeLastTurn(grid) {
 /**
  * Parent function for the "gameloop" logic
  * Calls computeLastTurn.
+ * calls indicateTurn to indicate whose turn it is.
  * If it is the AI's turn, calls computerTurn. Else, does nothing (waits for the player to click a border).
  * 
  * @param {Array} grid - The gameboard grid of div elements.
@@ -383,6 +383,9 @@ function tick(grid) {
     } else {
         nextTurn = false;
     }
+    
+    indicateTurn(nextTurn);
+    
     if (!nextTurn) {
         computerTurn(grid);
     } else {
