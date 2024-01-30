@@ -64,10 +64,9 @@ function createGameboard(gridSize) {
  * 
  * @param {HTMLDivElement} div - The border to add an event listener to.
  * @param {Array} grid - The gameboard grid of div elements.
- * @returns 
  */
 function borderClickListener(div, grid) {
-    return () => {
+        div.style.backgroundColor = "#444444";
         //check if the border has already been drawn
         if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
             return;
@@ -75,9 +74,32 @@ function borderClickListener(div, grid) {
             markBorder(div);
             tick(grid);
         }
-    };
 }
 
+/**
+ * Highlights a border when the mouse hovers over it.
+ * Only highlights the border if it hasn't been drawn yet and if it is the player's turn.
+ * 
+ * @param {HTMLDivElement} div - The border to highlight.
+ */
+function borderMouseoverListener(div) {
+        if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
+            return;
+        } else {
+            div.style.backgroundColor = "#8a8a8a";
+        }
+}
+
+/**
+ * Removes the highlight from a border when the mouse leaves it.
+ * 
+ * @param {HTMLDivElement} div - The border to remove the highlight from.
+ */
+function borderMouseoutListener(div) {
+            div.style.backgroundColor = "#444444";
+}
+
+// Credit for anonymous functions: https://medium.com/@andrewasmit/passing-arguments-to-your-event-listeners-callback-function-d9d8369cc3a4
 /**
  * Sets up event listeners for the gameboard.
  * Sets up an event listener if the window is resized.
@@ -87,7 +109,15 @@ function borderClickListener(div, grid) {
 function setupEventListeners(grid, gridSize) {
     for (let div of grid) {
         if (div.className === 'border') {
-            div.addEventListener('click', borderClickListener(div, grid));
+            div.addEventListener('click', () => {
+                borderClickListener(div, grid);
+            });
+            div.addEventListener('mouseenter', () => {
+                borderMouseoverListener(div);
+            });
+            div.addEventListener('mouseout', () => {
+                borderMouseoutListener(div);
+            });
         }
     }
 
