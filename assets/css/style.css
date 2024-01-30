@@ -239,6 +239,7 @@ input[type="range"] {
     border-radius: 0.5rem;
     border: 1px solid var(--s-highlight, #03DAC5);
     background-color: rgba(255, 255, 255, 0.1);
+    color: var(--p-text);
 }
 
 input[type="text"]:hover {
