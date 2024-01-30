@@ -271,6 +271,7 @@ To go to the relevant code inside this project, click on the link in the "Locati
 |[Stack Overflow](https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type) | [@ return {two arguments}](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L396) | used for understanding JSDoc return syntax and for using it in JSDoc comments |
 |[Stack Overflow](https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array) | [let leftOverBorders = availableBorders.slice();](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L419) | used for understanding how to create an independent copy of an array |
 |[W3Schools](https://www.w3schools.com/jsref/prop_html_classname.asp) | [div.className = 'border';](https://github.com/benschaf/kaesekaestchen/blob/6250f858198af5fbe85397e82bb6e0b7602eee35/assets/js/script.js#L523) | used for understanding how to set and address the class names of the divs in the gameboard grid |
+|[Medium Article by Steve Amaza](https://medium.com/@steveamaza/how-to-write-a-proper-git-commit-message-e028865e5791) | git version control | used for understanding how to write git commit messages with a body using the vim interface |
 
 ### Media
 | Source | Location | filename | Notes |
