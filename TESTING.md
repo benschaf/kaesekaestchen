@@ -63,15 +63,14 @@ Sample browser testing documentation:
 
 I've tested my deployed project on multiple browsers to check for compatibility issues.
 
-| Browser | Home | About | Contact | etc | Notes |
-| --- | --- | --- | --- | --- | --- |
-| Chrome | ![screenshot](documentation/browser-chrome-home.png) | ![screenshot](documentation/browser-chrome-about.png) | ![screenshot](documentation/browser-chrome-contact.png) | ![screenshot](documentation/browser-chrome-etc.png) | Works as expected |
-| Firefox | ![screenshot](documentation/browser-firefox-home.png) | ![screenshot](documentation/browser-firefox-about.png) | ![screenshot](documentation/browser-firefox-contact.png) | ![screenshot](documentation/browser-firefox-etc.png) | Works as expected |
-| Edge | ![screenshot](documentation/browser-edge-home.png) | ![screenshot](documentation/browser-edge-about.png) | ![screenshot](documentation/browser-chrome-edge.png) | ![screenshot](documentation/browser-edge-etc.png) | Works as expected |
-| Safari | ![screenshot](documentation/browser-safari-home.png) | ![screenshot](documentation/browser-safari-about.png) | ![screenshot](documentation/browser-safari-contact.png) | ![screenshot](documentation/browser-safari-etc.png) | Minor CSS differences |
-| Brave | ![screenshot](documentation/browser-brave-home.png) | ![screenshot](documentation/browser-brave-about.png) | ![screenshot](documentation/browser-brave-contact.png) | ![screenshot](documentation/browser-brave-etc.png) | Works as expected |
-| Opera | ![screenshot](documentation/browser-opera-home.png) | ![screenshot](documentation/browser-opera-about.png) | ![screenshot](documentation/browser-opera-contact.png) | ![screenshot](documentation/browser-opera-etc.png) | Minor differences |
-| repeat for any other tested browsers | x | x | x | x | x |
+| Browser | Top Part Screenshot | Bottom Part Screenshot | Notes |
+| --- | --- | --- | --- |
+| Chrome | ![screenshot](documentation/browser-chrome-top.png) | ![screenshot](documentation/browser-chrome-bottom.png) | Works as expected |
+| Firefox Developer Edition | ![screenshot](documentation/browser-firefox-dev-top.png) | ![screenshot](documentation/browser-firefox-dev-bottom.png) | Blur elements render differently - this issue is not very noticeable |
+| Edge | ![screenshot](documentation/browser-edge-top.png) | ![screenshot](documentation/browser-edge-bottom.png) | Works as expected |
+| Safari | ![screenshot](documentation/browser-safari-top.png) | ![screenshot](documentation/browser-safari-bottom.png) | Background Blur elements look different and render inconsistently on reloading the page - this issue is not very noticeable |
+
+The biggest takeaway from the browser testing is that the background blur elements render differently on different browsers. This is not a big issue as it is not very noticeable.
 
 ## Responsiveness
 
