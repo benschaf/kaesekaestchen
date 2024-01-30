@@ -1,149 +1,267 @@
-// Credit for JSdoc syntax: https://medium.com/@martink_rsa/js-docs-a-quickstart-guide-da6ce5df4a73
-/**
- * Resets all scores on the scores card to 0.
- * Sets the background color of the player or the AI to indicate who goes first.
- * Sets the player name label to the specified name.
- * Sets the difficulty indicator to the specified difficulty.
- * Sets the game end message to an empty string.
- * 
- * @param {string} playerName - The name of the player.
- * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.
- * @param {string} difficulty - The difficulty of the AI.
- */
-function resetScoresCard(playerName, goesFirst, difficulty) {
-    document.getElementById('player-score').innerHTML = 0;
-    document.getElementById('ai-score').innerHTML = 0;
-
-    if (goesFirst) {
-        let playerColor = 'rgba(185, 252, 134, 0.2)';
-        document.getElementById('player1').style.backgroundColor = playerColor;
-        document.getElementById('player2').style.backgroundColor = 'initial';
-    } else if (!goesFirst) {
-        let aiColor = 'rgba(252, 134, 185, 0.2)';
-        document.getElementById('player2').style.backgroundColor = aiColor;
-        document.getElementById('player1').style.backgroundColor = 'initial';
-    } // should I write an else statement here to catch any errors?
-
-    if (playerName === '') {
-        playerName = 'Player';
-    }
-    document.getElementById('player-name-label').innerHTML = playerName;
-    // Credit: https://flexiple.com/javascript/javascript-capitalize-first-letter
-    const difficultyUppercase = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
-    document.getElementById('difficulty-indicator').innerHTML = difficultyUppercase + ' Difficulty';
-
-    document.getElementById('game-end-message').innerHTML = '';
-}
+/*
+functions for gameboard responsiveness
+*/
 
 /**
- * Clears the gameboard and creates a new gameboard with the specified grid size.
+ * Resizes the gameboard grid.
  * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @param {number} scale - The scale to resize the grid to.
  * @param {number} gridSize - The size of the gameboard.
- * @returns {Array} The gameboard grid of div elements.
  */
-function createGameboard(gridSize) {
-    document.getElementById('gameboard').innerHTML = '';
+function resizeGrid(grid, scale, gridSize) {
+    let originalScale = parseInt(grid[0].style.width);
     let gameboard = document.getElementById('gameboard');
-    const size = gridSize;
+    // Formula for determining grid width and height. Total width of the gameboard: width of all divs + 2px border on each side of each div
+    let gameboardSideLength = scale * (gridSize * 2 + 1) + 2 * 2 * (gridSize + 1);
 
-    let grid = [];
-    for (let i = 0; i <= size; i++) {
-        for (let j = 0; j <= size; j++) {
-            let div = createDiv(i, j);
-            grid.push(div);
-            gameboard.appendChild(div);
-        }
-    }
-    rescaleGameboard(grid, gridSize);
-    return grid;
-}
+    gameboard.style.width = gameboardSideLength + 'px';
+    gameboard.style.height = gameboardSideLength + 'px';
 
-/**
- * Checks if a border has already been drawn.
- * If it hasn't, marks the border as drawn and calls tick to update the gameboard.
- * 
- * @param {HTMLDivElement} div - The border to add an event listener to.
- * @param {Array} grid - The gameboard grid of div elements.
- */
-function borderClickListener(div, grid) {
-    div.style.backgroundColor = "#444444";
-    //check if the border has already been drawn
-    if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
-        return;
-    } else {
-        markBorder(div);
-        tick(grid);
-    }
-}
-
-/**
- * Highlights a border when the mouse hovers over it.
- * Only highlights the border if it hasn't been drawn yet and if it is the player's turn.
- * 
- * @param {HTMLDivElement} div - The border to highlight.
- */
-function borderMouseoverListener(div) {
-    if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
-        return;
-    } else {
-        div.style.backgroundColor = "#8a8a8a";
-    }
-}
-
-/**
- * Removes the highlight from a border when the mouse leaves it.
- * 
- * @param {HTMLDivElement} div - The border to remove the highlight from.
- */
-function borderMouseoutListener(div) {
-    div.style.backgroundColor = "#444444";
-}
-
-// Credit for anonymous functions: https://medium.com/@andrewasmit/passing-arguments-to-your-event-listeners-callback-function-d9d8369cc3a4
-/**
- * Sets up event listeners for the gameboard.
- * Sets up an event listener if the window is resized.
- * 
- * @param {Array} grid - The gameboard grid of div elements.
- */
-function setupEventListeners(grid, gridSize) {
     for (let div of grid) {
-        if (div.className === 'border') {
-            div.addEventListener('click', () => {
-                borderClickListener(div, grid);
-            });
-            div.addEventListener('mouseenter', () => {
-                borderMouseoverListener(div);
-            });
-            div.addEventListener('mouseout', () => {
-                borderMouseoutListener(div);
-            });
+        let newWidth = parseInt(div.style.width) * scale / originalScale + 'px';
+        let newHeight = parseInt(div.style.height) * scale / originalScale + 'px';
+        div.style.width = newWidth;
+        div.style.height = newHeight;
+        div.style.borderRadius = scale + 'px';
+
+        if (div.className === 'corner') {
+            let newBlurRadius = parseInt(div.style.width) / 2 + 'px';
+            div.style.boxShadow = "inset 0 0 " + newBlurRadius + " rgba(255, 255, 255, 0.5)";
         }
     }
-
-    window.addEventListener('resize', () => {
-        rescaleGameboard(grid, gridSize);
-    });
 }
 
 /**
- * Initializes the game.
+ * Rescales the gameboard based on the size of the window and game-area div.
+ * Since the gameboard is a square, the gameboard will always be the size of the dimension with less space (horizontal or vertical).
  * 
- * @param {string} playerName - The name of the player.
- * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.
- * @param {string} difficulty - The difficulty of the AI.
+ * @param {Array} grid - The gameboard grid of div elements.
  * @param {number} gridSize - The size of the gameboard.
  */
-function init(playerName, goesFirst, difficulty, gridSize) {
-    resetScoresCard(playerName, goesFirst, difficulty);
-    let grid = createGameboard(gridSize);
-    setupEventListeners(grid, gridSize);
+function rescaleGameboard(grid, gridSize) {
+    let scale;
+    const verticalSpace = document.documentElement.clientHeight / 100 * 70;
+    if (window.innerWidth >= 1440) {
+        const largeHorizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
+        if (largeHorizontalSpace < verticalSpace) {
+            scale = parseInt(largeHorizontalSpace / (gridSize * 2 + 1) - 2);
+        } else {
+            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
+        }
+    } else {
+        const smallHorizontalSpace = (document.getElementById('game-area').offsetWidth);
+        if (smallHorizontalSpace < verticalSpace) {
+            scale = parseInt(smallHorizontalSpace / (gridSize * 2 + 1) - 2);
+        } else {
+            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
+        }
+    }
+    resizeGrid(grid, scale, gridSize);
+}
 
-    // if the player goes first, do nothing and wait for the player to click a border
-    if (!goesFirst) {
-        computerTurn(grid);
+/*
+functions for the AI. 
+*/
+
+//only maybe keep this thinking animation function - looks kinda cheap - maybe make it a loading bar below the gameboard or something
+/**
+ * Creates an AI is playing animation.
+ * Removes the animation after 1 second.
+ */
+function thinkingAnimation() {
+    let thinkingAnimationElement = document.createElement('div');
+    thinkingAnimationElement.id = 'thinking-animation';
+    // Credit for centering the element: https://www.w3schools.com/css/tryit.asp?filename=trycss_align_transform
+    thinkingAnimationElement.style.position = 'absolute';
+    thinkingAnimationElement.style.top = '50%';
+    thinkingAnimationElement.style.left = '50%';
+    thinkingAnimationElement.style.transform = 'translate(-50%, -50%)';
+    thinkingAnimationElement.style.width = '150px';
+    thinkingAnimationElement.style.height = '150px';
+    thinkingAnimationElement.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+    thinkingAnimationElement.style.display = 'flex';
+    thinkingAnimationElement.style.justifyContent = 'center';
+    thinkingAnimationElement.style.alignItems = 'center';
+    thinkingAnimationElement.style.fontSize = '1rem';
+    thinkingAnimationElement.style.borderRadius = '50%';
+    thinkingAnimationElement.innerHTML = 'AI is playing...';
+    document.getElementById('gameboard').appendChild(thinkingAnimationElement);
+    setTimeout(function () {
+        thinkingAnimationElement.remove();
+    }, 1000);
+}
+
+/**
+ * Determines which borders are available to draw.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {Array} avaliableBorders - The available borders to draw.
+ */
+function determineAvaliableBorders(grid) {
+    let availableBorders = [];
+    for (let border of grid) {
+        if (border.className === 'border') {
+            if (!border.drawn) {
+                availableBorders.push(border);
+            }
+        }
+    }
+    return availableBorders;
+}
+
+/**
+ * Marks a border as drawn by applying an inset shadow.
+ * Changes the drawn property of the border to true.
+ * 
+ * @param {HTMLDivElement} border - The border to mark as drawn.
+ */
+function markBorder(border) {
+    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
+    border.drawn = true;
+}
+
+/**
+ * Randomly selects a border to draw.
+ * 
+ * @param {Array} availableBorders - The available borders to choose from.
+ */
+function easyComputerTurn(availableBorders) {
+    let randomBorder = Math.floor(Math.random() * availableBorders.length);
+    markBorder(availableBorders[randomBorder]);
+}
+
+// Credit for return JSdoc syntax: https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type
+/**
+ * Gets a div element from the gameboard grid based on its x and y values.
+ * 
+ * @param {number} x - The x value of the div element.
+ * @param {number} y - The y value of the div element.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {HTMLDivElement | null} The div element with the specified x and y values. Null if no div element is found.
+ */
+function getDivByXY(x, y, grid) {
+    for (let div of grid) {
+        if (div.xVal === x && div.yVal === y) {
+            return div;
+        }
+    }
+    return null;
+}
+
+/**
+ * Returns an array of the cells adjacent to a border.
+ * If the border is horizontal, returns the cell above and below the border.
+ * If the border is vertical, returns the cell to the left and right of the border.
+ * 
+ * @param {HTMLDivElement} availableBorder - The border to get the adjacent cells of.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {Array} - The cells adjacent to the border.
+ */
+function getAdjacentCells(availableBorder, grid) {
+    let cellAboveOrLeft;
+    let cellBelowOrRight;
+    if (availableBorder.xVal % 2 === 1 && availableBorder.yVal % 2 === 0) { // border is horizontal
+        cellAboveOrLeft = getDivByXY(availableBorder.xVal, availableBorder.yVal - 1, grid);
+        cellBelowOrRight = getDivByXY(availableBorder.xVal, availableBorder.yVal + 1, grid);
+    } else if (availableBorder.xVal % 2 === 0 && availableBorder.yVal % 2 === 1) { // border is vertical
+        cellAboveOrLeft = getDivByXY(availableBorder.xVal - 1, availableBorder.yVal, grid);
+        cellBelowOrRight = getDivByXY(availableBorder.xVal + 1, availableBorder.yVal, grid);
+    }
+    return [cellAboveOrLeft, cellBelowOrRight];
+}
+
+/**
+ * Counts the number of drawn borders around an Array of cells.
+ * 
+ * @param {Array} cells - The cells to count the drawn borders around.
+ * @param {Array} grid - The gameboard grid of div elements.
+ * @returns {Array} - The number of drawn borders around each cell.
+ */
+function getBorderCounts(cells, grid) {
+    let adjacentCellsBorderCount = [0, 0];
+
+    for (let i in cells) {
+        if (cells[i] !== null) {
+            let borderCount = countDrawnBorders(cells[i], grid);
+            adjacentCellsBorderCount[i] = borderCount;
+        }
+    }
+
+    return adjacentCellsBorderCount;
+}
+
+/**
+ * Determines which border to draw based on the number of drawn borders around adjacent cells.
+ * If a cell has 3 drawn borders, draws the 4th border.
+ * If a cell has 2 drawn borders, removes that border from the available borders.
+ * If no cell has 3 or 2 drawn borders, randomly selects a border to draw.
+ * 
+ * @param {Array} availableBorders - The available borders to choose from.
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function mediumComputerTurn(availableBorders, grid) {
+    // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. 
+    //Credit: https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
+    let leftOverBorders = availableBorders.slice();
+
+    //cycle through avaliable borders
+    for (let availableBorder of availableBorders) {
+        //check for border count in each adjacent cell
+        let adjacentCells = getAdjacentCells(availableBorder, grid);
+        let adjacentCellsBorderCount = getBorderCounts(adjacentCells, grid);
+
+        //if one of the adjacent cells has 3 drawn borders, draw the 4th border
+        if (adjacentCellsBorderCount.includes(3)) {
+            markBorder(availableBorder);
+            return;
+        }
+
+        //if one of the adjacent cells has 2 drawn borders, remove that border from the available borders
+        if (adjacentCellsBorderCount.includes(2)) {
+            leftOverBorders = leftOverBorders.filter(border => border !== availableBorder);
+        }
+    }
+
+    //if no cell has 3 or two drawn borders, randomly select a border to draw
+    if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
+        let randomBorder = Math.floor(Math.random() * availableBorders.length);
+
+        markBorder(availableBorders[randomBorder]);
+    } else {
+        let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
+
+        markBorder(leftOverBorders[randomBorder]);
     }
 }
+
+/**
+ * Displays an AI is playing animation.
+ * Determines the difficulty of the AI and calls the appropriate function.
+ * Delays the AI's turn by 1 second.
+ * Calls tick to update the gameboard.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function computerTurn(grid) {
+    thinkingAnimation();
+
+    let difficulty = document.getElementById('ai-difficulty').value;
+    let availableBorders = determineAvaliableBorders(grid);
+
+    setTimeout(() => {
+        if (difficulty === 'easy') {
+            easyComputerTurn(availableBorders);
+        } else if (difficulty === 'medium') {
+            mediumComputerTurn(availableBorders, grid);
+        }
+        tick(grid);
+    }, 1000); // Delay of 1 second
+}
+
+/*
+gameloop functions. tick() is the main gameloop function that is called every time a border is drawn
+*/
 
 /**
  * Determines whose turn it is by checking the background color of the player on the scoreboard.
@@ -393,202 +511,12 @@ function tick(grid) {
     }
 }
 
-//only maybe keep this thinking animation function - looks kinda cheap - maybe make it a loading bar below the gameboard or something
-/**
- * Creates an AI is playing animation.
- * Removes the animation after 1 second.
- */
-function thinkingAnimation() {
-    let thinkingAnimationElement = document.createElement('div');
-    thinkingAnimationElement.id = 'thinking-animation';
-    // Credit for centering the element: https://www.w3schools.com/css/tryit.asp?filename=trycss_align_transform
-    thinkingAnimationElement.style.position = 'absolute';
-    thinkingAnimationElement.style.top = '50%';
-    thinkingAnimationElement.style.left = '50%';
-    thinkingAnimationElement.style.transform = 'translate(-50%, -50%)';
-    thinkingAnimationElement.style.width = '150px';
-    thinkingAnimationElement.style.height = '150px';
-    thinkingAnimationElement.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
-    thinkingAnimationElement.style.display = 'flex';
-    thinkingAnimationElement.style.justifyContent = 'center';
-    thinkingAnimationElement.style.alignItems = 'center';
-    thinkingAnimationElement.style.fontSize = '1rem';
-    thinkingAnimationElement.style.borderRadius = '50%';
-    thinkingAnimationElement.innerHTML = 'AI is playing...';
-    document.getElementById('gameboard').appendChild(thinkingAnimationElement);
-    setTimeout(function () {
-        thinkingAnimationElement.remove();
-    }, 1000);
-}
+/*
+initializiation functions
+*/
 
 /**
- * Determines which borders are available to draw.
- * 
- * @param {Array} grid - The gameboard grid of div elements.
- * @returns {Array} avaliableBorders - The available borders to draw.
- */
-function determineAvaliableBorders(grid) {
-    let availableBorders = [];
-    for (let border of grid) {
-        if (border.className === 'border') {
-            if (!border.drawn) {
-                availableBorders.push(border);
-            }
-        }
-    }
-    return availableBorders;
-}
-
-/**
- * Marks a border as drawn by applying an inset shadow.
- * Changes the drawn property of the border to true.
- * 
- * @param {HTMLDivElement} border - The border to mark as drawn.
- */
-function markBorder(border) {
-    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
-    border.drawn = true;
-}
-
-/**
- * Randomly selects a border to draw.
- * 
- * @param {Array} availableBorders - The available borders to choose from.
- */
-function easyComputerTurn(availableBorders) {
-    let randomBorder = Math.floor(Math.random() * availableBorders.length);
-    markBorder(availableBorders[randomBorder]);
-}
-
-// Credit for return JSdoc syntax: https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type
-/**
- * Gets a div element from the gameboard grid based on its x and y values.
- * 
- * @param {number} x - The x value of the div element.
- * @param {number} y - The y value of the div element.
- * @param {Array} grid - The gameboard grid of div elements.
- * @returns {HTMLDivElement | null} The div element with the specified x and y values. Null if no div element is found.
- */
-function getDivByXY(x, y, grid) {
-    for (let div of grid) {
-        if (div.xVal === x && div.yVal === y) {
-            return div;
-        }
-    }
-    return null;
-}
-
-/**
- * Returns an array of the cells adjacent to a border.
- * If the border is horizontal, returns the cell above and below the border.
- * If the border is vertical, returns the cell to the left and right of the border.
- * 
- * @param {HTMLDivElement} availableBorder - The border to get the adjacent cells of.
- * @param {Array} grid - The gameboard grid of div elements.
- * @returns {Array} - The cells adjacent to the border.
- */
-function getAdjacentCells(availableBorder, grid) {
-    let cellAboveOrLeft;
-    let cellBelowOrRight;
-    if (availableBorder.xVal % 2 === 1 && availableBorder.yVal % 2 === 0) { // border is horizontal
-        cellAboveOrLeft = getDivByXY(availableBorder.xVal, availableBorder.yVal - 1, grid);
-        cellBelowOrRight = getDivByXY(availableBorder.xVal, availableBorder.yVal + 1, grid);
-    } else if (availableBorder.xVal % 2 === 0 && availableBorder.yVal % 2 === 1) { // border is vertical
-        cellAboveOrLeft = getDivByXY(availableBorder.xVal - 1, availableBorder.yVal, grid);
-        cellBelowOrRight = getDivByXY(availableBorder.xVal + 1, availableBorder.yVal, grid);
-    }
-    return [cellAboveOrLeft, cellBelowOrRight];
-}
-
-/**
- * Counts the number of drawn borders around an Array of cells.
- * 
- * @param {Array} cells - The cells to count the drawn borders around.
- * @param {Array} grid - The gameboard grid of div elements.
- * @returns {Array} - The number of drawn borders around each cell.
- */
-function getBorderCounts(cells, grid) {
-    let adjacentCellsBorderCount = [0, 0];
-
-    for (let i in cells) {
-        if (cells[i] !== null) {
-            let borderCount = countDrawnBorders(cells[i], grid);
-            adjacentCellsBorderCount[i] = borderCount;
-        }
-    }
-
-    return adjacentCellsBorderCount;
-}
-
-/**
- * Determines which border to draw based on the number of drawn borders around adjacent cells.
- * If a cell has 3 drawn borders, draws the 4th border.
- * If a cell has 2 drawn borders, removes that border from the available borders.
- * If no cell has 3 or 2 drawn borders, randomly selects a border to draw.
- * 
- * @param {Array} availableBorders - The available borders to choose from.
- * @param {Array} grid - The gameboard grid of div elements.
- */
-function mediumComputerTurn(availableBorders, grid) {
-    // Create a separate copy of the avaliable borders array as opposed to just a reference to it, so they can be treated separately. 
-    //Credit: https://stackoverflow.com/questions/6612385/why-does-changing-an-array-in-javascript-affect-copies-of-the-array
-    let leftOverBorders = availableBorders.slice();
-
-    //cycle through avaliable borders
-    for (let availableBorder of availableBorders) {
-        //check for border count in each adjacent cell
-        let adjacentCells = getAdjacentCells(availableBorder, grid);
-        let adjacentCellsBorderCount = getBorderCounts(adjacentCells, grid);
-
-        //if one of the adjacent cells has 3 drawn borders, draw the 4th border
-        if (adjacentCellsBorderCount.includes(3)) {
-            markBorder(availableBorder);
-            return;
-        }
-
-        //if one of the adjacent cells has 2 drawn borders, remove that border from the available borders
-        if (adjacentCellsBorderCount.includes(2)) {
-            leftOverBorders = leftOverBorders.filter(border => border !== availableBorder);
-        }
-    }
-
-    //if no cell has 3 or two drawn borders, randomly select a border to draw
-    if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
-        let randomBorder = Math.floor(Math.random() * availableBorders.length);
-
-        markBorder(availableBorders[randomBorder]);
-    } else {
-        let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
-
-        markBorder(leftOverBorders[randomBorder]);
-    }
-}
-
-/**
- * Displays an AI is playing animation.
- * Determines the difficulty of the AI and calls the appropriate function.
- * Delays the AI's turn by 1 second.
- * Calls tick to update the gameboard.
- * 
- * @param {Array} grid - The gameboard grid of div elements.
- */
-function computerTurn(grid) {
-    thinkingAnimation();
-
-    let difficulty = document.getElementById('ai-difficulty').value;
-    let availableBorders = determineAvaliableBorders(grid);
-
-    setTimeout(() => {
-        if (difficulty === 'easy') {
-            easyComputerTurn(availableBorders);
-        } else if (difficulty === 'medium') {
-            mediumComputerTurn(availableBorders, grid);
-        }
-        tick(grid);
-    }, 1000); // Delay of 1 second
-}
-
-/**
+ * This will create the gameboard grid.
  * Creates a div element with specified x and y values. 
  * Depending on if the x and y values are even or odd, 
  * the div will have a different color and size.
@@ -633,64 +561,156 @@ function createDiv(y, x) {
     }
 }
 
+// Credit for JSdoc syntax: https://medium.com/@martink_rsa/js-docs-a-quickstart-guide-da6ce5df4a73
 /**
- * Resizes the gameboard grid.
+ * Resets all scores on the scores card to 0.
+ * Sets the background color of the player or the AI to indicate who goes first.
+ * Sets the player name label to the specified name.
+ * Sets the difficulty indicator to the specified difficulty.
+ * Sets the game end message to an empty string.
  * 
- * @param {Array} grid - The gameboard grid of div elements.
- * @param {number} scale - The scale to resize the grid to.
+ * @param {string} playerName - The name of the player.
+ * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.
+ * @param {string} difficulty - The difficulty of the AI.
+ */
+function resetScoresCard(playerName, goesFirst, difficulty) {
+    document.getElementById('player-score').innerHTML = 0;
+    document.getElementById('ai-score').innerHTML = 0;
+
+    if (goesFirst) {
+        let playerColor = 'rgba(185, 252, 134, 0.2)';
+        document.getElementById('player1').style.backgroundColor = playerColor;
+        document.getElementById('player2').style.backgroundColor = 'initial';
+    } else if (!goesFirst) {
+        let aiColor = 'rgba(252, 134, 185, 0.2)';
+        document.getElementById('player2').style.backgroundColor = aiColor;
+        document.getElementById('player1').style.backgroundColor = 'initial';
+    } // should I write an else statement here to catch any errors?
+
+    if (playerName === '') {
+        playerName = 'Player';
+    }
+    document.getElementById('player-name-label').innerHTML = playerName;
+    // Credit: https://flexiple.com/javascript/javascript-capitalize-first-letter
+    const difficultyUppercase = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+    document.getElementById('difficulty-indicator').innerHTML = difficultyUppercase + ' Difficulty';
+
+    document.getElementById('game-end-message').innerHTML = '';
+}
+
+/**
+ * Initializes the game.
+ * 
+ * @param {string} playerName - The name of the player.
+ * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.
+ * @param {string} difficulty - The difficulty of the AI.
  * @param {number} gridSize - The size of the gameboard.
  */
-function resizeGrid(grid, scale, gridSize) {
-    let originalScale = parseInt(grid[0].style.width);
+function init(playerName, goesFirst, difficulty, gridSize) {
+    resetScoresCard(playerName, goesFirst, difficulty);
+    let grid = createGameboard(gridSize);
+    setupEventListeners(grid, gridSize);
+
+    // if the player goes first, do nothing and wait for the player to click a border
+    if (!goesFirst) {
+        computerTurn(grid);
+    }
+}
+
+/*
+Event Listeners and DOMContentLoaded
+*/
+
+/**
+ * Clears the gameboard and creates a new gameboard with the specified grid size.
+ * 
+ * @param {number} gridSize - The size of the gameboard.
+ * @returns {Array} The gameboard grid of div elements.
+ */
+function createGameboard(gridSize) {
+    document.getElementById('gameboard').innerHTML = '';
     let gameboard = document.getElementById('gameboard');
-    // Formula for determining grid width and height. Total width of the gameboard: width of all divs + 2px border on each side of each div
-    let gameboardSideLength = scale * (gridSize * 2 + 1) + 2 * 2 * (gridSize + 1);
+    const size = gridSize;
 
-    gameboard.style.width = gameboardSideLength + 'px';
-    gameboard.style.height = gameboardSideLength + 'px';
-
-    for (let div of grid) {
-        let newWidth = parseInt(div.style.width) * scale / originalScale + 'px';
-        let newHeight = parseInt(div.style.height) * scale / originalScale + 'px';
-        div.style.width = newWidth;
-        div.style.height = newHeight;
-        div.style.borderRadius = scale + 'px';
-
-        if (div.className === 'corner') {
-            let newBlurRadius = parseInt(div.style.width) / 2 + 'px';
-            div.style.boxShadow = "inset 0 0 " + newBlurRadius + " rgba(255, 255, 255, 0.5)";
+    let grid = [];
+    for (let i = 0; i <= size; i++) {
+        for (let j = 0; j <= size; j++) {
+            let div = createDiv(i, j);
+            grid.push(div);
+            gameboard.appendChild(div);
         }
+    }
+    rescaleGameboard(grid, gridSize);
+    return grid;
+}
+
+/**
+ * Checks if a border has already been drawn.
+ * If it hasn't, marks the border as drawn and calls tick to update the gameboard.
+ * 
+ * @param {HTMLDivElement} div - The border to add an event listener to.
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function borderClickListener(div, grid) {
+    div.style.backgroundColor = "#444444";
+    //check if the border has already been drawn
+    if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
+        return;
+    } else {
+        markBorder(div);
+        tick(grid);
     }
 }
 
 /**
- * Rescales the gameboard based on the size of the window and game-area div.
- * Since the gameboard is a square, the gameboard will always be the size of the dimension with less space (horizontal or vertical).
+ * Highlights a border when the mouse hovers over it.
+ * Only highlights the border if it hasn't been drawn yet and if it is the player's turn.
  * 
- * @param {Array} grid - The gameboard grid of div elements.
- * @param {number} gridSize - The size of the gameboard.
+ * @param {HTMLDivElement} div - The border to highlight.
  */
-function rescaleGameboard(grid, gridSize) {
-    let scale;
-    const verticalSpace = document.documentElement.clientHeight / 100 * 70;
-    if (window.innerWidth >= 1440) {
-        const largeHorizontalSpace = (document.getElementById('game-area').offsetWidth / 12 * 8);
-        if (largeHorizontalSpace < verticalSpace) {
-            scale = parseInt(largeHorizontalSpace / (gridSize * 2 + 1) - 2);
-        } else {
-            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
-        }
+function borderMouseoverListener(div) {
+    if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
+        return;
     } else {
-        const smallHorizontalSpace = (document.getElementById('game-area').offsetWidth);
-        if (smallHorizontalSpace < verticalSpace) {
-            scale = parseInt(smallHorizontalSpace / (gridSize * 2 + 1) - 2);
-        } else {
-            scale = parseInt(verticalSpace / (gridSize * 2 + 1) - 2);
-        }
+        div.style.backgroundColor = "#8a8a8a";
     }
-    resizeGrid(grid, scale, gridSize);
 }
 
+/**
+ * Removes the highlight from a border when the mouse leaves it.
+ * 
+ * @param {HTMLDivElement} div - The border to remove the highlight from.
+ */
+function borderMouseoutListener(div) {
+    div.style.backgroundColor = "#444444";
+}
+
+// Credit for anonymous functions: https://medium.com/@andrewasmit/passing-arguments-to-your-event-listeners-callback-function-d9d8369cc3a4
+/**
+ * Sets up event listeners for the gameboard.
+ * Sets up an event listener if the window is resized.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function setupEventListeners(grid, gridSize) {
+    for (let div of grid) {
+        if (div.className === 'border') {
+            div.addEventListener('click', () => {
+                borderClickListener(div, grid);
+            });
+            div.addEventListener('mouseenter', () => {
+                borderMouseoverListener(div);
+            });
+            div.addEventListener('mouseout', () => {
+                borderMouseoutListener(div);
+            });
+        }
+    }
+
+    window.addEventListener('resize', () => {
+        rescaleGameboard(grid, gridSize);
+    });
+}
 
 /**
  * Initializes the game when the DOM is loaded.
