@@ -219,7 +219,9 @@ function mediumComputerTurn(availableBorders, grid) {
 
         //if one of the adjacent cells has 2 drawn borders, remove that border from the available borders
         if (adjacentCellsBorderCount.includes(2)) {
-            leftOverBorders = leftOverBorders.filter(border => border !== availableBorder);
+            let index;
+            index = leftOverBorders.indexOf(availableBorder);
+            leftOverBorders.splice(index, 1);
         }
     }
 
