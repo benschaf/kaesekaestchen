@@ -9,6 +9,7 @@ Return back to the [README.md](README.md) file.
 I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate all of my html file: index.html.
 
 [![W3C Validation html](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F&label=w3c%20html)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F)
+
 Click the badge above to validate the live deployed site.
 
 Screenshot of the validation results:
@@ -19,6 +20,7 @@ Screenshot of the validation results:
 I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator) to validate my css file: assets/css/style.css.
 
 [![W3C Validation css](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&label=w3c%20css)](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+
 Click the badge above to validate the live deployed site.
 
 Screenshot of the validation results:
@@ -100,7 +102,7 @@ I've tested my deployed project on multiple devices to check for responsiveness 
 | --- | --- | --- | --- |
 | Mobile (DevTools: iPhone 12 Pro) | ![screenshot](documentation/responsive-mobile-top.png) | ![screenshot](documentation/responsive-mobile-full.png) | Works as expected |
 | Tablet (DevTools: iPad Air) | ![screenshot](documentation/responsive-tablet-top.png) | ![screenshot](documentation/responsive-tablet-full.png) | Works as expected |
-| Desktop (Device: Macbook Air M2) | ![screenshot](documentation/responsive-macbook-top.png) | ![screenshot](documentation/responsive-macbook-full.png) | Works as expected |
+| Desktop (Device: Macbook Air M2) | ![screenshot](documentation/responsive-desktop-top.png) | ![screenshot](documentation/responsive-desktop-full.png) | Works as expected |
 | Mobile (Device: Google Pixel 6)| ![screenshot](documentation/responsive-pixel6-top.png) | ![screenshot](documentation/responsive-pixel6-full.png) | Works as expected |
 
 ## Lighthouse Audit
