@@ -190,6 +190,9 @@ The website is a single page application. This means that the user can play the 
 - [GitHub Projects](https://github.com/users/benschaf/projects/3) used for project management in conjunction with GitHub Issues
 - [Gitpod](https://gitpod.io/) used as a cloud-based IDE for development
 - [Visual Studio Code](https://visualstudio.microsoft.com/de/#vscode-section) used a  local IDE for development
+- [Google Chrome](https://www.google.com/chrome/) used as a browser for development
+- [Google Chrome Developer Tools](https://developers.google.com/web/tools/chrome-devtools) used for testing and debugging
+- [codepen.io](https://codepen.io/) used for the initial development of the game logic and proof of concept. See [the pen that startet it all](https://codepen.io/benschaf/pen/JjzKjWM)
 - [draw.io](https://www.drawio.com/) used for wireframe creation
 - [Figma](https://figma.com) used for design creation
 - [Windows Snipping Tool](https://support.microsoft.com/de-de/windows/aufnehmen-von-screenshots-mithilfe-des-snipping-tools-00246869-1843-655f-f220-97299b865f6b) used to take screenshots and screencasts on Windows
