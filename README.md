@@ -292,4 +292,5 @@ To go to the relevant code inside this project, click on the link in the "Locati
 - I would like to thank my Code Institute mentor, [Tim Nelson](https://tim.2bn.dev/) for his support throughout the development of this project.
 - I would like to thank the [Code Institute](https://codeinstitute.net/) tutor team for their assistance with troubleshooting and debugging some project issues.
 - I would like to thank the Code Institute Slack community for the moral support; it kept me going during periods of self doubt and imposter syndrome.
+    - Special thanks to Dajana Isbaner_5P_lead, who helped with user testing and provided valuable feedback.
 - I would like to thank my wife Maria, for believing in me, and allowing me to make this transition into software development.
