@@ -100,28 +100,18 @@ Defensive programming was manually tested with the below user acceptance testing
 
 ## User Story Testing
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Testing user stories is actually quite simple, once you've already got the stories defined on your README.
-
-Most of your project's **features** should already align with the **user stories**,
-so this should as simple as creating a table with the user story, matching with the re-used screenshot
-from the respective feature.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 | User Story | Screenshot |
 | --- | --- |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature01.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature02.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature03.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature04.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature05.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/feature06.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature07.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature08.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/feature09.png) |
-| repeat for all remaining user stories | x |
+| As a User, I would like to play a fun game, so that I can spend some time. | ![screenshot](documentation/test-5.gif) |
+| As a User, I would like to play the game on different devices, so that I can play on my preferred device. | ![screenshot](documentation/responsive-image.png) |
+| As a User, I would like to select the size of the grid, so that I can customize the game to my liking. | ![screenshot](documentation/test-6.gif) |
+| As a User, I would like to see the scores of both players, so that I can know who is winning. | ![screenshot](documentation/test-5.gif) |
+| As a User, I would like to change my player name, so that I can personalize my game experience. | ![screenshot](documentation/test-6.gif) |
+| As a User, I would like to choose who goes first in the game, so that I can strategize my game play. | refer to above screencast |
+| As a User, I would like to select the AI difficulty level, so that I can adjust the game to my skill level. | refer to above screencast |
+| As a User, I would like to adjust the size of the grid, so that I can control the complexity of the game. | refer to above screencast |
+| As a User, I would like to restart the game, so that I can play again. | refer to above screencast |
+| As a User, I would like to read the game instructions, so that I can understand how to play the game. | ![screenshot](documentation/feature-instructions.png) |
 
 ## Bugs
 
