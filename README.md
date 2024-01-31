@@ -199,8 +199,6 @@ The website is a single page application. This means that the user can play the 
 - [grid.layoutit.com](https://grid.layoutit.com/) used to create the gameboard grid
 - [Adobe free mp4 to gif converter](https://www.adobe.com/express/feature/video/convert/mp4-to-gif) used to convert screencasts to gif
 - [shields.io](https://shields.io/) used to create the badges in the README.md file
-
-Still to be used:
 - [autoprefixer](https://autoprefixer.github.io/) used to add vendor prefixes to css for browser compatibility
 
 ## Testing

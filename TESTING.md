@@ -48,6 +48,8 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 
 The biggest takeaway from the browser testing is that the background blur elements render differently on different browsers. This is not a big issue as it is not very noticeable.
 
+None of the observed differences have signigicantly changed upon running the css file through [autoprefixer](https://autoprefixer.github.io/).
+
 ## Responsiveness
 
 I've tested my deployed project on multiple devices to check for responsiveness issues.
