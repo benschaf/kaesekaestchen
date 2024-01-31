@@ -201,6 +201,11 @@ The website is a single page application. This means that the user can play the 
 - [shields.io](https://shields.io/) used to create the badges in the README.md file
 - [autoprefixer](https://autoprefixer.github.io/) used to add vendor prefixes to css for browser compatibility
 
+#### Special mention: Github Projects
+Github Projects was an invaluable tool for project management. A screenshot of the project board can be found below:
+
+![github-projects](documentation/github-projects.png)
+
 ## Testing
 Code Validation and Testing can be found in a separate file called [TESTING.md](TESTING.md)
 
