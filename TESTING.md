@@ -70,127 +70,33 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 
 ## Defensive Programming
 
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Defensive programming (defensive design) is extremely important!
-
-When building projects that accept user inputs or forms, you should always test the level of security for each.
-Examples of this could include (not limited to):
-
-Forms:
-- Users cannot submit an empty form
-- Users must enter valid email addresses
-
-PP3 (Python-only):
-- Users must enter a valid letter/word/string when prompted
-- Users must choose from a specific list only
-
-MS3 (Flask) | MS4/PP4/PP5 (Django):
-- Users cannot brute-force a URL to navigate to a restricted page
-- Users cannot perform CRUD functionality while logged-out
-- User-A should not be able to manipulate data belonging to User-B, or vice versa
-- Non-Authenticated users should not be able to access pages that require authentication
-- Standard users should not be able to access pages intended for superusers
-
-You'll want to test all functionality on your application, whether it's a standard form,
-or uses CRUD functionality for data manipulation on a database.
-Make sure to include the `required` attribute on any form-fields that should be mandatory.
-Try to access various pages on your site as different user types (User-A, User-B, guest user, admin, superuser).
-
-You should include any manual tests performed, and the expected results/outcome.
-
-Testing should be replicable.
-Ideally, tests cases should focus on each individual section of every page on the website.
-Each test case should be specific, objective, and step-wise replicable.
-
-Instead of adding a general overview saying that everything works fine,
-consider documenting tests on each element of the page
-(ie. button clicks, input box validation, navigation links, etc.) by testing them in their happy flow,
-and also the bad/exception flow, mentioning the expected and observed results,
-and drawing a parallel between them where applicable.
-
-Consider using the following format for manual test cases:
-
-Expected Outcome / Test Performed / Result Received / Fixes Implemented
-
-- **Expected**: "Feature is expected to do X when the user does Y."
-- **Testing**: "Tested the feature by doing Y."
-- (either) **Result**: "The feature behaved as expected, and it did Y."
-- (or) **Result**: "The feature did not respond to A, B, or C."
-- **Fix**: "I did Z to the code because something was missing."
-
-Use the table below as a basic start, and expand on it using the logic above.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
 Defensive programming was manually tested with the below user acceptance testing:
 
 | Page | Expectation | Test | Result | Fix | Screenshot |
 | --- | --- | --- | --- | --- | --- |
-| Home | | | | | |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature behaved as expected, and it did Y | Test concluded and passed | ![screenshot](documentation/feature01.png) |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature did not respond to A, B, or C. | I did Z to the code because something was missing | ![screenshot](documentation/feature02.png) |
-| About | | | | | |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature behaved as expected, and it did Y | Test concluded and passed | ![screenshot](documentation/feature03.png) |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature did not respond to A, B, or C. | I did Z to the code because something was missing | ![screenshot](documentation/feature04.png) |
-| Gallery | | | | | |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature behaved as expected, and it did Y | Test concluded and passed | ![screenshot](documentation/feature05.png) |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature did not respond to A, B, or C. | I did Z to the code because something was missing | ![screenshot](documentation/feature06.png) |
-| Contact | | | | | |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature behaved as expected, and it did Y | Test concluded and passed | ![screenshot](documentation/feature07.png) |
-| | Feature is expected to do X when the user does Y | Tested the feature by doing Y | The feature did not respond to A, B, or C. | I did Z to the code because something was missing | ![screenshot](documentation/feature08.png) |
-| repeat for all remaining pages | x | x | x | x | x |
-
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Another way of performing defensive testing is a simple Pass/Fail for each test.
-The assessors prefer the above method, with the full test explained, but this is also acceptable in most cases.
-
-When in doubt, use the above method instead, and delete the table below.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-| Page | User Action | Expected Result | Pass/Fail | Comments |
-| --- | --- | --- | --- | --- |
-| Home | | | | |
-| | Click on Logo | Redirection to Home page | Pass | |
-| | Click on Home link in navbar | Redirection to Home page | Pass | |
-| Gallery | | | | |
-| | Click on Gallery link in navbar | Redirection to Gallery page | Pass | |
-| | Load gallery images | All images load as expected | Pass | |
-| Contact | | | | |
-| | Click on Contact link in navbar | Redirection to Contact page | Pass | |
-| | Enter first/last name | Field will accept freeform text | Pass | |
-| | Enter valid email address | Field will only accept email address format | Pass | |
-| | Enter message in textarea | Field will accept freeform text | Pass | |
-| | Click the Submit button | Redirects user to form-dump | Pass | User must click 'Back' button to return |
-| Sign Up | | | | |
-| | Click on Sign Up button | Redirection to Sign Up page | Pass | |
-| | Enter valid email address | Field will only accept email address format | Pass | |
-| | Enter valid password (twice) | Field will only accept password format | Pass | |
-| | Click on Sign Up button | Asks user to confirm email page | Pass | Email sent to user |
-| | Confirm email | Redirects user to blank Sign In page | Pass | |
-| Log In | | | | |
-| | Click on the Login link | Redirection to Login page | Pass | |
-| | Enter valid email address | Field will only accept email address format | Pass | |
-| | Enter valid password | Field will only accept password format | Pass | |
-| | Click Login button | Redirects user to home page | Pass | |
-| Log Out | | | | |
-| | Click Logout button | Redirects user to logout page | Pass | Confirms logout first |
-| | Click Confirm Logout button | Redirects user to home page | Pass | |
-| Profile | | | | |
-| | Click on Profile button | User will be redirected to the Profile page | Pass | |
-| | Click on the Edit button | User will be redirected to the edit profile page | Pass | |
-| | Click on the My Orders link | User will be redirected to the My Orders page | Pass | |
-| | Brute forcing the URL to get to another user's profile | User should be given an error | Pass | Redirects user back to own profile |
-| repeat for all remaining pages | x | x | x | x |
-
-🛑🛑🛑🛑🛑 START OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
-
-Repeat for all other tests, as applicable to your own site.
-The aforementioned tests are just an example of a few different project scenarios.
-
-🛑🛑🛑🛑🛑 END OF NOTES (to be deleted) 🛑🛑🛑🛑🛑
+| **Header** | | | | | |
+| | "How to Play" button is expected to scroll down to #instructions section. | Tested the feature by clicking on the "How to Play" button | The button behaved as expected, and it scrolled the page down to #instructions. | Test concluded and passed | ![screencast](documentation/test-1.gif) |
+| **Game-Area** | | | | | |
+| | Hovering the borders in the gameboard is expected to highlight the borders. | Tested the feature by hovering over the borders in the gameboard. | The borders were highlighted as expected. Upon mouseout the highlight disappears as expected | Test concluded and passed | ![screencast](documentation/test-2.gif) |
+| | Clicking a border is expected to mark it as drawn by applying an inset shadow. The gray background color that was used to highlight the box should disappear. | Tested the feature by clicking on a border in the gameboard. | The border was marked as drawn with an inset shadow and the gray background color disappeared as expected. | Test concluded and passed | ![screencast](documentation/test-3.gif) |
+| | Once a border is drawn, the AI is expected to draw a border. This is indicated by an "AI is playing" banner that appears. After one second the banner is expected to disappear and a new drawn border appears on the gameboard. | Tested the feature by clicking on a border in the gameboard. | The "AI is playing" banner appeared as expected. After one second the banner disappeared and a new drawn border appeared on the gameboard as expected. | Test concluded and passed | refer to above screencast |
+| | Once 4 borders are drawn around a box, the box is expected to be marked as owned by the player who drew the last border. This is indicated by a colored background. | Tested the feature by clicking on a border in the gameboard. | The box was marked as owned by the player who drew the last border as expected. | Test concluded and passed | refer to above screencast |
+| | Once a box is owned by a player, the player is expected to be given another turn to draw a border. | Tested the feature by completing a box. | The player was given another turn to draw a border as expected. | Test concluded and passed | refer to above screencast |
+| | Once all boxes are owned, the game is expected to end. This is indicated by a banner that indicates, if the player won or lost. The banner should disappear after a short amount of time. | Tested the feature by completing all boxes. | The game ended as expected. The banner appeared and indicated that the player won. "You Lost" and "Tie" are also reachable results. The banner disappeared after some time passed. | Test concluded and passed | refer to above screencast | 
+| | Clicking a border that is already drawn is expected to do nothing. | Tested the feature by clicking on a border that is already drawn. | The border did nothing as expected. | Test concluded and passed | ![screencast](documentation/test-4.gif) |
+| | Completing a box is expected to draw a background blur element behind the gameboard. The colour of the element is expected to correspond to the colour of the player who completed the box. | Tested the feature by completing a box. | The background blur element appeared behind the gameboard as expected. The colour of the element corresponded to the colour of the player who completed the box as expected. | Test concluded and passed | ![screencast](documentation/test-7.gif) |
+| **Scoreboard** | | | | | |
+| | The scoreboard is expected to show the current score of the player and the AI. | Tested the feature by playing a game. | The scoreboard showed the current score of the player and the AI as expected. | Test concluded and passed | ![screencast](documentation/test-5.gif) |
+| | The scoreboard is expected to indicate the current turn by displaying the active players background colour and by blinking for a second on the start of every turn. | Tested the feature by playing a game. | The scoreboard indicated the current turn by displaying the active players background colour and by blinking for a second on the start of every turn as expected. | Test concluded and passed | refer to above screencast |
+| | The scoreboard is expected to display a message stating if the player won or lost the game. | Tested the feature by playing a game. | The scoreboard displayed a message stating if the player won or lost the game as expected. "You Lost" and "Tie" are also reachable messages. | Test concluded and passed | refer to above screencast |
+| **Options Card** | | | | | |
+| | The "Player Name" input field is expected to allow the player to enter their name. | Tested the feature by entering a name in the "Player Name" input field. | The input field allowed the entry of a name as expected. | Test concluded and passed | ![screencast](documentation/test-6.gif) |
+| | The "Player goes first" and "AI goes first" radio buttons are expected to allow the player to choose who goes first. | Tested the feature by selecting each radio button. | The radio buttons allowed the selection of who goes first as expected. | Test concluded and passed | refer to above screencast |
+| | The "AI Difficulty" dropdown is expected to allow the player to select the difficulty level of the AI. | Tested the feature by selecting each option in the dropdown. | The dropdown allowed the selection of the AI difficulty level as expected. | Test concluded and passed | refer to above screencast |
+| | The "Size" range input is expected to allow the player to select the size of the game grid. | Tested the feature by moving the range input. | The range input allowed the selection of the game grid size as expected. | Test concluded and passed | refer to above screencast |
+| | The "Start New Game" button is expected to start a new game with the selected options. | Tested the feature by clicking the "Start New Game" button. | The button started a new game with the selected options as expected. | Test concluded and passed | refer to above screencast |
+| **Footer** | | | | | |
+| | The GitHub and LinkedIn icons are expected to link to the correct profiles. The Profiles should open in a new page. | Tested the feature by clicking the GitHub and LinkedIn icons. | The icons linked to the correct profiles. The profiles opened in a new page as expected. | Test concluded and passed | ![screencast](documentation/test-8.gif) |
 
 ## User Story Testing
 
