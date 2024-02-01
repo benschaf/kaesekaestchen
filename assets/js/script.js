@@ -419,8 +419,8 @@ function indicateTurn(turn) {
  * Removes the alert box over the gameboard after 3 seconds.
  */
 function endGame() {
-    let playerScore = document.getElementById('player-score').innerHTML;
-    let aiScore = document.getElementById('ai-score').innerHTML;
+    let playerScore = parseInt(document.getElementById('player-score').innerHTML);
+    let aiScore = parseInt(document.getElementById('ai-score').innerHTML);
     let endGameMessage;
 
     if (playerScore > aiScore) {
