@@ -22,7 +22,9 @@ https://www.w3schools.com/css/css3_variables.asp
     --p-text: #FFFFFF;
     --s-text: #A5A5A5;
     --player-color: #BAfC86;
+    --player-color-transparent: rgba(186, 252, 134, 0.5);
     --ai-color: #BB86FC;
+    --ai-color-transparent: rgba(187, 134, 252, 0.5);
 }
 
 /* General Styles */
@@ -45,8 +47,8 @@ body {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
 
 h1 {
@@ -64,11 +66,11 @@ h2 {
 .card {
     background-color: var(--card-background);
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 1rem;
     border-radius: 1rem;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .label {
@@ -97,7 +99,7 @@ h2 {
     z-index: -1;
     /* Credit: https://www.w3schools.com/howto/howto_css_blurred_background.asp */
     -webkit-filter: blur(100px);
-            filter: blur(100px);
+    filter: blur(100px);
     background-color: var(--p-highlight-transparent);
 }
 
@@ -110,11 +112,11 @@ header {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     border-bottom: 1px solid var(--s-text);
 }
 
@@ -149,18 +151,18 @@ main {
     padding: 1rem;
     /* Pushes footer down when there is not enough content on the page */
     -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     gap: 1rem;
 }
 
@@ -175,11 +177,11 @@ main {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     font-size: 3rem;
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -191,11 +193,11 @@ main {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     gap: 1rem;
     width: 100%;
 }
@@ -209,12 +211,50 @@ main {
     position: relative;
     /* Credit: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing */
     -webkit-box-sizing: content-box;
-            box-sizing: content-box;
+    box-sizing: content-box;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    width: calc(50% - 1rem);
+    height: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+#blur-slider-indicator {
+    z-index: -1;
+    filter: blur(7px); /* Adjust the blur radius as needed */
+}
+
+@keyframes slideRight {
+    0% {
+        left: 1rem;
+        background-color: var(--player-color-transparent);
+    }
+
+    100% {
+        left: calc(50% - 1rem);
+        background-color: var(--ai-color-transparent);
+    }
+}
+
+@keyframes slideLeft {
+    0% {
+        left: calc(50% - 1rem);
+        background-color: var(--ai-color-transparent);
+    }
+
+    100% {
+        left: 1rem;
+        background-color: var(--player-color-transparent);
+    }
 }
 
 /* Scores Card */
@@ -224,8 +264,8 @@ main {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 #game-end-message {
@@ -240,8 +280,8 @@ main {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
 
 #scores div div span {
@@ -250,14 +290,14 @@ main {
 
 #player-name-label {
     -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
 }
 
 #vs-label {
     -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
+    -ms-grid-row-align: center;
+    align-self: center;
 }
 
 .player-score-scoreboard {
@@ -269,33 +309,34 @@ main {
 @-webkit-keyframes lightUp {
     0% {
         -webkit-box-shadow: none;
-                box-shadow: none;
+        box-shadow: none;
     }
 
     50% {
         -webkit-box-shadow: inset 0 0 15px rgb(255, 255, 255);
-                box-shadow: inset 0 0 15px rgb(255, 255, 255);
+        box-shadow: inset 0 0 15px rgb(255, 255, 255);
     }
 
     100% {
         -webkit-box-shadow: none;
-                box-shadow: none;
+        box-shadow: none;
     }
 }
+
 @keyframes lightUp {
     0% {
         -webkit-box-shadow: none;
-                box-shadow: none;
+        box-shadow: none;
     }
 
     50% {
         -webkit-box-shadow: inset 0 0 15px rgb(255, 255, 255);
-                box-shadow: inset 0 0 15px rgb(255, 255, 255);
+        box-shadow: inset 0 0 15px rgb(255, 255, 255);
     }
 
     100% {
         -webkit-box-shadow: none;
-                box-shadow: none;
+        box-shadow: none;
     }
 }
 
@@ -306,8 +347,8 @@ main {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     gap: 1.5rem;
 }
 
@@ -317,8 +358,8 @@ main {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -338,8 +379,8 @@ input[type="text"]:hover {
 
 input[type="radio"] {
     -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     margin: 0;
     width: 1.5rem;
     height: 1.5rem;
@@ -400,14 +441,14 @@ input[type="radio"]:checked:hover {
 /* Footer Styles */
 footer {
     position: relative;
-    padding:  1rem;
+    padding: 1rem;
     color: var(--s-text);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     border-top: 1px solid var(--s-text);
 }
 
@@ -416,8 +457,8 @@ footer>div {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -430,7 +471,7 @@ footer>div {
     border-radius: 50%;
     cursor: pointer;
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .fab:hover {
@@ -454,8 +495,8 @@ footer>div {
 
     #scores>div {
         -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
         gap: 1rem;
     }
 }
@@ -480,22 +521,26 @@ footer>div {
         -ms-grid-rows: 1fr 0fr;
         grid-template-rows: 1fr 0fr;
         -webkit-box-align: start;
-            -ms-flex-align: start;
-                align-items: start;
+        -ms-flex-align: start;
+        align-items: start;
     }
-    #game-area > *:nth-child(1) {
+
+    #game-area>*:nth-child(1) {
         -ms-grid-row: 1;
         -ms-grid-column: 1;
     }
-    #game-area > *:nth-child(2) {
+
+    #game-area>*:nth-child(2) {
         -ms-grid-row: 1;
         -ms-grid-column: 2;
     }
-    #game-area > *:nth-child(3) {
+
+    #game-area>*:nth-child(3) {
         -ms-grid-row: 2;
         -ms-grid-column: 1;
     }
-    #game-area > *:nth-child(4) {
+
+    #game-area>*:nth-child(4) {
         -ms-grid-row: 2;
         -ms-grid-column: 2;
     }
@@ -507,7 +552,7 @@ footer>div {
         -ms-grid-column-span: 2;
         grid-area: 1 / 1 / 2 / 3;
         -ms-grid-column-align: center;
-            justify-self: center;
+        justify-self: center;
     }
 
     #scores {
@@ -544,19 +589,23 @@ footer>div {
         grid-template-rows: auto 1fr;
         gap: 3rem;
     }
-    #game-area > *:nth-child(1) {
+
+    #game-area>*:nth-child(1) {
         -ms-grid-row: 1;
         -ms-grid-column: 1;
     }
-    #game-area > *:nth-child(2) {
+
+    #game-area>*:nth-child(2) {
         -ms-grid-row: 1;
         -ms-grid-column: 3;
     }
-    #game-area > *:nth-child(3) {
+
+    #game-area>*:nth-child(3) {
         -ms-grid-row: 3;
         -ms-grid-column: 1;
     }
-    #game-area > *:nth-child(4) {
+
+    #game-area>*:nth-child(4) {
         -ms-grid-row: 3;
         -ms-grid-column: 3;
     }
@@ -571,7 +620,7 @@ footer>div {
 
     #scores {
         -ms-grid-column-align: end;
-            justify-self: end;
+        justify-self: end;
         max-width: 400px;
         -ms-grid-row: 1;
         -ms-grid-row-span: 1;
@@ -582,9 +631,9 @@ footer>div {
 
     #options {
         -ms-grid-row-align: start;
-            align-self: start;
+        align-self: start;
         -ms-grid-column-align: end;
-            justify-self: end;
+        justify-self: end;
         max-width: 400px;
         -ms-grid-row: 2;
         -ms-grid-row-span: 1;
@@ -604,15 +653,18 @@ footer>div {
         grid-template-rows: 1fr;
         gap: 3rem;
     }
-    #game-area > *:nth-child(1) {
+
+    #game-area>*:nth-child(1) {
         -ms-grid-row: 1;
         -ms-grid-column: 1;
     }
-    #game-area > *:nth-child(2) {
+
+    #game-area>*:nth-child(2) {
         -ms-grid-row: 1;
         -ms-grid-column: 3;
     }
-    #game-area > *:nth-child(3) {
+
+    #game-area>*:nth-child(3) {
         -ms-grid-row: 1;
         -ms-grid-column: 5;
     }
@@ -627,7 +679,7 @@ footer>div {
 
     #scores {
         -ms-grid-column-align: end;
-            justify-self: end;
+        justify-self: end;
         max-width: 400px;
         -ms-grid-row: 1;
         -ms-grid-row-span: 1;

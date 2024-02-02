@@ -67,33 +67,6 @@ function rescaleGameboard(grid, gridSize) {
 functions for the AI. 
 */
 
-//only maybe keep this thinking animation function - looks kinda cheap - maybe make it a loading bar below the gameboard or something
-/**
- * Creates an AI is playing animation.
- * Removes the animation after 1 second.
- */
-function thinkingAnimation() {
-    let thinkingAnimationElement = document.createElement('div');
-    thinkingAnimationElement.id = 'thinking-animation';
-    // Credit for centering the element: https://www.w3schools.com/css/tryit.asp?filename=trycss_align_transform
-    thinkingAnimationElement.style.position = 'absolute';
-    thinkingAnimationElement.style.top = '50%';
-    thinkingAnimationElement.style.left = '50%';
-    thinkingAnimationElement.style.transform = 'translate(-50%, -50%)';
-    thinkingAnimationElement.style.width = '150px';
-    thinkingAnimationElement.style.height = '150px';
-    thinkingAnimationElement.style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
-    thinkingAnimationElement.style.display = 'flex';
-    thinkingAnimationElement.style.justifyContent = 'center';
-    thinkingAnimationElement.style.alignItems = 'center';
-    thinkingAnimationElement.style.fontSize = '1rem';
-    thinkingAnimationElement.style.borderRadius = '50%';
-    thinkingAnimationElement.innerHTML = 'AI is playing...';
-    document.getElementById('gameboard').appendChild(thinkingAnimationElement);
-    setTimeout(function () {
-        thinkingAnimationElement.remove();
-    }, 1000);
-}
 
 /**
  * Determines which borders are available to draw.
@@ -265,8 +238,6 @@ function mediumComputerTurn(availableBorders, grid) {
  * @param {Array} grid - The gameboard grid of div elements.
  */
 function computerTurn(grid) {
-    thinkingAnimation();
-
     let difficulty = document.getElementById('ai-difficulty').value;
     let availableBorders = determineAvaliableBorders(grid);
 
@@ -397,15 +368,21 @@ function updateScoreboard(turn) {
 }
 
 /**
- * Switches the background color of the player and the AI on the scoreboard to indicate whose turn it is.
+ * Switches the background color of the player and the AI on the scoreboard.
+ * Switches the slider indicator to the right or left and changes it's color.
+ * Does all of this based on whose turn it is. 
  */
 function switchTurns() {
     if (document.getElementById('player1').style.backgroundColor === 'rgba(185, 252, 134, 0.2)') {
         document.getElementById('player1').style.backgroundColor = 'initial';
         document.getElementById('player2').style.backgroundColor = 'rgba(252, 134, 185, 0.2)';
+        document.getElementById('slider-indicator').style.animation = 'slideRight 1s forwards';
+        document.getElementById('blur-slider-indicator').style.animation = 'slideRight 1s forwards';
     } else if (document.getElementById('player2').style.backgroundColor === 'rgba(252, 134, 185, 0.2)') {
         document.getElementById('player2').style.backgroundColor = 'initial';
         document.getElementById('player1').style.backgroundColor = 'rgba(185, 252, 134, 0.2)';
+        document.getElementById('slider-indicator').style.animation = 'slideLeft 1s forwards';
+        document.getElementById('blur-slider-indicator').style.animation = 'slideLeft 1s forwards';
     }
 }
 
@@ -621,6 +598,32 @@ function resetScoresCard(playerName, goesFirst, difficulty) {
 
     document.getElementById('game-end-message').innerHTML = '';
 }
+/**
+ * Creates a slider indicator to indicate whose turn it is.
+ * 
+ * @param {boolean} goesFirst - True if the player goes first, false if the AI goes first.  
+ */
+function createSliderIndicator(goesFirst) {
+    let sliderIndicator = document.createElement('div');
+    let blurSliderIndicator = document.createElement('div');
+    sliderIndicator.id = 'slider-indicator';
+    sliderIndicator.className = 'slider';
+    blurSliderIndicator.id = 'blur-slider-indicator';
+    blurSliderIndicator.className = 'slider';
+    if (goesFirst) {
+        sliderIndicator.style.backgroundColor = 'var(--player-color-transparent)';
+        sliderIndicator.style.left = '1rem';
+        blurSliderIndicator.style.backgroundColor = 'var(--player-color-transparent)';
+        blurSliderIndicator.style.left = '1rem';
+    } else {
+        sliderIndicator.style.backgroundColor = 'var(--ai-color-transparent)';
+        sliderIndicator.style.left = 'calc(50% - 1rem)';
+        blurSliderIndicator.style.backgroundColor = 'var(--ai-color-transparent)';
+        blurSliderIndicator.style.left = 'calc(50% - 1rem)';
+    }
+    gameboard.appendChild(sliderIndicator);
+    gameboard.appendChild(blurSliderIndicator);
+}
 
 /**
  * Initializes the game.
@@ -633,6 +636,7 @@ function resetScoresCard(playerName, goesFirst, difficulty) {
 function init(playerName, goesFirst, difficulty, gridSize) {
     resetScoresCard(playerName, goesFirst, difficulty);
     let grid = createGameboard(gridSize);
+    createSliderIndicator(goesFirst);
     setupEventListeners(grid, gridSize);
 
     // if the player goes first, do nothing and wait for the player to click a border
