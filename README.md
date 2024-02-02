@@ -113,6 +113,10 @@ This section will allow the user to play the Käsekästchen game. The user will 
 #### AI Opponent
 The AI opponent is implemented in the game logic and will play against the user. The AI opponent will play a random move on the "Easy" difficulty level. The "Medium" difficulty follows an algorithm. Check it out in the code comments in the !!Link TO FILE!! file. The "Hard" difficulty is currently disabled and in development.
 
+#### Turn indicator slider
+At the bottom of the gameboard, a slider indicates whose turn it is. The slider is coloured after the active player's colour. The slider will move to the left when it's the player's turn and to the right when it's the AI's turn.
+
+![feature-turn-indicator](documentation/feature-turn-indicator.png)
 
 #### Score Card
 This section will allow the user to see exactly how many squares they have completed and how many squares their opponent has completed, indicating who is winning. The Score Card will also display the name of the player and the difficulty level of the AI. Lastly it indicates whose turn it is by colouring the background of the active player's name and score.
@@ -141,7 +145,7 @@ This section will allow the user to see copyright information. The footer also c
 ![feature-footer](documentation/feature-footer.png)
 
 #### Background Blur Design elements
-The background blur design elements are used to create a more interesting and playful design. The background blur elements are used behind the header and the footer. When the game is played, more backgorund blur elements are generated behind the gameboard. These elements are coloured after the player colours, depending on who completed which box.
+The background blur design elements are used to create a more interesting and playful design. The background blur elements are used behind the header and the footer. When the game is played, more backgorund blur elements are generated behind the gameboard. These elements are coloured after the player colours, depending on who completed which box. The slider indicator also has a corresponding background blur element.
 
 ![feature-background-blur](documentation/feature-background-blur.png)
 
