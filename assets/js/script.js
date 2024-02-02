@@ -114,13 +114,29 @@ function determineAvaliableBorders(grid) {
 }
 
 /**
+ * Redraws the highlighted border so it looks like the rest of the drawn borders.
+ * 
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function redrawHighlightedBorder(grid) {
+    for (let div of grid) {
+        if (div.highlighted) {
+            div.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
+            div.highlighted = false;
+        }
+    }
+}
+
+/**
  * Marks a border as drawn by applying an inset shadow.
  * Changes the drawn property of the border to true.
  * 
  * @param {HTMLDivElement} border - The border to mark as drawn.
  */
-function markBorder(border) {
-    border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
+function markBorder(border, grid) {
+    redrawHighlightedBorder(grid);
+    border.style.boxShadow = "inset 0 0 15px rgba(255,255,255)";
+    border.highlighted = true;
     border.drawn = true;
 }
 
@@ -131,7 +147,7 @@ function markBorder(border) {
  */
 function easyComputerTurn(availableBorders) {
     let randomBorder = Math.floor(Math.random() * availableBorders.length);
-    markBorder(availableBorders[randomBorder]);
+    markBorder(availableBorders[randomBorder], grid);
 }
 
 // Credit for return JSdoc syntax: https://stackoverflow.com/questions/65196251/javascript-documentation-returns-null-or-type
@@ -216,7 +232,7 @@ function mediumComputerTurn(availableBorders, grid) {
 
         //if one of the adjacent cells has 3 drawn borders, draw the 4th border
         if (adjacentCellsBorderCount.includes(3)) {
-            markBorder(availableBorder);
+            markBorder(availableBorder, grid);
             return;
         }
 
@@ -232,11 +248,11 @@ function mediumComputerTurn(availableBorders, grid) {
     if (leftOverBorders.length === 0) { // if there are only borders with 2 drawn borders around them, draw one of them
         let randomBorder = Math.floor(Math.random() * availableBorders.length);
 
-        markBorder(availableBorders[randomBorder]);
+        markBorder(availableBorders[randomBorder], grid);
     } else {
         let randomBorder = Math.floor(Math.random() * leftOverBorders.length);
 
-        markBorder(leftOverBorders[randomBorder]);
+        markBorder(leftOverBorders[randomBorder], grid);
     }
 }
 
@@ -414,14 +430,17 @@ function indicateTurn(turn) {
 }
 
 /**
+ * Removes all highlights from the borders
  * Sets the correct end game message based on the scores.
  * Displays 2 costum alert boxes with the end game message over the gameboard and in the scores card.
  * Removes the alert box over the gameboard after 3 seconds.
  */
-function endGame() {
+function endGame(grid) {
     let playerScore = parseInt(document.getElementById('player-score').innerHTML);
     let aiScore = parseInt(document.getElementById('ai-score').innerHTML);
     let endGameMessage;
+
+    redrawHighlightedBorder(grid);
 
     if (playerScore > aiScore) {
         endGameMessage = 'You Win!';
@@ -475,7 +494,7 @@ function computeLastTurn(grid) {
 
     let totalCells = document.getElementsByClassName('cell').length;
     if (filledCells === totalCells && filledCells !== 0) {
-        endGame();
+        endGame(grid);
         return true;
     }
 
@@ -662,7 +681,7 @@ function borderClickListener(div, grid) {
     if (div.drawn || document.getElementById('player1').style.backgroundColor === 'initial') {
         return;
     } else {
-        markBorder(div);
+        markBorder(div, grid);
         tick(grid);
     }
 }
