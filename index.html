@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Käsekästchen</title>
     <!-- Meta Tags for SEO -->
-    <meta name="description" content="Käsekästchen is a simple game, where you draw lines to fill boxes. The player who fills the most boxes wins.">
-    <meta name="keywords" content="Käsekästchen, Kaesekaestchen, Dots and Boxes, Game, HTML, CSS, JavaScript, Benjamin Schäfer, benschaf,">
+    <meta name="description"
+        content="Käsekästchen is a simple game, where you draw lines to fill boxes. The player who fills the most boxes wins.">
+    <meta name="keywords"
+        content="Käsekästchen, Kaesekaestchen, Dots and Boxes, Game, HTML, CSS, JavaScript, Benjamin Schäfer, benschaf,">
     <!-- Favicon Credit: https://www.w3schools.com/html/html_favicon.asp -->
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     <!-- Sets theme color for address bars in some browsers -->
@@ -31,7 +33,13 @@
     </header>
 
     <main>
-        <!-- The Game Area contains the Scores and Options cards and the Gameboard itself -->
+        <div id="welcome-message" class="card">
+            <h2>Welcome to Käsekästchen</h2>
+            <p>Käsekästchen is a simple game, where you draw lines to fill boxes. The player who fills the most boxes
+                wins.</p>
+            <p>Click on <a href="#instructions">How to Play</a> to learn the rules or start a new game right away.</p>
+        </div>
+        <!-- Scores and Options cards and the Gameboard itself -->
         <section id="game-area">
 
             <!-- The Gameboard contains the game. It is populated in "assets/js/script.js" -->

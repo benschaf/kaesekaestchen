@@ -63,6 +63,15 @@ h2 {
     color: var(--s-text);
 }
 
+a {
+    color: var(--p-highlight);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--p-highlight-transparent);
+}
+
 .card {
     background-color: var(--card-background);
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -166,6 +175,10 @@ main {
     gap: 1rem;
 }
 
+#welcome-message {
+    max-width: 400px;
+}
+
 #end-message-alert-box {
     position: absolute;
     top: 0;
@@ -230,7 +243,8 @@ main {
 
 #blur-slider-indicator {
     z-index: -1;
-    filter: blur(7px); /* Adjust the blur radius as needed */
+    filter: blur(7px);
+    /* Adjust the blur radius as needed */
 }
 
 @keyframes slideRight {
