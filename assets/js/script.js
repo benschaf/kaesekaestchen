@@ -92,10 +92,10 @@ function determineAvaliableBorders(grid) {
  * @param {Array} grid - The gameboard grid of div elements.
  */
 function redrawHighlightedBorder(grid) {
-    for (let div of grid) {
-        if (div.highlighted) {
-            div.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
-            div.highlighted = false;
+    for (let border of grid) {
+        if (border.highlighted) {
+            border.style.boxShadow = "inset 0 0 15px rgba(3, 218, 198)";
+            border.highlighted = false;
         }
     }
 }
@@ -108,7 +108,7 @@ function redrawHighlightedBorder(grid) {
  */
 function markBorder(border, grid) {
     redrawHighlightedBorder(grid);
-    border.style.boxShadow = "inset 0 0 15px rgba(255,255,255)";
+    border.style.boxShadow = "inset 0 0 200px rgba(3, 218, 198)";
     border.highlighted = true;
     border.drawn = true;
 }
