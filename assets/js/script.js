@@ -761,6 +761,11 @@ function contentLoaded() {
         const difficultySelect = document.getElementById('ai-difficulty');
 
         const playerName = playerNameInput.value;
+        // Check if the player's name is too long or just a space Credit: https://stackoverflow.com/questions/10261986/how-to-detect-string-which-contains-only-spaces#:~:text=trim().,string%20that%20contains%20only%20spaces.&text=You%20can%20read%20more%20about%20trim%20here.
+        if (playerName.trim().length === 0 || playerName.length > 15) {
+            alert('Invalid player name. It should be between 1 and 15 characters.');
+            return;
+        }
         const goesFirst = playerTurnRadio.checked;
         const difficulty = difficultySelect.value;
         const gridSize = gridSizeInput.value * 2;
