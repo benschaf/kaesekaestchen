@@ -106,6 +106,11 @@ Featured at the top of the page, the Käsekästchen typography logo is easy to s
 
 ![feature-logo](documentation/feature-logo.png)
 
+#### Welcome Message
+This section will allow the user to see a welcome message. The welcome message will give the user a brief introduction to the game and the website. The welcome message will also give the user a brief overview of the game instructions. This section was added after a user test revealed that the game instructions were not immediately visible to the user.
+
+![feature-welcome-message](documentation/feature-welcome-message.png)
+
 #### Gameboard
 This section will allow the user to play the Käsekästchen game. The user will be able to easily see the grid of dots and draw lines between them by clicking on a disabled line. When a box is completed, the box will be automatically filled with the active players colour. Once all boxes are completed, the game will end and a message will be displayed to the user. A new game can then be started by clicking on the "Start New Game" button in the options area.
 
