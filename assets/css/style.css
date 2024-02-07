@@ -298,6 +298,10 @@ main {
     flex-direction: column;
 }
 
+#player1 {
+    min-width: 100px;
+}
+
 #scores div div span {
     display: block;
 }
