@@ -140,6 +140,11 @@ This section allows the user to customize their game experience. The options ava
 
 ![feature-options](documentation/feature-options.png)
 
+#### Name Input Validation
+If the users input for the player name is empty or only contains spaces, the displayed name will be set to the default name "Player". If the user inputs a string that is longer than 15 characters, a modal will be displayed to the user, informing them that the name is too long. The user can then input a new name.
+
+![feature-name-validation](documentation/feature-name-validation.png)
+
 #### Instructions
 This section will allow the user to read the instructions on how to play the game. The user can click on the "How to Play" button in the header to scroll down to this section.
 
