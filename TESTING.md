@@ -33,7 +33,7 @@ I have used the recommended [JShint Validator](https://jshint.com) to validate m
 Screenshot of the validation results:
 ![screenshot](documentation/validation-js.png)
 
-!!! d Are these warnings acceptable?
+The Validator returned three warnings as seen in the screenshot. I am aware of these warnings and I have refactored the code so that it is more readable and reusable by using calls to a function to implement the event listeners. The warnings are not critical and do not affect the functionality of the code. Check this [link](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/JavaScript#:~:text=Incorrectly%20using%20functions,version%20that%20works.) for further information (search for "functions inside loops").
 
 ## Browser Compatibility
 
