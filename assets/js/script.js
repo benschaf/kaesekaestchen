@@ -118,7 +118,7 @@ function markBorder(border, grid) {
  * 
  * @param {Array} availableBorders - The available borders to choose from.
  */
-function easyComputerTurn(availableBorders) {
+function easyComputerTurn(availableBorders, grid) {
     let randomBorder = Math.floor(Math.random() * availableBorders.length);
     markBorder(availableBorders[randomBorder], grid);
 }
@@ -243,7 +243,7 @@ function computerTurn(grid) {
 
     setTimeout(() => {
         if (difficulty === 'easy') {
-            easyComputerTurn(availableBorders);
+            easyComputerTurn(availableBorders, grid);
         } else if (difficulty === 'medium') {
             mediumComputerTurn(availableBorders, grid);
         }
