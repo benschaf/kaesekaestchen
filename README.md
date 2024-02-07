@@ -290,6 +290,7 @@ To go to the relevant code inside this project, click on the link in the "Locati
 |[W3Schools - CSS Animation](https://www.w3schools.com/cssref/css3_pr_animation.php) | [animations in script.js](https://github.com/benschaf/kaesekaestchen/blob/c51470de48a20362fad0839bfc943c286c25b4c5/assets/js/script.js#L274-L291) and [style.css](https://github.com/benschaf/kaesekaestchen/blob/c51470de48a20362fad0839bfc943c286c25b4c5/assets/css/style.css#L207-L219) | understanding CSS animations |
 |[Stack Overflow](https://stackoverflow.com/questions/75536172/css-variables-are-not-statically-checked) | [CSS Variables](https://github.com/benschaf/kaesekaestchen/blob/67177f61fe4f4c34a261769736ea54d37665825a/assets/css/style.css#L240) | used for understanding and removing the jigsaw warning "CSS variables are not statically checked" |
 |[Stack Overflow](https://stackoverflow.com/questions/10261986/how-to-detect-string-which-contains-only-spaces#:~:text=trim().,string%20that%20contains%20only%20spaces.&text=You%20can%20read%20more%20about%20trim%20here.) | [player name validation](https://github.com/benschaf/kaesekaestchen/blob/8b6b1b5373d2c462acb414fcbe171ec811c2ee16/assets/js/script.js#L764-L768) | used for understanding how to detect a string that contains only spaces |
+|[Tim Nelson](https://tim.2bn.dev/) | [dynamic copyright notice](https://github.com/benschaf/kaesekaestchen/blob/0d4d56867f4e14523fe2364bb97d42341f4cd9de/assets/js/script.js#L652-L660) | asked, to understand how to create a dynamic copyright notice |
 
 ### Media
 | Source | Location | filename | Notes |
