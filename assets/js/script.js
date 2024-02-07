@@ -649,6 +649,16 @@ function init(playerName, goesFirst, difficulty, gridSize) {
 Event Listeners and DOMContentLoaded
 */
 
+function updateCopyrightNotice() {
+    let getYear = new Date().getFullYear();
+    let yearID = document.getElementById("year");
+    if (getYear == 2024) {
+        yearID.innerHTML = getYear;
+    } else {
+        yearID.innerHTML = `2024 - ${getYear}`;
+    }
+}
+
 /**
  * Clears the gameboard and creates a new gameboard with the specified grid size.
  * 
@@ -746,6 +756,7 @@ function setupEventListeners(grid, gridSize) {
  * Starts a game with default settings.
  */
 function contentLoaded() {
+    updateCopyrightNotice();
     // Get references to the elements
     const gridSizeInput = document.getElementById('grid-size');
     const gridSizeLabel = document.getElementById('grid-size-value');

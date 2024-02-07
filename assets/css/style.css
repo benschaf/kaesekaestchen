@@ -476,6 +476,11 @@ footer>div {
     gap: 2rem;
 }
 
+#licence {
+    align-items: start;
+    gap: 0.5rem;
+}
+
 .fab {
     /* Restyle Font Awesome icons */
     background-color: var(--card-background);
