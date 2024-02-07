@@ -8,7 +8,6 @@ Käsekästchen (German for: dots and boxes) is a web app that allows users to pl
 [![GitHub issues](https://img.shields.io/github/issues/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen/issues?q=is%3Aissue+is%3Aclosed)
 [![GitHub language count](https://img.shields.io/github/languages/count/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen)
-[![GitHub top language](https://img.shields.io/github/languages/top/benschaf/kaesekaestchen)](https://github.com/benschaf/kaesekaestchen)
 [![W3C Validation html](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F&label=w3c%20html)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F)
 [![W3C Validation css](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&label=w3c%20css)](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
