@@ -377,6 +377,26 @@ main {
     gap: 2rem;
 }
 
+dialog {
+    background-color: var(--card-background);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: var(--p-text);
+    border: none;
+}
+
+dialog>button {
+    background-color: var(--p-highlight);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: #000;
+    font-weight: 700;
+    border: none;
+}
+
 /* Credit for default styles: https://stackoverflow.com/questions/75536172/css-variables-are-not-statically-checked */
 input[type="text"],
 input[type="range"] {
