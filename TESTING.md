@@ -131,8 +131,6 @@ The following bugs have been identified but not fixed. A history of the bug, scr
 
 - [Issue 26: blur elements aren't responsive](https://github.com/benschaf/kaesekaestchen/issues/26)
 
-- [Issue 18: body only stretches to 100vh](https://github.com/benschaf/kaesekaestchen/issues/18)
-
 ### Open Issues
 The following Issues under the following link are open. They contain possible improvements and features that could be added to the game.
 [Link to this repositories open issues](https://github.com/benschaf/kaesekaestchen/issues?q=is%3Aissue+is%3Aopen+)
