@@ -52,9 +52,6 @@ The `--p-highlight-transparent` variable is used for the hover effect on buttons
 I used the [coolors.co](https://coolors.co/) tool to visualize the colour scheme:
 ![coolors-theme](documentation/coolors-theme.png)
 
-#### Accessibility for colours
-The colours used in the web app are accessible for users with colour blindness. The colour scheme was tested using the [Colorable](https://colorable.jxnblk.com/) tool. The colour scheme was also tested using the [Contrast Checker](https://contrastchecker.com/) tool. The results can be found below:
-
 ### Layout
 The layout of the website also adheres to the [Material Design 2 Dark Theme guidelines](https://m2.material.io/design/color/dark-theme.html). The Layout is based on cards. The cards are used to group related content together. 
 
