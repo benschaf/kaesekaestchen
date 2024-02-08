@@ -621,8 +621,8 @@ function createSliderIndicator(goesFirst) {
         blurSliderIndicator.style.backgroundColor = 'var(--ai-color-transparent)';
         blurSliderIndicator.style.left = 'calc(50% - 1rem)';
     }
-    gameboard.appendChild(sliderIndicator);
-    gameboard.appendChild(blurSliderIndicator);
+    document.getElementById('gameboard').appendChild(sliderIndicator);
+    document.getElementById('gameboard').appendChild(blurSliderIndicator);
 }
 
 /**
@@ -765,7 +765,7 @@ function contentLoaded() {
     const gridSizeLabel = document.getElementById('grid-size-value');
     const startGameButton = document.getElementById('start-game');
     // Get references to the dialog elements
-    const textInputDialog = document.getElementById('text-input-dialog')
+    const textInputDialog = document.getElementById('text-input-dialog');
     const textInputButton = document.getElementById('modal-ok-button');
     const restartDialog = document.getElementById('confirm-restart-dialog');
     const restartConfirmButton = document.getElementById('restart-confirm-button');
