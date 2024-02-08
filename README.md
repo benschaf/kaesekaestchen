@@ -137,8 +137,8 @@ This section allows the user to customize their game experience. The options ava
 
 ![feature-options](documentation/feature-options.png)
 
-#### Name Input Validation
-If the users input for the player name is empty or only contains spaces, the displayed name will be set to the default name "Player". If the user inputs a string that is longer than 15 characters, a modal will be displayed to the user, informing them that the name is too long. The user can then input a new name.
+#### Name Input and restart confirmation
+If the user starts a game a modal will appear asking if the user is sure they want to start a new game. If the name the user has added is longer than 15 characters, a modal will appear, notifying the user that the name is too long. The user then has to click on the "OK" button to close the modal. The user can then change the name and start a new game.
 
 ![feature-name-validation](documentation/feature-name-validation.png)
 
