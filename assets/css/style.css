@@ -391,6 +391,10 @@ dialog {
     border: none;
 }
 
+::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 dialog>button {
     background-color: var(--p-highlight);
     padding: 1rem;
