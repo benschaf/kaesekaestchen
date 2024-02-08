@@ -8,12 +8,14 @@ Return back to the [README.md](README.md) file.
 
 I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate all of my html file: index.html.
 
-[![W3C Validation html](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F&label=w3c%20html)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F)
+[![W3C Validation html](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F&label=w3c%20html)](https://validator.nu/?doc=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F)
 
 Click the badge above to validate the live deployed site.
 
 Screenshot of the validation results:
 ![screenshot](documentation/validation-html.png)
+
+The two warnings displayed are concerning the `<dialog>` element. Broswer support for this element has gotten very good and the warnings are not critical. Check out a summary of the [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog?retiredLocale=de) for the `<dialog>` element.
 
 ### CSS
 
@@ -25,6 +27,8 @@ Click the badge above to validate the live deployed site.
 
 Screenshot of the validation results:
 ![screenshot](documentation/validation-css.png)
+
+The 158 warnings are all due to running the css file through [autoprefixer](https://autoprefixer.github.io/). The warnings are not critical and do not affect the functionality of the code.
 
 ### JavaScript
 
