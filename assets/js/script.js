@@ -758,47 +758,50 @@ function setupEventListeners(grid, gridSize) {
 function contentLoaded() {
     updateCopyrightNotice();
     // Get references to the elements
+    const playerNameInput = document.getElementById('player-name');
+    const playerTurnRadio = document.getElementById('player-turn');
+    const difficultySelect = document.getElementById('ai-difficulty');
     const gridSizeInput = document.getElementById('grid-size');
     const gridSizeLabel = document.getElementById('grid-size-value');
     const startGameButton = document.getElementById('start-game');
+    // Get references to the dialog elements
+    const textInputDialog = document.getElementById('text-input-dialog')
+    const textInputButton = document.getElementById('modal-ok-button');
+    const restartDialog = document.getElementById('confirm-restart-dialog');
+    const restartConfirmButton = document.getElementById('restart-confirm-button');
+    const restartCancelButton = document.getElementById('restart-cancel-button');
 
+    // Update the grid size label
     gridSizeInput.addEventListener('input', () => {
         gridSizeLabel.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
     });
 
-    startGameButton.addEventListener('click', () => {
-        const playerNameInput = document.getElementById('player-name');
-        const playerTurnRadio = document.getElementById('player-turn');
-        const difficultySelect = document.getElementById('ai-difficulty');
-        const textInputDialog = document.getElementById('text-input-dialog')
-        const textInputButton = document.getElementById('modal-ok-button');
-        const restartDialog = document.getElementById('confirm-restart-dialog');
-        const restartConfirmButton = document.getElementById('restart-confirm-button');
-        const restartCancelButton = document.getElementById('restart-cancel-button');
+    // Add event listeners to the dialog buttons
+    textInputButton.addEventListener('click', () => {
+        textInputDialog.close();
+    });
 
+    restartConfirmButton.addEventListener('click', () => {
+        restartDialog.close();
+        const goesFirst = playerTurnRadio.checked;
+        const difficulty = difficultySelect.value;
+        const gridSize = gridSizeInput.value * 2;
         const playerName = playerNameInput.value.trim();
+
         // Check if the player's name is too long or just a space Credit: https://stackoverflow.com/questions/10261986/how-to-detect-string-which-contains-only-spaces#:~:text=trim().,string%20that%20contains%20only%20spaces.&text=You%20can%20read%20more%20about%20trim%20here.
         if (playerName.length > 15) {
-            dialog.showModal();
-            textInputButton.addEventListener('click', () => {
-                textInputDialog.close();
-            });
+            textInputDialog.showModal();
             return;
         }
+        init(playerName, goesFirst, difficulty, gridSize);
+    });
 
-        // Confirm restart with the player
+    restartCancelButton.addEventListener('click', () => {
+        restartDialog.close();
+    });
+
+    startGameButton.addEventListener('click', () => {
         restartDialog.showModal();
-        restartConfirmButton.addEventListener('click', () => {
-            restartDialog.close();
-            const goesFirst = playerTurnRadio.checked;
-            const difficulty = difficultySelect.value;
-            const gridSize = gridSizeInput.value * 2;
-
-            init(playerName, goesFirst, difficulty, gridSize);
-        });
-        restartCancelButton.addEventListener('click', () => {
-            restartDialog.close();
-        });
     });
 
     init('Player', true, 'medium', 6);
