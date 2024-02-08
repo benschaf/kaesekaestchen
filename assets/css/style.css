@@ -72,6 +72,11 @@ a:hover {
     color: var(--p-highlight-transparent);
 }
 
+button:hover,
+#start-game:hover {
+    background-color: var(--p-highlight-transparent);
+}
+
 .card {
     background-color: var(--card-background);
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
