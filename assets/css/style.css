@@ -248,8 +248,21 @@ main {
 
 #blur-slider-indicator {
     z-index: -1;
-    filter: blur(7px);
+    -webkit-filter: blur(7px);
+            filter: blur(7px);
     /* Adjust the blur radius as needed */
+}
+
+@-webkit-keyframes slideRight {
+    0% {
+        left: 1rem;
+        background-color: var(--player-color-transparent);
+    }
+
+    100% {
+        left: calc(50% - 1rem);
+        background-color: var(--ai-color-transparent);
+    }
 }
 
 @keyframes slideRight {
@@ -261,6 +274,18 @@ main {
     100% {
         left: calc(50% - 1rem);
         background-color: var(--ai-color-transparent);
+    }
+}
+
+@-webkit-keyframes slideLeft {
+    0% {
+        left: calc(50% - 1rem);
+        background-color: var(--ai-color-transparent);
+    }
+
+    100% {
+        left: 1rem;
+        background-color: var(--player-color-transparent);
     }
 }
 
@@ -394,6 +419,10 @@ dialog {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: var(--p-text);
     border: none;
+}
+
+::-webkit-backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 ::backdrop {
