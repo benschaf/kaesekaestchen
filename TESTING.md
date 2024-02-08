@@ -119,6 +119,16 @@ Defensive programming was manually tested with the below user acceptance testing
 | As a User, I would like to restart the game, so that I can play again. | refer to above screencast |
 | As a User, I would like to read the game instructions, so that I can understand how to play the game. | ![screenshot](documentation/feature-instructions.png) |
 
+## User Testing
+User testing was conducted with a couple of friends and family members. The feedback was generally positive and the game was found to be fun and engaging.
+
+### Features that came out of User Testing 
+- The main change is the **welcome message** at the top of the page. The card was added to spell out the game instructions so that there is no confusion about how to start and play the game. 
+- The last added or drawn border is marked because of user feedback. This was implemented to make it easier for the user to see which border the AI just drew, especially on bigger boards.
+- The turn indication slider at the bottom of the gameboard was added, because sometimes the scorecard is not visible which means that there is no way of knowing whose turn it is. Even with the scorecard visible, testers found it helpful to have an additional indication of whose turn it is.
+
+Special thanks go to Hannes, for his feedback and suggestions.
+
 ## Bugs
 
 Github issues has been used to track bugs and fixes. Bugs have been carefully documented and labelled with the `bug` label. If useful, screenshots have been added to the issue to help with understanding the bug. Solutions have been documented either in the issue or in the commit message that fixed the bug. All commits that fixed bugs have been linked to the issue. 
