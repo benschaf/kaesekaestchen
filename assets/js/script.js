@@ -318,7 +318,7 @@ function countDrawnBorders(cell, grid) {
 function createBlurBackgroundElement(color, cell) {
     let gameboard = document.getElementById('gameboard');
     let blurBackgroundElement = document.createElement('div');
-    blurBackgroundElement.className = 'blur-background';
+    blurBackgroundElement.className = 'blur-background gameboard-blur-background';
 
     let rect = cell.getBoundingClientRect();
     let gameboardRect = gameboard.getBoundingClientRect();
@@ -747,6 +747,11 @@ function setupEventListeners(grid, gridSize) {
 
     window.addEventListener('resize', () => {
         rescaleGameboard(grid, gridSize);
+        // set the CSS rule for the background-blur elements to hidden if the window is resized
+        let blurBackgrounds = document.getElementsByClassName('gameboard-blur-background');
+        for (let blurBackground of blurBackgrounds) {
+            blurBackground.style.display = 'none';
+        }
     });
 }
 
