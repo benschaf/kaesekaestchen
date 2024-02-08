@@ -70,7 +70,8 @@
                     <div>
                         <label for="player-name">Player Name:</label>
                         <input type="text" id="player-name" name="player-name">
-                        <dialog>
+                        <!-- Credit for dialog: https://www.youtube.com/watch?v=ywtkJkxJsdg&ab_channel=WebDevSimplified -->
+                        <dialog id="text-input-dialog">
                             <p>Your Name needs to be shorter than 15 characters.</p>
                             <button id="modal-ok-button">OK</button>
                         </dialog>
@@ -104,6 +105,11 @@
                     </div>
                     <div>
                         <div id="start-game">Restart Game</div>
+                        <dialog id="confirm-restart-dialog">
+                            <p>Are you sure you want to start a new game? All progress will be lost.</p>
+                            <button id="restart-confirm-button">Restart</button>
+                            <button id="restart-cancel-button">Continue Playing</button>
+                        </dialog>
                     </div>
                 </div>
             </div>
