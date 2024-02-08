@@ -186,8 +186,9 @@ function getBorderCounts(cells, grid) {
 /**
  * Determines which border to draw based on the number of drawn borders around adjacent cells.
  * If a cell has 3 drawn borders, draws the 4th border.
- * If a cell has 2 drawn borders, removes that border from the available borders.
- * If no cell has 3 or 2 drawn borders, randomly selects a border to draw.
+ * If a cell has 2 drawn borders, removes that border from the available borders Array.
+ * Draws a random border if no cell has 3 or 2 drawn borders around them.
+ * If there are only borders with 2 drawn borders around them, draws one of them (randomly).
  * 
  * @param {Array} availableBorders - The available borders to choose from.
  * @param {Array} grid - The gameboard grid of div elements.

@@ -53,14 +53,15 @@ I used the [coolors.co](https://coolors.co/) tool to visualize the colour scheme
 ![coolors-theme](documentation/coolors-theme.png)
 
 ### Layout
-The layout of the website also adheres to the [Material Design 2 Dark Theme guidelines](https://m2.material.io/design/color/dark-theme.html). The Layout is based on cards. The cards are used to group related content together. 
+The layout of the website also adheres losely to the [Material Design 2 Dark Theme guidelines](https://m2.material.io/design/color/dark-theme.html). The Layout is based on cards. The cards are used to group related content together. 
 
 #### Information Architecture
 The cards are also used to create a visual hierarchy.
+- The topmost card is the **welcome message**, which is the first thing the user sees when they visit the website.
 - The biggest card is the **gameboard**, making it the main focus of the website. 
 - The card on the top left is the **score card**, which is the second most important card. 
 - The **options card** is the third most important card and always appears below or after the score card. 
-- The **instructions card** is only visible upon scrolling down or clicking on the "How to Play" button in the header.
+- The **instructions card** is only visible upon scrolling down or clicking on the "How to Play" button in the header or in the welcome message.
 
 ### Typography
 - [Nunito](https://fonts.google.com/specimen/Nunito) was used for all text on the website. This font was chosen because of its playful roundness, which fits the theme and style of the game.
@@ -90,7 +91,7 @@ Some of the design was finalized while implementing it in code. The final design
 
 | Device | Wireframe | Figma Mockup |
 |-|-|-|
-| Phone | ![wireframe-phone](documentation/wireframe-phone.png) | ![figma-phone](documentation/figma-phone.png) |
+| Mobile | ![wireframe-phone](documentation/wireframe-phone.png) | ![figma-phone](documentation/figma-phone.png) |
 | Tablet | ![wireframe-tablet](documentation/wireframe-tablet.png) | ![figma-tablet](documentation/figma-tablet.png) |
 | Desktop | ![wireframe-desktop](documentation/wireframe-desktop.png) | ![figma-desktop](documentation/figma-desktop.png) |
 
@@ -109,12 +110,27 @@ This section will allow the user to see a welcome message. The welcome message w
 ![feature-welcome-message](documentation/feature-welcome-message.png)
 
 #### Gameboard
-This section will allow the user to play the Käsekästchen game. The user will be able to easily see the grid of dots and draw lines between them by clicking on a disabled line. When a box is completed, the box will be automatically filled with the active players colour. Once all boxes are completed, the game will end and a message will be displayed to the user. A new game can then be started by clicking on the "Start New Game" button in the options area.
+This section will allow the user to play the Käsekästchen game. The user will be able to easily see the grid of dots and draw lines between them by clicking on a disabled line. When a box is completed, the box will be automatically filled with the active players colour. Once all boxes are completed, the game will end and a message will be displayed to the user. A new game can then be started by clicking on the "Restart Game" button in the options area.
 
 ![feature-gameboard](documentation/feature-gameboard.png)
 
 #### AI Opponent
-The AI opponent is implemented in the game logic and will play against the user. The AI opponent will play a random move on the "Easy" difficulty level. The "Medium" difficulty follows an algorithm. Check it out in the code comments in the !!Link TO FILE!! file. The "Hard" difficulty is currently disabled and in development.
+The AI opponent is implemented in the game logic and will play against the user. The AI opponent will play a random move on the "Easy" difficulty level. The "Medium" difficulty follows an algorithm. Check it out in the code comments in the [script.js file](https://github.com/benschaf/kaesekaestchen/blob/a512fde453be38b5fccc6fa35b9c36c18c913edc/assets/js/script.js#L186-L252) to find out more about the inner workings of the AI. The "Hard" difficulty is currently disabled and in development.
+
+```javascript	
+/**
+ * Determines which border to draw based on the number of drawn borders around adjacent cells.
+ * If a cell has 3 drawn borders, draws the 4th border.
+ * If a cell has 2 drawn borders, removes that border from the available borders Array.
+ * Draws a random border if no cell has 3 or 2 drawn borders around them.
+ * If there are only borders with 2 drawn borders around them, draws one of them (randomly).
+ * 
+ * @param {Array} availableBorders - The available borders to choose from.
+ * @param {Array} grid - The gameboard grid of div elements.
+ */
+function mediumComputerTurn(availableBorders, grid) { ... }
+```
+[View the full function in the script.js file](https://github.com/benschaf/kaesekaestchen/blob/a512fde453be38b5fccc6fa35b9c36c18c913edc/assets/js/script.js#L186-L252)
 
 #### Turn indicator slider
 At the bottom of the gameboard, a slider indicates whose turn it is. The slider is coloured after the active player's colour. The slider will move to the left when it's the player's turn and to the right when it's the AI's turn.
@@ -133,12 +149,13 @@ This section allows the user to customize their game experience. The options ava
 - ***Turn Choice:*** The user can choose who goes first - the player or the AI.
 - ***AI Difficulty:*** The user can select the difficulty level of the AI. The options are "Easy", "Medium", and "Hard". Note that the "Hard" option is currently disabled and in development.
 - ***Grid Size:*** The user can adjust the size of the grid using a range input. The minimum size is 2x2 and the maximum size is 8x8. The default size is 3x3.
-- ***Start New Game:*** The user can start a new game by clicking on the "Start New Game" button.
+- ***Restart Game:*** The user can start a new game by clicking on the "Restart Game" button.
 
 ![feature-options](documentation/feature-options.png)
 
 #### Name Input and restart confirmation
-If the user starts a game a modal will appear asking if the user is sure they want to start a new game. If the name the user has added is longer than 15 characters, a modal will appear, notifying the user that the name is too long. The user then has to click on the "OK" button to close the modal. The user can then change the name and start a new game.
+If the user starts a game a modal will appear asking if the user is sure they want to start a new game. 
+Also, If the name the user has added is longer than 15 characters, a modal will appear, notifying the user that the name is too long. The user then has to click on the "OK" button to close the modal. The user can then change the name and start a new game.
 
 ![feature-name-validation](documentation/feature-name-validation.png)
 
@@ -153,7 +170,7 @@ This section will allow the user to see copyright information. The footer also c
 ![feature-footer](documentation/feature-footer.png)
 
 #### Background Blur Design elements
-The background blur design elements are used to create a more interesting and playful design. The background blur elements are used behind the header and the footer. When the game is played, more backgorund blur elements are generated behind the gameboard. These elements are coloured after the player colours, depending on who completed which box. The slider indicator also has a corresponding background blur element.
+The background blur design elements are used to create a more interesting and playful design. The background blur elements are used behind the header and the footer. When the game is played, more backgorund blur elements are generated behind the gameboard. These elements are coloured to indicate who completed a box. The slider indicator also has a corresponding background blur element.
 
 ![feature-background-blur](documentation/feature-background-blur.png)
 
@@ -164,9 +181,6 @@ The gameboard is responsive using JavaScript. Each DOM element of the gameboard 
 
 ![responsive-image from amiresponsive](documentation/responsive-image.png)
 
-#### Single Page Application
-The website is a single page application. This means that the user can play the game without having to reload the page. The user can also change the game settings without having to reload the page. This is achieved using JavaScript and DOM manipulation.
-
 ### Future Features
 
 #### Proposed Future User stories
@@ -176,6 +190,7 @@ The website is a single page application. This means that the user can play the 
 |User|see the leaderboard|see who is the best player|
 |User|play against a harder AI|challenge myself|
 |User|display the game in a light theme|play in a light theme|
+
 
 #### Proposed Future Features
 
@@ -307,4 +322,5 @@ To go to the relevant code inside this project, click on the link in the "Locati
 - I would like to thank the [Code Institute](https://codeinstitute.net/) tutor team for their assistance with troubleshooting and debugging some project issues.
 - I would like to thank the Code Institute Slack community for the moral support; it kept me going during periods of self doubt and imposter syndrome.
     - Special thanks to Dajana Isbaner_5P_lead, who helped with user testing and provided valuable feedback.
+- I would like to thank Hannes, who was the best test player and provided valuable feedback.
 - I would like to thank my wife Maria, for believing in me, and allowing me to make this transition into software development.
