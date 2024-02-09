@@ -1,4 +1,5 @@
 /* jshint esversion: 11 */
+
 /*
 functions for gameboard responsiveness
 */
@@ -364,7 +365,6 @@ function updateScoreboard(turn) {
         aiScore++;
         document.getElementById('ai-score').innerHTML = aiScore;
     }
-
 }
 
 /**
