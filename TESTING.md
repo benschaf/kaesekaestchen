@@ -6,16 +6,15 @@ Return back to the [README.md](README.md) file.
 
 ### HTML
 
-I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate all of my html file: index.html.
+I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate the html file: index.html.
 
 [![W3C Validation html](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F&label=w3c%20html)](https://validator.nu/?doc=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2F)
 
-Click the badge above to validate the live deployed site.
+Click the badge above to validate the live deployed site yourself.
 
-Screenshot of the validation results:
-![screenshot](documentation/validation-html.png)
-
-The two warnings displayed are concerning the `<dialog>` element. Broswer support for this element has gotten very good and the warnings are not critical. Check out a summary of the [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog?retiredLocale=de) for the `<dialog>` element.
+| Screenshot of the validation results: | Notes |
+| --- | --- |
+| ![screenshot](documentation/validation-html.png) | The two warnings displayed are concerning the `<dialog>` element. Broswer support for this element has gotten very good and the warnings are not critical. Check out a summary of the [browser compatibility](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog?retiredLocale=de) for the `<dialog>` element. |
 
 ### CSS
 
@@ -23,21 +22,19 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 [![W3C Validation css](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&label=w3c%20css)](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fbenschaf.github.io%2Fkaesekaestchen%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
-Click the badge above to validate the live deployed site.
+Click the badge above to validate the live deployed site yourself.
 
-Screenshot of the validation results:
-![screenshot](documentation/validation-css.png)
-
-The 158 warnings are all due to running the css file through [autoprefixer](https://autoprefixer.github.io/). The warnings are not critical and do not affect the functionality of the code.
+| Screenshot of the validation results: | Notes |
+| --- | --- |
+| ![screenshot](documentation/validation-css.png) | The 158 warnings are all due to running the css file through [autoprefixer](https://autoprefixer.github.io/). The warnings are not critical and do not affect the functionality of the code. |
 
 ### JavaScript
 
-I have used the recommended [JShint Validator](https://jshint.com) to validate my Java Script file: assets/js/script.js.
+I have used the recommended [JSHint Validator](https://jshint.com) to validate my Java Script file: assets/js/script.js.
 
-Screenshot of the validation results:
-![screenshot](documentation/validation-js.png)
-
-The Validator returned three warnings as seen in the screenshot. I am aware of these warnings and I have refactored the code so that it is more readable and reusable by using calls to a function to implement the event listeners. The warnings are not critical and do not affect the functionality of the code. Check this [link](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/JavaScript#:~:text=Incorrectly%20using%20functions,version%20that%20works.) for further information (search for "functions inside loops").
+| Screenshot of the validation results: | Notes |
+| --- | --- |
+| ![screenshot](documentation/validation-js.png) | The Validator returned three warnings as seen in the screenshot. I am aware of these warnings and I have refactored the code so that it is more readable and reusable by using calls to a function to implement the event listeners. The warnings are not critical and do not affect the functionality of the code. Check this [link](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/JavaScript#:~:text=Incorrectly%20using%20functions,version%20that%20works.) for further information (search for "functions inside loops"). |
 
 ## Browser Compatibility
 
@@ -52,7 +49,7 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 
 The biggest takeaway from the browser testing is that the background blur elements render differently on different browsers. This is not a big issue as it is not very noticeable.
 
-None of the observed differences have signigicantly changed upon running the css file through [autoprefixer](https://autoprefixer.github.io/).
+I have tried using [autoprefixer](https://autoprefixer.github.io/) to fix the blur compatibility issues, but none of the observed differences have signigicantly changed upon running the css file through it.
 
 ## Responsiveness
 
@@ -74,9 +71,11 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | Mobile | Layout shift warnings | ![screenshot](documentation/lighthouse-mobile.png) |
 | Desktop | No warnings | ![screenshot](documentation/lighthouse-desktop.png) |
 
-## Defensive Programming
+The layout shift warnings are due to the script generating the gameboard. The warnings are not critical and do not affect the functionality of the code. The website loading could be improved by using a loading screen but the current loading time is acceptable.
 
-Defensive programming was manually tested with the below user acceptance testing:
+## Manual Testing
+
+Manual testing was conducted to ensure that the game works as expected. The following table shows the tests that were conducted, the expected results, the actual results, and the fixes that were made. The tests were conducted on the deployed site using the Chrome browser.
 
 | Page | Expectation | Test | Result | Fix | Screenshot |
 | --- | --- | --- | --- | --- | --- |
@@ -101,6 +100,8 @@ Defensive programming was manually tested with the below user acceptance testing
 | | The "AI Difficulty" dropdown is expected to allow the player to select the difficulty level of the AI. | Tested the feature by selecting each option in the dropdown. | The dropdown allowed the selection of the AI difficulty level as expected. | Test concluded and passed | refer to above screencast |
 | | The "Size" range input is expected to allow the player to select the size of the game grid. | Tested the feature by moving the range input. | The range input allowed the selection of the game grid size as expected. | Test concluded and passed | refer to above screencast |
 | | The "Start New Game" button is expected to start a new game with the selected options. | Tested the feature by clicking the "Start New Game" button. | The button started a new game with the selected options as expected. | Test concluded and passed | refer to above screencast |
+| | Before starting a new game, a modal is expected to appear asking the player if they are sure they want to start a new game. | Tested the feature by clicking the "Start New Game" button. | The modal appeared asking the player if they are sure they want to start a new game as expected. | Test concluded and passed | ![screencast](documentation/test-9.png) |
+| | If the user input a name that is longer than 15 characters, a modal is expected to appear asking the player to input a name that is 15 characters or less. | Tested the feature by inputting a name that is longer than 15 characters. | The modal appeared asking the player to input a name that is 15 characters or less as expected. | Test concluded and passed | ![screencast](documentation/test-10.png) |
 | **Footer** | | | | | |
 | | The GitHub and LinkedIn icons are expected to link to the correct profiles. The Profiles should open in a new page. | Tested the feature by clicking the GitHub and LinkedIn icons. | The icons linked to the correct profiles. The profiles opened in a new page as expected. | Test concluded and passed | ![screencast](documentation/test-8.gif) |
 
@@ -124,14 +125,14 @@ User testing was conducted with a couple of friends and family members. The feed
 
 ### Features that came out of User Testing 
 - The main change is the **welcome message** at the top of the page. The card was added to spell out the game instructions so that there is no confusion about how to start and play the game. 
-- The last added or drawn border is marked because of user feedback. This was implemented to make it easier for the user to see which border the AI just drew, especially on bigger boards.
+- The most recently drawn border is marked because of user feedback. This was implemented to make it easier for the user to see which border the AI just drew, especially on bigger boards.
 - The turn indication slider at the bottom of the gameboard was added, because sometimes the scorecard is not visible which means that there is no way of knowing whose turn it is. Even with the scorecard visible, testers found it helpful to have an additional indication of whose turn it is.
 
 Special thanks go to Hannes, for his feedback and suggestions.
 
 ## Bugs
 
-Github issues has been used to track bugs and fixes. Bugs have been carefully documented and labelled with the `bug` label. If useful, screenshots have been added to the issue to help with understanding the bug. Solutions have been documented either in the issue or in the commit message that fixed the bug. All commits that fixed bugs have been linked to the issue. 
+Github issues has been used to track bugs and fixes. Bugs have been carefully documented and labelled with the `bug` label. If useful, screenshots have been added to the issue to help with understanding the bug. Solutions have been documented either in the issue or in the commit message that fixed the bug. Commits that fixed bugs have been linked to the issue.
 
 ### Fixed Bugs
 
@@ -141,10 +142,11 @@ Github issues has been used to track bugs and fixes. Bugs have been carefully do
 
 ### Unfixed Bugs
 
-The following bugs have been identified but not fixed. A history of the bug, screenshots and attempted fixes are documented in the issues and can bee viewed by clicking on the issue link.
+Bug issue 26 has been identified but not fixed. A history of the bug, screenshots and attempted fixes are documented in the issues and can bee viewed by clicking on the issue link. The most recent fix of the bug simply removes the (only visual and not functional) blur elements when they would otherwise be displayed incorrectly.
+The bug is not critical and does not affect the functionality of the game. Even responsivity is not affected at the moment - still there should be a more elegant solution in the future.
 
 - [Issue 26: blur elements aren't responsive](https://github.com/benschaf/kaesekaestchen/issues/26)
 
 ### Open Issues
-The following Issues under the following link are open. They contain possible improvements and features that could be added to the game.
+The following Issues are open. They contain possible improvements and features that could be added to the game.
 [Link to this repositories open issues](https://github.com/benschaf/kaesekaestchen/issues?q=is%3Aissue+is%3Aopen+)
