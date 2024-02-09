@@ -231,7 +231,6 @@ function mediumComputerTurn(availableBorders, grid) {
 }
 
 /**
- * Displays an AI is playing animation.
  * Determines the difficulty of the AI and calls the appropriate function.
  * Delays the AI's turn by 1 second.
  * Calls tick to update the gameboard.
