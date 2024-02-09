@@ -307,6 +307,7 @@ To go to the relevant code inside this project, click on the link in the "Locati
 |[Stack Overflow](https://stackoverflow.com/questions/10261986/how-to-detect-string-which-contains-only-spaces#:~:text=trim().,string%20that%20contains%20only%20spaces.&text=You%20can%20read%20more%20about%20trim%20here.) | [player name validation](https://github.com/benschaf/kaesekaestchen/blob/a203bca11bb824b31a67577d961ddd50c3e3af59/assets/js/script.js#L801) | used for understanding how to detect a string that contains only spaces |
 |[Tim Nelson](https://tim.2bn.dev/) | [dynamic copyright notice](https://github.com/benschaf/kaesekaestchen/blob/0d4d56867f4e14523fe2364bb97d42341f4cd9de/assets/js/script.js#L652-L660) | asked, to understand how to create a dynamic copyright notice |
 |[WebDevSimplified](https://www.youtube.com/watch?v=ywtkJkxJsdg&ab_channel=WebDevSimplified) | [dialog and modal boxes](https://github.com/benschaf/kaesekaestchen/blob/a203bca11bb824b31a67577d961ddd50c3e3af59/index.html#L109-L113) | used for understanding how to create a modal box |
+| [YouTube in dark mode](https://www.youtube.com) | background blur elements | used for inspiration for the background blur elements |
 
 ### Media
 | Source | Location | filename | Notes |
