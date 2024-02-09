@@ -25,6 +25,7 @@ https://www.w3schools.com/css/css3_variables.asp
     --player-color-transparent: rgba(186, 252, 134, 0.5);
     --ai-color: #BB86FC;
     --ai-color-transparent: rgba(187, 134, 252, 0.5);
+    --warning: #CF6679;
 }
 
 /* General Styles */
@@ -409,6 +410,13 @@ main {
     -ms-flex-align: center;
     align-items: center;
     gap: 2rem;
+}
+
+#grid-size-warning {
+    display: block;
+    position: relative;
+    top: -1rem;
+    color: var(--warning);
 }
 
 dialog {

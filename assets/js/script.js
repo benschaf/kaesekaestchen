@@ -769,6 +769,7 @@ function contentLoaded() {
     const difficultySelect = document.getElementById('ai-difficulty');
     const gridSizeInput = document.getElementById('grid-size');
     const gridSizeLabel = document.getElementById('grid-size-value');
+    const gridSizeWarning = document.getElementById('grid-size-warning');
     const startGameButton = document.getElementById('start-game');
     // Get references to the dialog elements
     const textInputDialog = document.getElementById('text-input-dialog');
@@ -777,9 +778,14 @@ function contentLoaded() {
     const restartConfirmButton = document.getElementById('restart-confirm-button');
     const restartCancelButton = document.getElementById('restart-cancel-button');
 
-    // Update the grid size label
+    // Update the grid size label and display size warning
     gridSizeInput.addEventListener('input', () => {
         gridSizeLabel.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
+        if (gridSizeInput.value > 4 && window.innerWidth <= 425) {
+            gridSizeWarning.innerHTML = "Please use a larger device for a better experience.";
+        } else {
+            gridSizeWarning.innerHTML = "";
+        }
     });
 
     // Add event listeners to the dialog buttons
